@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 class StaticData {
 
-    private static final String MINERAL_WATER = "Mineral Water";
+    private static final String CAR_TOY = "Car Toy";
     private static final String SOFT_DRINK = "Soft Drink";
     private static final String COFFEE = "Coffee";
     private static final String TEA = "Tea";
@@ -21,12 +21,12 @@ class StaticData {
     static final Map<String, String> BEVERAGES = new LinkedHashMap<>();
 
     static {
-        Stream.of("Evian",
-                "Voss",
-                "Veen",
-                "San Pellegrino",
-                "Perrier")
-                .forEach(name -> BEVERAGES.put(name, MINERAL_WATER));
+        Stream.of("Bus",
+                "Car",
+                "Truck",
+                "Beetle",
+                "Buggy")
+                .forEach(name -> BEVERAGES.put(name, CAR_TOY));
 
         Stream.of("Coca-Cola",
                 "Fanta",

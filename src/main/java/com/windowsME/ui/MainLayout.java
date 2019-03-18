@@ -36,13 +36,13 @@ import com.windowsME.ui.views.reviewslist.ReviewsList;
  * child views below that.
  */
 @HtmlImport("frontend://styles/shared-styles.html")
-@PWA(name = "Beverage Buddy", shortName = "BevBuddy")
+@PWA(name = "Tim's Toy Shop", shortName = "TimsToys")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 public class MainLayout extends Div
         implements RouterLayout, PageConfigurator {
 
     public MainLayout() {
-        H2 title = new H2("Beverage Buddy");
+        H2 title = new H2("Tim's Toy Shop");
         title.addClassName("main-layout__title");
 
         RouterLink reviews = new RouterLink(null, ReviewsList.class);
