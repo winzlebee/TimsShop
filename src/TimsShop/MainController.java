@@ -31,14 +31,6 @@ public class MainController extends Application implements Initializable
         label.setText("Hello World!");
     }
     
-    
-    
-    
-    
-    
-    
-    
-
     /**********************************************************************
     Function: called to initialize a controller after its 
               root element has been completely processed.
