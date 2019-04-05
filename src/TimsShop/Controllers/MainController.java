@@ -30,7 +30,7 @@ public class MainController extends Application  // Application class serves as 
     @Override
     public void start(Stage primaryStage) throws Exception 
     {   //Load xml document
-        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/MainView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/EmployeeLoginView.fxml"));
         Scene scene = new Scene(root);
         
         primaryStage.setScene(scene);
