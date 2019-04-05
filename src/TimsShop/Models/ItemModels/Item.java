@@ -1,7 +1,70 @@
 
 package TimsShop.Models.ItemModels;
 
-public class Item 
+import java.io.Serializable;
+/****************************************************
+ * This class represents the superclass of the item
+    model set. 
+   
+    * Question: Should the amount of items in stock
+       be represented by a int or duplicate objects?
+    * Question: Would there be any need to instantiate
+       an Item object? or would making it abstract be
+        appropriate?
+****************************************************/
+public abstract class Item implements Serializable
 {
+    private final long id;
+    private String name;
+    private float price;
+    private  Category category;
+    
+    public Item(long id,String name,float price, Category category)
+    {
+        this.name = name;
+        this.id = id;
+        this.price=price;
+        this.category=category;
+    }
+
+   /********GETTERS**********/
+    public String getName() 
+    {
+        return name;
+    }
+
+    public float getPrice() 
+    {
+        return price;
+    }
+
+    public long getId() 
+    {
+        return id;
+    }
+
+    public Category getCategory()
+    {
+        return category;
+    }
+
+    /********SETTERS**********/
+    public void setPrice(float price) 
+    {
+        this.price = price;
+    }
+    public void setName(String name)
+    {    
+        this.name = name;
+    }
+    public void setCategory(Category category)
+    {
+        this.category = category;
+    }
+        
+    @Override
+    public String toString() {
+        return id+","+name+","+price+",";
+    }
     
 }
