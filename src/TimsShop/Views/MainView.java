@@ -1,6 +1,7 @@
 
 package TimsShop.Views;
 
+import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Views.Dialogs.AddToyDialog;
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +37,9 @@ public class MainView implements  Initializable
     @FXML
     private Button logoutButton;
     
+    // Data storage for the application
+    //ShopDataStorage storage;
+    
     /**********************************************************************
     Function: called to initialize a controller after its 
               root element has been completely processed.
@@ -45,7 +49,7 @@ public class MainView implements  Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-       
+       // TODO: Load list of toys from serialization
     } 
     
         

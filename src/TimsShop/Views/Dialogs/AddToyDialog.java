@@ -1,6 +1,7 @@
 package TimsShop.Views.Dialogs;
 
 // Local Imports
+import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Toy;
 
 import java.net.URL;
@@ -10,7 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -23,16 +27,34 @@ public class AddToyDialog implements Initializable {
     @FXML
     private Spinner priceField;
     
+    @FXML
+    private TextArea descriptionField;
+    
+    @FXML
+    private ComboBox categoryField;
+    
+    @FXML
+    private Label errMsgLabel;
+    
     private ObservableList<Toy> localToyList;
+    private ObservableList<Category> localCategoryList;
 
-    public void setAppMainObservableList(ObservableList<Toy> tvObservableList) {
+    public void setToyList(ObservableList<Toy> tvObservableList) {
         this.localToyList = tvObservableList;
-        
+    }
+    
+    public void setCategoryList(ObservableList<Category> tvObservableList) {
+        this.localCategoryList = tvObservableList;
     }
     
     @FXML
     void onSubmit(MouseEvent event) {
         System.out.println("A toy has been appended.");
+        
+        if (nameField.getText().isEmpty()) {
+            errMsgLabel.setText("Please enter a toy name.");
+            return;
+        }
         
         //TODO: Add toy handler code
         
@@ -53,6 +75,7 @@ public class AddToyDialog implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO: Load data on initialize
+        categoryField.setItems(localCategoryList);
     }
 
 }
