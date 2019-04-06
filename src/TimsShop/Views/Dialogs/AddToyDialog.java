@@ -1,6 +1,7 @@
 package TimsShop.Views.Dialogs;
 
 // Local Imports
+import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Toy;
 
@@ -25,7 +26,7 @@ public class AddToyDialog implements Initializable {
     private TextField nameField;
 
     @FXML
-    private Spinner priceField;
+    private Spinner<Double> priceField;
     
     @FXML
     private TextArea descriptionField;
@@ -36,15 +37,10 @@ public class AddToyDialog implements Initializable {
     @FXML
     private Label errMsgLabel;
     
-    private ObservableList<Toy> localToyList;
-    private ObservableList<Category> localCategoryList;
+    private ShopDataStorage dataStorage;
 
-    public void setToyList(ObservableList<Toy> tvObservableList) {
-        this.localToyList = tvObservableList;
-    }
-    
-    public void setCategoryList(ObservableList<Category> tvObservableList) {
-        this.localCategoryList = tvObservableList;
+    public void setStorage(ShopDataStorage storage) {
+        this.dataStorage = storage;
     }
     
     @FXML
@@ -57,6 +53,7 @@ public class AddToyDialog implements Initializable {
         }
         
         //TODO: Add toy handler code
+        dataStorage.insertToy(nameField.getText(), priceField.getValue().floatValue(), descriptionField.getText());
         
         closeDialog(event);
     }
@@ -75,7 +72,7 @@ public class AddToyDialog implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO: Load data on initialize
-        categoryField.setItems(localCategoryList);
+        //categoryField.setItems(dataStorage.getCategories());
     }
 
 }

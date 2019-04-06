@@ -2,10 +2,13 @@
 package TimsShop.Views;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
+import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Views.Dialogs.AddToyDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,11 +17,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 
 public class MainView implements  Initializable  
@@ -37,8 +44,15 @@ public class MainView implements  Initializable
     @FXML
     private Button logoutButton;
     
+    // Table components
+    @FXML 
+    private TableView toyTable;
+    private TableColumn toyTable_id;
+    private TableColumn toyTable_price;
+    private TableColumn toyTable_category;
+    
     // Data storage for the application
-    //ShopDataStorage storage;
+    ShopDataStorage storage;
     
     /**********************************************************************
     Function: called to initialize a controller after its 
@@ -49,10 +63,30 @@ public class MainView implements  Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-       // TODO: Load list of toys from serialization
-    } 
-    
+        // Initialize the data storage engine. It will create a database if it doesn't exist yet.
+        storage = new ShopDataStorage();
         
+        // Setup the data model for the toy table
+        TableColumn toyTable_name;
+        
+        toyTable.setItems(storage.getToys());
+        
+        TableColumn<Toy, String> nameCol = new TableColumn<Toy, String>("Name");
+        
+        nameCol.setCellValueFactory(new Callback<CellDataFeatures<Toy, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Toy, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
+            }
+         });
+        
+        toyTable.getColumns().add(nameCol);
+    }
+    
+    public void onClose() {
+        System.out.println("Saving database...");
+        storage.write();
+    }
+    
     @FXML
     private void insertHandler(MouseEvent evt) throws IOException {
         // Function to launch the dialog to insert certain items into the database
@@ -60,8 +94,8 @@ public class MainView implements  Initializable
         Parent toyDialogRoot = toyDialogLoader.load();
         AddToyDialog dialog = toyDialogLoader.<AddToyDialog>getController();
         
-        // Once we implement an observablelist for the toys we can use this.
-        //dialog.setAppMainObservableList(tvObservableList);
+        // Set the storage method for the dialog
+        dialog.setStorage(storage);
         
         Scene dialogScene = new Scene(toyDialogRoot);
         Stage dialogStage = new Stage();

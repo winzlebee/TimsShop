@@ -20,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /*****************************************************
  * The main view for Employee Login -
@@ -77,10 +78,16 @@ public class EmployeeLoginView implements Initializable
            
             //Load Main Stage FXML
             Stage mainStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/TimsShop/FXML/MainView.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+            
+            MainView mainView = loader.<MainView>getController();
             mainStage.setScene(scene);
             mainStage.show();
+            mainStage.setOnCloseRequest((WindowEvent evt) -> {
+                mainView.onClose();
+            });
     }
     
 }

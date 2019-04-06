@@ -1,5 +1,8 @@
 
 package TimsShop.Models.ItemModels;
+
+import java.io.Serializable;
+
 /****************************************************
  * definitions/implementations of a Category.
    A category has a composition relationship with an Item.
@@ -11,7 +14,7 @@ package TimsShop.Models.ItemModels;
       specialised category types (generalization/inheritance)
 ****************************************************/
 
-public class Category 
+public class Category implements Serializable
 {
  /***************************
      *  Could do as class? 

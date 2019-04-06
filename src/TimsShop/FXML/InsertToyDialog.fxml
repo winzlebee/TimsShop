@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.SpinnerValueFactory?>
+<?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
 <?import javafx.scene.text.Font?>
 
 
@@ -38,7 +40,11 @@
             <Label text="Name" GridPane.rowIndex="1" />
             <Label text="Price" GridPane.rowIndex="2" />
             <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Spinner fx:id="priceField" editable="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Spinner fx:id="priceField" editable="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" >
+                <valueFactory>
+                    <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" initialValue="0.0" amountToStepBy="0.1"/>
+                </valueFactory>
+            </Spinner>
             <Label text="Category" GridPane.rowIndex="3" />
             <Label text="Description" GridPane.rowIndex="4">
                <font>
