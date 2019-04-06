@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Views.MainView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Views.MainView">
    <children>
       <SplitPane dividerPositions="0.5" layoutX="22.0" layoutY="74.0" prefHeight="499.0" prefWidth="939.0">
         <items>
@@ -43,6 +43,7 @@
                         <Button fx:id="orderingButton" mnemonicParsing="false" prefHeight="188.0" prefWidth="288.0" text="Ordering" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Button fx:id="browseButton" mnemonicParsing="false" prefHeight="232.0" prefWidth="290.0" text="Browse" />
                         <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutHandler" prefHeight="268.0" prefWidth="331.0" text="Logout" GridPane.columnIndex="1" />
+                        <Button id="insertButton" fx:id="insertButton" mnemonicParsing="false" onMouseClicked="#insertHandler" prefHeight="170.0" prefWidth="324.0" text="Insert Toy" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

@@ -1,6 +1,7 @@
 
 package TimsShop.Views;
 
+import TimsShop.Views.Dialogs.AddToyDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,7 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -29,9 +32,9 @@ public class MainView implements  Initializable
     @FXML
     private Button browseButton;
     @FXML
+    private Button insertButton;
+    @FXML
     private Button logoutButton;
-    
-
     
     /**********************************************************************
     Function: called to initialize a controller after its 
@@ -44,6 +47,25 @@ public class MainView implements  Initializable
     {
        
     } 
+    
+        
+    @FXML
+    private void insertHandler(MouseEvent evt) throws IOException {
+        // Function to launch the dialog to insert certain items into the database
+        FXMLLoader toyDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/FXML/InsertToyDialog.fxml"));
+        Parent toyDialogRoot = toyDialogLoader.load();
+        AddToyDialog dialog = toyDialogLoader.<AddToyDialog>getController();
+        
+        // Once we implement an observablelist for the toys we can use this.
+        //dialog.setAppMainObservableList(tvObservableList);
+        
+        Scene dialogScene = new Scene(toyDialogRoot);
+        Stage dialogStage = new Stage();
+        
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setScene(dialogScene);
+        dialogStage.showAndWait();
+    }
 
     @FXML
     private void logoutHandler(MouseEvent event) throws IOException
