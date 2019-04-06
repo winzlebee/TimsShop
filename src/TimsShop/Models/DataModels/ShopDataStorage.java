@@ -8,6 +8,7 @@ package TimsShop.Models.DataModels;
 import DatabaseEngines.AbstractDatabase;
 import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Toy;
+import TimsShop.Models.UserModels.Employee;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import javafx.collections.ObservableList;
 public class ShopDataStorage {
     private ObservableList<Toy> toys;
     private ObservableList<Category> categories;
+    private ObservableList<Employee> employees;
     
     private AbstractDatabase storageEngine;
     
@@ -40,6 +42,16 @@ public class ShopDataStorage {
     
     public void setCategories(ArrayList<Category> newCategories) {
         this.categories = FXCollections.observableArrayList(newCategories);
+    }
+    
+    public ObservableList<Employee> getEmployees()
+    {
+        return employees;
+    }
+    
+    public void setEmployees(ArrayList<Employee> newEmployyes)
+    {
+        this.employees = FXCollections.observableArrayList(newEmployyes);
     }
     
 }

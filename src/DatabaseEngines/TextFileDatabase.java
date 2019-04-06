@@ -8,6 +8,7 @@ package DatabaseEngines;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Toy;
+import TimsShop.Models.UserModels.Employee;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class TextFileDatabase implements AbstractDatabase {
     boolean fileCreated = false;
     File databaseFile;
-    
+   
     public TextFileDatabase() {
         databaseFile = new File("database.tso");
     }
@@ -42,6 +43,7 @@ public class TextFileDatabase implements AbstractDatabase {
             // Write all of the arrays into the output database in order
             objectOutWrite.writeObject(new ArrayList<Toy>(storage.getToys()));
             objectOutWrite.writeObject(new ArrayList<Category>(storage.getCategories()));
+            objectOutWrite.writeObject(new ArrayList<Employee>(storage.getEmployees()));
             
             objectOutWrite.close();
             outWrite.close();
@@ -55,8 +57,9 @@ public class TextFileDatabase implements AbstractDatabase {
     public void readDataStorage(ShopDataStorage storage) {
         // Populate all the fields of the passed instance with the data storage elements that we need
         
-        ArrayList<Toy> toysList = new ArrayList<Toy>();
-        ArrayList<Category> categoriesList = new ArrayList<Category>();
+        ArrayList<Toy> toysList = new ArrayList<>();
+        ArrayList<Category> categoriesList = new ArrayList<>();
+        ArrayList<Employee> employeeList = new ArrayList<>();
          
         try
         {
@@ -65,6 +68,7 @@ public class TextFileDatabase implements AbstractDatabase {
  
             toysList = (ArrayList) ois.readObject();
             categoriesList = (ArrayList) ois.readObject();
+            employeeList  = (ArrayList) ois.readObject();
  
             ois.close();
             fis.close();
@@ -84,6 +88,7 @@ public class TextFileDatabase implements AbstractDatabase {
         // Load the new array into the ShopDataStorage object
         storage.setCategories(categoriesList);
         storage.setToys(toysList);
+        storage.setEmployees(employeeList);
          
         //Verify list data
         for (Toy toy : toysList) {
