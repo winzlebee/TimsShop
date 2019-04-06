@@ -92,7 +92,7 @@ public class TextFileDatabase implements AbstractDatabase {
          
         //Verify list data
         for (Toy toy : toysList) {
-            System.out.printf("%s->%f", toy.getName(), toy.getPrice());
+            System.out.printf("\n%s->%f", toy.getName(), toy.getPrice());
         }
         
     }

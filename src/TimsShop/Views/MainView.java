@@ -112,6 +112,11 @@ public class MainView implements  Initializable
         dialogStage.setScene(dialogScene);
         dialogStage.showAndWait();
     }
+    
+    @FXML
+    private void addCategoryHandler(MouseEvent evt) throws IOException {
+        
+    }
 
     @FXML
     private void logoutHandler(MouseEvent event) throws IOException
