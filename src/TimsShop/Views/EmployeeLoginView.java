@@ -5,6 +5,7 @@
  */
 package TimsShop.Views;
 
+import TimsShop.Controllers.LoginController;
 import TimsShop.Views.Animations.Shaker;
 import java.io.IOException;
 import java.net.URL;
@@ -35,24 +36,23 @@ public class EmployeeLoginView implements Initializable
     private Button lognButton;
     
     private Shaker shaker; 
+    
+    private LoginController loginController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-       
+       //Create the views primary controller
+       loginController = new LoginController((Stage)pinField.getScene().getWindow());
     }
     
-    private boolean checkLogin()
-    { // TODO: check against pool of loaded staff-logins
-      return pinField.getText().equals("1234");
-    }
+  
 
     @FXML
     private void loginHandler(MouseEvent event) throws IOException
-    {
-        if(checkLogin())
+    {   //Request login access from controller
+        if(this.loginController.checkLogin(Integer.parseInt(pinField.getText())))
         {   
-            processLogin(pinField.getText());
             
         }
         else
@@ -64,23 +64,6 @@ public class EmployeeLoginView implements Initializable
        
     }
     
-    private void processLogin(String staffId) throws IOException
-    {       
-            /*********************************
-             TODO:
-              * Report staff member logged in 
-              * Close login stage- DONE
-            **********************************/
-            //Close login stage
-            Stage currentStage = (Stage)lognButton.getScene().getWindow();
-            currentStage.close();
-           
-            //Load Main Stage FXML
-            Stage mainStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/MainView.fxml"));
-            Scene scene = new Scene(root);
-            mainStage.setScene(scene);
-            mainStage.show();
-    }
+  
     
 }

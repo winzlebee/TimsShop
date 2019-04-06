@@ -1,5 +1,6 @@
 
 package TimsShop.Controllers;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,24 +21,39 @@ NOte: Any @FXML annotations denote XML loaded components/listeners
     * 
     * 
 ********************************************************************/
-public class MainController extends Application  // Application class serves as the Entry point to a FX program.
+public class ApplicationController extends Application implements AbstractController // Application class serves as the Entry point to a FX program.
 {
      /**********************************************************************
      Function: loads XML document and instantiates the main Stage (view) 
      Arguments: the initial frame of the program
      Result: Sets the frame to show.
+     * @throws java.lang.Exception
       ************************************************************************/
+    
+    private Stage nextStage;
+    private LoginController nextController;
+    
     @Override
     public void start(Stage primaryStage) throws Exception 
-    {   //Load xml document
-        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/EmployeeLoginView.fxml"));
-        Scene scene = new Scene(root);
-        
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    {   
+        nextStage = primaryStage;
+        openNext(); 
     }
     
+    @Override
+    public void openNext() throws IOException 
+    {
+        //Load xml document
+        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/EmployeeLoginView.fxml"));
+        Scene scene = new Scene(root);
+        nextStage.setScene(scene);
+        nextStage.show(); 
+    }
     
+    @Override //could add splash state/loading screen?
+    public void closeView() {}
+    
+
     
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
@@ -51,4 +67,10 @@ public class MainController extends Application  // Application class serves as 
     {
         launch(args);
     }  
+
+
+
+
+  
+
 }
