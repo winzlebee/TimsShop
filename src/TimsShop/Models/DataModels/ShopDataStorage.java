@@ -41,7 +41,7 @@ public class ShopDataStorage {
     
     private long getLastToyId() {
         if (toys.isEmpty()) return 0;
-        return toys.get(toys.size()).getId();
+        return toys.get(toys.size()-1).getId();
     }
     
     public void write() {
@@ -51,7 +51,7 @@ public class ShopDataStorage {
     
     public void insertToy(String name, float price, String description) {
         // Inserts a toy into the shop data model
-        toys.add(new Toy(getLastToyId(), name, price, new Category(), description));
+        toys.add(new Toy(getLastToyId() + 1, name, price, new Category(), description));
     }
     
     public void addCategory(Category cat) {

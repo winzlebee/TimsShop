@@ -52,8 +52,10 @@ public class AddToyDialog implements Initializable {
             return;
         }
         
+        System.out.println(priceField.getValue());
+        
         //TODO: Add toy handler code
-        dataStorage.insertToy(nameField.getText(), priceField.getValue().floatValue(), descriptionField.getText());
+        dataStorage.insertToy(nameField.getText(), priceField.getValueFactory().getValue().floatValue(), descriptionField.getText());
         
         closeDialog(event);
     }

@@ -17,7 +17,7 @@ public abstract class Item implements Serializable
     private final long id;
     private String name;
     private float price;
-    private  Category category;
+    private Category category;
     
     public Item(long id,String name,float price, Category category)
     {

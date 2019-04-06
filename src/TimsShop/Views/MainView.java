@@ -47,9 +47,6 @@ public class MainView implements  Initializable
     // Table components
     @FXML 
     private TableView toyTable;
-    private TableColumn toyTable_id;
-    private TableColumn toyTable_price;
-    private TableColumn toyTable_category;
     
     // Data storage for the application
     ShopDataStorage storage;
@@ -66,12 +63,17 @@ public class MainView implements  Initializable
         // Initialize the data storage engine. It will create a database if it doesn't exist yet.
         storage = new ShopDataStorage();
         
-        // Setup the data model for the toy table
-        TableColumn toyTable_name;
-        
         toyTable.setItems(storage.getToys());
         
+        TableColumn<Toy, Long> idCol = new TableColumn<Toy, Long>("Id");
         TableColumn<Toy, String> nameCol = new TableColumn<Toy, String>("Name");
+        TableColumn<Toy, String> priceCol = new TableColumn<Toy, String>("Price");
+        
+        idCol.setCellValueFactory(new Callback<CellDataFeatures<Toy, Long>, ObservableValue<Long>>() {
+            public ObservableValue<Long> call(CellDataFeatures<Toy, Long> p) {
+                return new ReadOnlyObjectWrapper<Long>(p.getValue().getId());
+            }
+         });
         
         nameCol.setCellValueFactory(new Callback<CellDataFeatures<Toy, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(CellDataFeatures<Toy, String> p) {
@@ -79,7 +81,13 @@ public class MainView implements  Initializable
             }
          });
         
-        toyTable.getColumns().add(nameCol);
+        priceCol.setCellValueFactory(new Callback<CellDataFeatures<Toy, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Toy, String> p) {
+                return new ReadOnlyObjectWrapper<String>(String.format("$%.2f", p.getValue().getPrice()));
+            }
+         });
+        
+        toyTable.getColumns().addAll(idCol, nameCol, priceCol);
     }
     
     public void onClose() {
