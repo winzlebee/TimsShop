@@ -52,6 +52,11 @@ public class AddToyDialog implements Initializable {
             return;
         }
         
+        if (categoryField.getValue() == null) {
+            errMsgLabel.setText("Please select a category for the toy.");
+            return;
+        }
+        
         System.out.println(priceField.getValue());
         
         //TODO: Add toy handler code
