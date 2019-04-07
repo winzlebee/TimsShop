@@ -70,26 +70,37 @@ public class MainView implements  Initializable
         TableColumn<Toy, Long> idCol = new TableColumn<Toy, Long>("Id");
         TableColumn<Toy, String> nameCol = new TableColumn<Toy, String>("Name");
         TableColumn<Toy, String> priceCol = new TableColumn<Toy, String>("Price");
+        TableColumn<Toy, String> categoryCol = new TableColumn<Toy, String>("Category");
         
         idCol.setCellValueFactory(new Callback<CellDataFeatures<Toy, Long>, ObservableValue<Long>>() {
+            @Override
             public ObservableValue<Long> call(CellDataFeatures<Toy, Long> p) {
                 return new ReadOnlyObjectWrapper<Long>(p.getValue().getId());
             }
          });
         
         nameCol.setCellValueFactory(new Callback<CellDataFeatures<Toy, String>, ObservableValue<String>>() {
+            @Override
             public ObservableValue<String> call(CellDataFeatures<Toy, String> p) {
                 return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
             }
          });
         
         priceCol.setCellValueFactory(new Callback<CellDataFeatures<Toy, String>, ObservableValue<String>>() {
+            @Override
             public ObservableValue<String> call(CellDataFeatures<Toy, String> p) {
                 return new ReadOnlyObjectWrapper<String>(String.format("$%.2f", p.getValue().getPrice()));
             }
          });
         
-        toyTable.getColumns().addAll(idCol, nameCol, priceCol);
+        categoryCol.setCellValueFactory(new Callback<CellDataFeatures<Toy, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(CellDataFeatures<Toy, String> p) {
+                return new ReadOnlyObjectWrapper<String>(storage.getCategoryById(p.getValue().getCategoryId()).getName());
+            }
+         });
+        
+        toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol);
     }
     
     public void onClose() {

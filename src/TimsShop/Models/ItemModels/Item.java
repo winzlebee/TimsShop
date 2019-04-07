@@ -17,9 +17,8 @@ public abstract class Item implements Serializable
     private final long id;
     private String name;
     private float price;
-    private Category category;
     
-    private final long categoryId;
+    private long categoryId;
     
     public Item(long id,String name,float price, long categoryId)
     {
@@ -45,9 +44,9 @@ public abstract class Item implements Serializable
         return id;
     }
 
-    public Category getCategory()
+    public long getCategoryId()
     {
-        return category;
+        return categoryId;
     }
 
     /********SETTERS**********/
@@ -59,9 +58,9 @@ public abstract class Item implements Serializable
     {    
         this.name = name;
     }
-    public void setCategory(Category category)
+    public void setCategory(long categoryId)
     {
-        this.category = category;
+        this.categoryId = categoryId;
     }
         
     @Override
