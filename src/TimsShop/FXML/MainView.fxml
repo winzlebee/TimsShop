@@ -47,7 +47,7 @@
                         <Button fx:id="browseButton" mnemonicParsing="false" prefHeight="232.0" prefWidth="290.0" text="Browse" />
                         <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutHandler" prefHeight="268.0" prefWidth="331.0" text="Logout" GridPane.columnIndex="1" />
                         <Button id="insertButton" fx:id="insertButton" mnemonicParsing="false" onMouseClicked="#insertHandler" prefHeight="170.0" prefWidth="324.0" text="Insert Toy" GridPane.rowIndex="1" />
-                        <Button fx:id="addCategoryButton" mnemonicParsing="false" prefHeight="118.0" prefWidth="263.0" text="Add Category" GridPane.rowIndex="2" />
+                        <Button fx:id="addCategoryButton" mnemonicParsing="false" onMouseClicked="#addCategoryHandler" prefHeight="118.0" prefWidth="263.0" text="Add Category" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

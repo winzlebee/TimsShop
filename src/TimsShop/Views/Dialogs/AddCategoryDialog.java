@@ -2,35 +2,26 @@ package TimsShop.Views.Dialogs;
 
 // Local Imports
 import TimsShop.Models.DataModels.ShopDataStorage;
-import TimsShop.Models.ItemModels.Category;
-import TimsShop.Models.ItemModels.Toy;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class AddToyDialog implements Initializable {
+public class AddCategoryDialog implements Initializable {
     
     @FXML
-    private TextField nameField;
+    private TextField catNameField;
 
     @FXML
-    private Spinner<Double> priceField;
-    
-    @FXML
-    private TextArea descriptionField;
-    
-    @FXML
-    private ComboBox categoryField;
+    private TextField catTagsField;
     
     @FXML
     private Label errMsgLabel;
@@ -39,24 +30,18 @@ public class AddToyDialog implements Initializable {
 
     public void setStorage(ShopDataStorage storage) {
         this.dataStorage = storage;
-        
-        // Initialize necessary fields from storage
-        categoryField.setItems(dataStorage.getCategories()); 
     }
     
     @FXML
     void onSubmit(MouseEvent event) {
         
-        if (nameField.getText().isEmpty()) {
-            errMsgLabel.setText("Please enter a toy name.");
+        if (catNameField.getText().isEmpty()) {
+            errMsgLabel.setText("Please enter a category name.");
             return;
         }
         
-        System.out.println(priceField.getValue());
-        
-        //TODO: Add toy handler code
-        dataStorage.insertToy(nameField.getText(), priceField.getValueFactory().getValue().floatValue(), descriptionField.getText(), ((Category) categoryField.getValue()).getID());
-        System.out.println("A toy has been appended.");
+        dataStorage.addCategory(catNameField.getText(), new ArrayList<String>(Arrays.asList(catTagsField.getText().split(","))));
+        System.out.println("A category has been added.");
         
         closeDialog(event);
     }
@@ -74,7 +59,7 @@ public class AddToyDialog implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Populate initial values
+        // TODO: Load category data when editing on initialize
     }
 
 }

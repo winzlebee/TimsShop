@@ -3,6 +3,7 @@ package TimsShop.Views;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
+import TimsShop.Views.Dialogs.AddCategoryDialog;
 import TimsShop.Views.Dialogs.AddToyDialog;
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -96,7 +98,31 @@ public class MainView implements  Initializable
     }
     
     @FXML
+    private void addCategoryHandler(MouseEvent evt) throws IOException {
+        FXMLLoader catDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/FXML/AddCategoryDialog.fxml"));
+        Parent catDialogRoot = catDialogLoader.load();
+        AddCategoryDialog dialog = catDialogLoader.<AddCategoryDialog>getController();
+        
+        // Set the storage method for the dialog
+        dialog.setStorage(storage);
+        
+        Scene dialogScene = new Scene(catDialogRoot);
+        Stage dialogStage = new Stage();
+        
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setScene(dialogScene);
+        dialogStage.showAndWait();
+    }
+    
+    @FXML
     private void insertHandler(MouseEvent evt) throws IOException {
+        
+        if (storage.getCategories().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.WARNING, "Please define a category before adding a toy.");
+            a.showAndWait();
+            return;
+        }
+        
         // Function to launch the dialog to insert certain items into the database
         FXMLLoader toyDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/FXML/InsertToyDialog.fxml"));
         Parent toyDialogRoot = toyDialogLoader.load();
@@ -111,11 +137,6 @@ public class MainView implements  Initializable
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setScene(dialogScene);
         dialogStage.showAndWait();
-    }
-    
-    @FXML
-    private void addCategoryHandler(MouseEvent evt) throws IOException {
-        
     }
 
     @FXML
