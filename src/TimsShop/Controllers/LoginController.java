@@ -13,41 +13,73 @@ import javafx.stage.Stage;
 
 public class LoginController implements AbstractController
 {
+
  
+    /******************************************************************
+    * Helper class to initialize the singleton Service in a thread-safe way and
+    * to keep the initialization ordering clear between the two services. 
+    *****************************************************************/
+    private static class ControllerInstance
+    {
+        public static LoginController INSTANCE = createControllerInstance();
+        private ControllerInstance(){} // This class is not meant to be instantiated
+        public static LoginController createControllerInstance()
+        {
+            return new LoginController();
+        }
+    }
+     /***************************CONTROLLER lIST*********************************/
+    private static MainViewController mainViewController = MainViewController.getInstance();
+    
     private Stage currentStage;
     private Stage nextStage;
-    private ShopDataStorage shopData;
-    private ObservableList<Employee> employees;
+    private ShopDataStorage shopData; 
+    private ObservableList<Employee> employees; //static data? or loaded on application controller
     
-    public LoginController(Stage currentStage)
+    
+    public static LoginController getInstance()
     {
-        this.currentStage  = currentStage; 
-        this.employees     = shopData.getEmployees();
+        return ControllerInstance.INSTANCE;
     }
     
+    private LoginController()
+    {}
+    
+    @Override
+    public void setCurrentStage(Stage stage)
+    {
+        this.currentStage = stage;
+    }
     public void makeLoginRequest() throws IOException
     {
          /*********************************
              TODO:
               * Report staff member logged in 
             **********************************/
-            openNext();
             closeView();
+            openNext();
+            passControl(mainViewController);
     }
-    public boolean checkLogin(int loginPin) throws IOException
+    public boolean checkLogin(String loginPin) throws Exception
     { 
-        //Check for each employee loaded from data storage
-        if(!employees.isEmpty())
-        {
-            for(Employee e: employees)
-            {   
-                if(e.checkLogin(loginPin))
-                {
-                    makeLoginRequest();
-                    return true;
-                }
-            }  
-        }
+   
+        //TEST  LOGIN - REMOVE LATER
+        if(loginPin.equals("1234")){makeLoginRequest();return true;} 
+        
+        /*  UNCOMMENT WHEN DATA IS LOADED IN
+            //Check for each employee loaded from data storage
+            if(!employees.isEmpty() && employees != null)
+            {
+                for(Employee e: employees)
+                {   
+                    if(e.checkLogin(loginPin))
+                    {
+                        return true;
+                    }
+                }  
+            }
+            */
+       
         return false;
     }
     
@@ -67,7 +99,18 @@ public class LoginController implements AbstractController
        Scene scene = new Scene(root);
        nextStage.setScene(scene);
        nextStage.show();
+    
     }
 
+    @Override
+    public void passControl(AbstractController nextController) 
+    {
+        nextController.setCurrentStage(nextStage);
+    }
+    
+    
+    
+    @Override
+    public void setNextSource(Parent nextStage) {}
   
 }

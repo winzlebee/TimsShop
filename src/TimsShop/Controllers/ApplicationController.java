@@ -31,28 +31,40 @@ public class ApplicationController extends Application implements AbstractContro
       ************************************************************************/
     
     private Stage nextStage;
-    private LoginController nextController;
+    private Parent source;
+    private LoginController loginController = LoginController.getInstance();
     
     @Override
     public void start(Stage primaryStage) throws Exception 
     {   
         nextStage = primaryStage;
         openNext(); 
+        passControl(loginController);
     }
     
     @Override
     public void openNext() throws IOException 
     {
         //Load xml document
-        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/EmployeeLoginView.fxml"));
-        Scene scene = new Scene(root);
+        source = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/EmployeeLoginView.fxml"));
+        Scene scene = new Scene(source);
         nextStage.setScene(scene);
         nextStage.show(); 
     }
+
+
+    @Override
+    public void passControl(AbstractController nextController) 
+    {
+        nextController.setCurrentStage(nextStage);
+    }
     
-    @Override //could add splash state/loading screen?
-    public void closeView() {}
+   //could add splash state/loading screen?
+    public void closeView(){}
+    public void setCurrentStage(Stage nextStage) { }
+    public void setNextSource(Parent nextStage) {}
     
+
 
     
     /**
@@ -68,6 +80,7 @@ public class ApplicationController extends Application implements AbstractContro
         launch(args);
     }  
 
+ 
 
 
 

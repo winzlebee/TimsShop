@@ -56,7 +56,7 @@ public abstract class User
         * Staff login may just involve a staff pin
         * Customer login may need username/password
     ************************************************/
-    public boolean checkLogin(int loginPin)
+    public boolean checkLogin(String loginPin)
     {
         return false;
     }
