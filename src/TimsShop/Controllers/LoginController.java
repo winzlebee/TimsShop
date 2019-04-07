@@ -109,6 +109,8 @@ public class LoginController implements AbstractController
     }
     
     
+    //Can just hard code the control/next stages-  since there is only one path 
+    // through the program at this point.
     
     @Override
     public void setNextSource(Parent nextStage) {}

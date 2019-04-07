@@ -53,7 +53,7 @@ public class MainViewController  implements AbstractController
          TODO:
           * Report staff member logged in 
         **********************************/
-        closeView();
+        closeView(); //
         setNextSource((Parent)FXMLLoader.load(getClass().getResource("/TimsShop/FXML/EmployeeLoginView.fxml")));
         openNext();
         passControl(loginController);
