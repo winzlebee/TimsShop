@@ -15,13 +15,13 @@ public interface AbstractDatabase {
     
     /**
      * Reads data storage in from the database engine specified
-     * @return The shop data storage item
+     * @param storage Storage item to read into.
      */
     public void readDataStorage(ShopDataStorage storage);
     
     /**
      * If the data storage currently exists in the chosen engine
-     * @return 
+     * @return Whether the storage system exists or need to be created.
      */
     boolean hasDataStorage();
 }

@@ -62,6 +62,15 @@ public class ShopDataStorage {
         // Inserts a toy into the shop data model
         categories.add(new Category(getLastCategoryId()+1, name, tags));
     }
+    
+    /**
+     * Get a category by id. Returns null if not found.
+     * @param id The id of the category to retrieve
+     * @return Null if category not found.
+     */
+    public Category getCategoryById(long id) {
+        return categories.stream().filter(x -> x.getID() == id).findFirst().orElse(null);
+    }
         
     public void addEmployee(Employee emp) {
         // Inserts a toy into the shop data model
@@ -76,17 +85,17 @@ public class ShopDataStorage {
         return categories;
     }
     
+    public ObservableList<Employee> getEmployees()
+    {
+        return employees;
+    }
+    
     public void setToys(ArrayList<Toy> newToys) {
         this.toys = FXCollections.observableArrayList(newToys);
     }
     
     public void setCategories(ArrayList<Category> newCategories) {
         this.categories = FXCollections.observableArrayList(newCategories);
-    }
-    
-    public ObservableList<Employee> getEmployees()
-    {
-        return employees;
     }
     
     public void setEmployees(ArrayList<Employee> newEmployyes)
