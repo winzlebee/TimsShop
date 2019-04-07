@@ -2,6 +2,7 @@
 package TimsShop.Models.ItemModels;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /****************************************************
  * definitions/implementations of a Category.
@@ -16,36 +17,27 @@ import java.io.Serializable;
 
 public class Category implements Serializable
 {
- /***************************
-     *  Could do as class? 
-  ****************************/   
-}
-
-enum CategoryEnum
-{
-   APPLIANCES(00001,"Appliance"),
-   BOAT(00002,"Boat"),
-   TRAIN(00003,"Train"),
-   CAR(00004,"Car"),
-   AIRPLANE(0005,"Airplane"),
-   MISCELANEOUS(0006,"Misc");
-
-   private long id;
-   private String name;
-   
-   private CategoryEnum(long id, String name)
-   {
+    private final long id;
+    private final String name;
+    private ArrayList<String> tags;
+    
+    public Category(long id, String name, ArrayList<String> tags) {
        this.id = id;
        this.name = name;
-   }   
-   
-   public long getID()
-   {
-       return id;
-   }
-   
-   public String getName()
-   {
-       return name;
-   }
+       this.tags = tags;
+    }
+    
+    public long getID()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+    
+    public ArrayList<String> getTags() {
+        return tags;
+    }
 }

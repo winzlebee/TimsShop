@@ -44,19 +44,23 @@ public class ShopDataStorage {
         return toys.get(toys.size()-1).getId();
     }
     
+    private long getLastCategoryId() {
+        return categories.isEmpty() ? 0 : categories.get(categories.size()-1).getID();
+    }
+    
     public void write() {
         // Write the data storage to the specified storage engine
         storageEngine.writeDataStorage(this);
     }
     
-    public void insertToy(String name, float price, String description) {
+    public void insertToy(String name, float price, String description, long categoryId) {
         // Inserts a toy into the shop data model
-        toys.add(new Toy(getLastToyId() + 1, name, price, new Category(), description));
+        toys.add(new Toy(getLastToyId() + 1, name, price, categoryId, description));
     }
     
-    public void addCategory(Category cat) {
+    public void addCategory(String name, ArrayList<String> tags) {
         // Inserts a toy into the shop data model
-        categories.add(cat);
+        categories.add(new Category(getLastCategoryId()+1, name, tags));
     }
         
     public void addEmployee(Employee emp) {

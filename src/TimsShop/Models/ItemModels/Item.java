@@ -19,12 +19,14 @@ public abstract class Item implements Serializable
     private float price;
     private Category category;
     
-    public Item(long id,String name,float price, Category category)
+    private final long categoryId;
+    
+    public Item(long id,String name,float price, long categoryId)
     {
         this.name = name;
         this.id = id;
         this.price=price;
-        this.category=category;
+        this.categoryId = categoryId;
     }
 
    /********GETTERS**********/
