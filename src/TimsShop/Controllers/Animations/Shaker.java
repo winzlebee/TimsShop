@@ -1,5 +1,5 @@
 
-package TimsShop.Views.Animations;
+package TimsShop.Controllers.Animations;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;

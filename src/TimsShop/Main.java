@@ -1,5 +1,5 @@
 
-package TimsShop.Controllers;
+package TimsShop;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +20,7 @@ NOte: Any @FXML annotations denote XML loaded components/listeners
     * 
     * 
 ********************************************************************/
-public class MainController extends Application  // Application class serves as the Entry point to a FX program.
+public class Main extends Application  // Application class serves as the Entry point to a FX program.
 {
      /**********************************************************************
      Function: loads XML document and instantiates the main Stage (view) 
@@ -30,7 +30,7 @@ public class MainController extends Application  // Application class serves as 
     @Override
     public void start(Stage primaryStage) throws Exception 
     {   //Load xml document
-        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/FXML/EmployeeLoginView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/Views/EmployeeLoginView.fxml"));
         Scene scene = new Scene(root);
         
         primaryStage.setScene(scene);

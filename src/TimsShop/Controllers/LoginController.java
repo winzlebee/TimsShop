@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TimsShop.Views;
+package TimsShop.Controllers;
 
-import TimsShop.Views.Animations.Shaker;
+import TimsShop.Controllers.Animations.Shaker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +27,7 @@ import javafx.stage.WindowEvent;
  *  Prompts Employees to Enter login pin 
 
  ***************************************************/
-public class EmployeeLoginView implements Initializable
+public class LoginController implements Initializable
 {
 
     @FXML
@@ -78,11 +78,11 @@ public class EmployeeLoginView implements Initializable
            
             //Load Main Stage FXML
             Stage mainStage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/TimsShop/FXML/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/TimsShop/Views/MainView.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             
-            MainView mainView = loader.<MainView>getController();
+            MainViewController mainView = loader.<MainViewController>getController();
             mainStage.setScene(scene);
             mainStage.show();
             mainStage.setOnCloseRequest((WindowEvent evt) -> {

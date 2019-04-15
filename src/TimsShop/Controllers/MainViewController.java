@@ -1,10 +1,10 @@
 
-package TimsShop.Views;
+package TimsShop.Controllers;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
-import TimsShop.Views.Dialogs.AddCategoryDialog;
-import TimsShop.Views.Dialogs.AddToyDialog;
+import TimsShop.Controllers.Dialogs.AddCategoryDialog;
+import TimsShop.Controllers.Dialogs.AddToyDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
-public class MainView implements  Initializable  
+public class MainViewController implements  Initializable  
 {
         
     @FXML
@@ -107,7 +107,7 @@ public class MainView implements  Initializable
     
     @FXML
     private void addCategoryHandler(MouseEvent evt) throws IOException {
-        FXMLLoader catDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/FXML/AddCategoryDialog.fxml"));
+        FXMLLoader catDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/AddCategoryDialog.fxml"));
         Parent catDialogRoot = catDialogLoader.load();
         AddCategoryDialog dialog = catDialogLoader.<AddCategoryDialog>getController();
         

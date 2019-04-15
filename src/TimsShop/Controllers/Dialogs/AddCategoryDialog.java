@@ -1,4 +1,4 @@
-package TimsShop.Views.Dialogs;
+package TimsShop.Controllers.Dialogs;
 
 // Local Imports
 import TimsShop.Models.DataModels.ShopDataStorage;
