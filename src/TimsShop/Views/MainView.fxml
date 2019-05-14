@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Controllers.MainViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Controllers.MainViewController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -33,7 +33,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="searchBar" prefHeight="41.0" prefWidth="285.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" prefHeight="41.0" prefWidth="285.0" GridPane.columnIndex="1" />
                         <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="41.0" prefWidth="97.0" text="Search" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <TableView fx:id="toyTable" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
                      </children>
@@ -50,11 +50,11 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="orderingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Ordering" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="browseButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Browse" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutHandler" prefHeight="50.0" prefWidth="150.0" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button id="insertButton" fx:id="insertButton" mnemonicParsing="false" onMouseClicked="#insertHandler" prefHeight="50.0" prefWidth="150.0" text="Insert Toy" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="addCategoryButton" mnemonicParsing="false" onMouseClicked="#addCategoryHandler" prefHeight="50.0" prefWidth="150.0" text="Add Category" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Button fx:id="orderingButton" mnemonicParsing="false" prefHeight="120.0" prefWidth="191.0" text="Ordering" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="browseButton" mnemonicParsing="false" prefHeight="106.0" prefWidth="209.0" text="Browse" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutHandler" prefHeight="106.0" prefWidth="204.0" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button id="insertButton" fx:id="insertButton" mnemonicParsing="false" onMouseClicked="#insertHandler" prefHeight="119.0" prefWidth="224.0" text="Insert Toy" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="addCategoryButton" mnemonicParsing="false" onMouseClicked="#addCategoryHandler" prefHeight="106.0" prefWidth="229.0" text="Add Category" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
               </items>
