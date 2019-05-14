@@ -33,8 +33,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" prefHeight="41.0" prefWidth="285.0" GridPane.columnIndex="1" />
-                        <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="41.0" prefWidth="97.0" text="Search" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" prefHeight="32.0" prefWidth="280.0" GridPane.columnIndex="1" />
                         <TableView fx:id="toyTable" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
@@ -55,6 +54,7 @@
                         <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutHandler" prefHeight="106.0" prefWidth="204.0" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <Button id="insertButton" fx:id="insertButton" mnemonicParsing="false" onMouseClicked="#insertHandler" prefHeight="119.0" prefWidth="224.0" text="Insert Toy" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Button fx:id="addCategoryButton" mnemonicParsing="false" onMouseClicked="#addCategoryHandler" prefHeight="106.0" prefWidth="229.0" text="Add Category" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Button fx:id="customerButton" mnemonicParsing="false" onMouseClicked="#customerButtonHandler" prefHeight="155.0" prefWidth="244.0" text="Customers" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
               </items>

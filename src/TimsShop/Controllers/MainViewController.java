@@ -5,6 +5,7 @@ import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Controllers.Dialogs.AddCategoryDialog;
 import TimsShop.Controllers.Dialogs.AddToyDialog;
+import TimsShop.Controllers.Dialogs.CustomerDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,15 +31,17 @@ import javafx.stage.Stage;
 
 
 /**************************************************************
- * The MainViewController 
- */
+ *  The MainViewController is used to handle 
+    the navigation between the root view of the application and 
+    the its branches. While also serving as the primary event 
+    handling controller for the mainview
+ ************************************************************/
 public class MainViewController implements  Initializable  
 {
-        
+     /**************CLASS FIELDS ********************/
+    //////////////////////////////////////////////////  
     @FXML
     private TextField searchBar;
-    @FXML
-    private Button searchButton;
     @FXML
     private Button orderingButton;
     @FXML
@@ -49,23 +52,23 @@ public class MainViewController implements  Initializable
     private Button logoutButton;
     @FXML
     private Button addCategoryButton;
-    
-    /**************TABLE COMPONENTS********************/
+    @FXML
+    private Button customerButton; 
     @FXML 
     private TableView toyTable;
+    
+    //Table Components
     private TableColumn<Toy, Long> idCol;
     private TableColumn<Toy, String> nameCol;
     private TableColumn<Toy, String> priceCol;
     private TableColumn<Toy, String> categoryCol;
     private ObservableList<Toy> toyData;
-    
-    
+  
     //Data storage for the application
     private ShopDataStorage storage;
-
-    
+  
     /**********************************************************************
-    Function: called to initialize a controller after its 
+    called to initialize a controller after its 
               root element has been completely processed.
     Arguments:  @param url locator for FXML document.
                 @param rb bundles the locally configured language settings
@@ -79,6 +82,7 @@ public class MainViewController implements  Initializable
     }
     
     /***********************TABLE INITIALIZATION*******************************/
+    ///////////////////////////////////////////////////////////////////////////
     private void bindData()
     {   // Initialize the data storage engine. It will create a database if it doesn't exist yet.
         storage = new ShopDataStorage();
@@ -104,11 +108,20 @@ public class MainViewController implements  Initializable
 
     
     /*******************************EVENT LISTENERS****************************/
+    ///////////////////////////////////////////////////////////////////////////
+    /********************************************************
+     * Closes program and writes any data to storage
+     *******************************************************/
     public void onClose() {
         System.out.println("Saving database...");
         storage.write();
     }
     
+    /********************************************************
+     * Displays add category dialog
+     * @param event - on Mouse click event
+     * @throws IOException - reports when fxml is unloadable
+     *******************************************************/
     @FXML
     private void addCategoryHandler(MouseEvent evt) throws IOException {
         FXMLLoader catDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/AddCategoryDialog.fxml"));
@@ -126,6 +139,11 @@ public class MainViewController implements  Initializable
         dialogStage.showAndWait();
     }
     
+    /********************************************************
+     * Displays insert toy dialog
+     * @param event - on Mouse click event
+     * @throws IOException - reports when fxml is unloadable
+     *******************************************************/
     @FXML
     private void insertHandler(MouseEvent evt) throws IOException {
         
@@ -150,14 +168,19 @@ public class MainViewController implements  Initializable
         dialogStage.setScene(dialogScene);
         dialogStage.showAndWait();
     }
-
+    
+    /********************************************************
+     * Destroys mainview and displays login view
+     * @param event - on Mouse click event
+     * @throws IOException - reports when fxml is unloadable
+     *******************************************************/
     @FXML
     private void logoutHandler(MouseEvent event) throws IOException
     {
-         /*********************************
-            TODO:
-             * Report staff member logged in 
-             * Close login stage- DONE
+        /*********************************
+        TODO:
+         * Report staff member logged in 
+         * Close login stage- DONE
         **********************************/
         //Close login stage
         Stage currentStage = (Stage)logoutButton.getScene().getWindow();
@@ -170,7 +193,31 @@ public class MainViewController implements  Initializable
         loginStage.setScene(scene);
         loginStage.show();
     }
-
+    
+    /********************************************************
+     * Displays customer dialog
+     * @param event - on Mouse click event
+     * @throws IOException - reports when fxml is unloadable
+     *******************************************************/
+    @FXML
+    private void customerButtonHandler(MouseEvent event) throws IOException
+    {
+        Stage customerStage = new Stage();
+        FXMLLoader customerDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/CustomerDialog.fxml"));
+        Parent customerDialog = customerDialogLoader.load();
+        CustomerDialog dialog = customerDialogLoader.<CustomerDialog>getController();
+        
+        dialog.setStorage(storage); 
+        
+        Scene scene = new Scene(customerDialog);
+        customerStage.setScene(scene);
+        customerStage.show();  
+    }
+    
+    /********************************************************
+    * Handles dynamic filter/search and redraws the table 
+    * @param event - on keypressed  click event
+    *******************************************************/
     @FXML
     private void handleSearchEntry(KeyEvent event)
     {
@@ -196,6 +243,7 @@ public class MainViewController implements  Initializable
         });
         
     }
+
     
     
 }

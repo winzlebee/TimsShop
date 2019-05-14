@@ -8,6 +8,7 @@ package DatabaseEngines;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Toy;
+import TimsShop.Models.UserModels.Customer;
 import TimsShop.Models.UserModels.Employee;
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,6 +45,7 @@ public class TextFileDatabase implements AbstractDatabase {
             objectOutWrite.writeObject(new ArrayList<Toy>(storage.getToys()));
             objectOutWrite.writeObject(new ArrayList<Category>(storage.getCategories()));
             objectOutWrite.writeObject(new ArrayList<Employee>(storage.getEmployees()));
+            objectOutWrite.writeObject(new ArrayList<Customer>(storage.getCustomers()));
             
             objectOutWrite.close();
             outWrite.close();
@@ -60,6 +62,7 @@ public class TextFileDatabase implements AbstractDatabase {
         ArrayList<Toy> toysList = new ArrayList<>();
         ArrayList<Category> categoriesList = new ArrayList<>();
         ArrayList<Employee> employeeList = new ArrayList<>();
+        ArrayList<Customer> customerList = new ArrayList<>();
          
         try
         {
@@ -69,6 +72,8 @@ public class TextFileDatabase implements AbstractDatabase {
             toysList = (ArrayList) ois.readObject();
             categoriesList = (ArrayList) ois.readObject();
             employeeList  = (ArrayList) ois.readObject();
+            customerList = (ArrayList) ois.readObject();
+            
  
             ois.close();
             fis.close();
@@ -89,6 +94,7 @@ public class TextFileDatabase implements AbstractDatabase {
         storage.setCategories(categoriesList);
         storage.setToys(toysList);
         storage.setEmployees(employeeList);
+        storage.setCustomers(customerList);
          
         //Verify list data
         for (Toy toy : toysList) {

@@ -1,24 +1,37 @@
 
 package TimsShop.Models.UserModels;
 
+import java.io.Serializable;
 
-public abstract class User 
+
+public abstract class User implements Serializable
 {
     
-    private String firstName;
-    private String lastName;
-    private String email;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+    protected final long userID;
+    static int customerCount = 0;
 
+
+    
     public User(String firstName, String lastName, String email) 
     {
+        customerCount++;
+        this.userID = customerCount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
-
+    /****************GETTERS**********************/
     public String getFirstName() 
     {
         return firstName;
+    }
+
+    public long getUserID()
+    {
+        return userID;
     }
 
     public String getLastName() 
@@ -30,7 +43,8 @@ public abstract class User
     {
         return email;
     }
-
+    
+   /****************SETTERS**********************/
     public void setFirstName(String firstName) 
     {
         this.firstName = firstName;
@@ -60,7 +74,7 @@ public abstract class User
     {
         return false;
     }
-    
+
     
     
     

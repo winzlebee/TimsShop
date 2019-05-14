@@ -1,0 +1,101 @@
+package TimsShop.Models.UserModels;
+
+import TimsShop.Models.ItemModels.Category;
+import java.util.ArrayList;
+
+
+
+
+public class Customer extends User
+{
+    private String dateOfJoining;
+    private long phoneNum;
+    float storeCredit;
+    boolean isMember;
+    private ArrayList<String> interests;
+
+
+    public Customer(String firstName, String lastName, String email, long phoneNum, String dateOfJoining,  float storeCredit, boolean isMember, ArrayList<String> interests)
+    {
+        super(firstName, lastName, email);
+        this.phoneNum = phoneNum;
+        this.storeCredit = storeCredit;
+        this.isMember = isMember;
+        this.interests = new ArrayList<>(interests);
+    }
+    
+    /************************GETTERS************************/
+    public long getPhoneNum()
+    {
+        return phoneNum;
+    }
+
+    public String getDateOfJoining()
+    {
+        return dateOfJoining;
+    }
+
+    public float getStoreCredit()
+    {
+        return storeCredit;
+    }
+
+    public boolean isMember()
+    {
+        return isMember;
+    }
+    
+    public ArrayList<String> getInterests()
+    {
+        return interests;
+    }
+    
+    public String interestsToString()
+    {
+        String str="";
+        for(String s: interests)
+        {
+            str += s +", ";
+        }
+        return str;
+    }
+ 
+    /******************SETTERS********************************/
+
+    public void setDateOfJoining(String dateOfJoining)
+    {
+        this.dateOfJoining = dateOfJoining;
+    }
+
+    public void setStoreCredit(float storeCredit)
+    {
+        this.storeCredit = storeCredit;
+    }
+
+    public void setIsMember(boolean isMember)
+    {
+        this.isMember = isMember;
+    }
+    
+/*
+    private void addInterest(Stri c)
+    {
+        interests.add(c);
+    }
+    
+    private boolean removeInterest(Long cID)
+    {
+       return interests.removeIf(category -> category == cID);
+           
+    }
+*/
+    
+
+    
+    
+  
+    
+    
+    
+    
+}

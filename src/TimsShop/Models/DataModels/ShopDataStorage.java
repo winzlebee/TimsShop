@@ -9,6 +9,7 @@ import DatabaseEngines.AbstractDatabase;
 import DatabaseEngines.TextFileDatabase;
 import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Toy;
+import TimsShop.Models.UserModels.Customer;
 import TimsShop.Models.UserModels.Employee;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -22,6 +23,7 @@ public class ShopDataStorage {
     private ObservableList<Toy> toys;
     private ObservableList<Category> categories;
     private ObservableList<Employee> employees;
+    private ObservableList<Customer> customers;
     
     private AbstractDatabase storageEngine;
     
@@ -37,6 +39,7 @@ public class ShopDataStorage {
         toys = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList();
         employees = FXCollections.observableArrayList();
+        customers = FXCollections.observableArrayList();
     }
     
     private long getLastToyId() {
@@ -77,6 +80,22 @@ public class ShopDataStorage {
         employees.add(emp);
     }
     
+    public void addCustomer(String firstName, String lastName, String email, long phoneNum, String dateOfJoining,  float storeCredit, boolean isMember, ArrayList<Long> interests)
+    {
+        ArrayList<String> iList = new ArrayList<>();
+        
+        for(Long l: interests)
+        {
+            iList.add(getCategoryById(l).getName());
+        }
+        
+        customers.add(new Customer(firstName, lastName, email, phoneNum, dateOfJoining, storeCredit, isMember, iList));
+    }
+
+    
+    
+    /*************************GETTERS************************************/
+     /////////////////////////////////////////////////////////////////////
     public ObservableList<Toy> getToys() {
         return toys;
     }
@@ -88,6 +107,18 @@ public class ShopDataStorage {
     public ObservableList<Employee> getEmployees()
     {
         return employees;
+    }
+    
+    public ObservableList<Customer> getCustomers()
+    {
+        return customers;
+    }
+    
+    /*************************SETTERS************************************/
+    /////////////////////////////////////////////////////////////////////
+    public void setCustomers(ArrayList<Customer> newCustomers)
+    {
+        this.customers = FXCollections.observableArrayList(newCustomers);
     }
     
     public void setToys(ArrayList<Toy> newToys) {
