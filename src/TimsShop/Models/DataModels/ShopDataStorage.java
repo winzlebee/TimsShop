@@ -51,6 +51,12 @@ public class ShopDataStorage {
         return categories.isEmpty() ? 0 : categories.get(categories.size()-1).getID();
     }
     
+    private long getLastCustomerId()
+    {
+        return customers.isEmpty() ? 0 : customers.get(customers.size()-1).getUserID();
+    }
+
+    
     public void write() {
         // Write the data storage to the specified storage engine
         storageEngine.writeDataStorage(this);
@@ -82,14 +88,18 @@ public class ShopDataStorage {
     
     public void addCustomer(String firstName, String lastName, String email, long phoneNum, String dateOfJoining,  float storeCredit, boolean isMember, ArrayList<Long> interests)
     {
-        ArrayList<String> iList = new ArrayList<>();
+        ArrayList<String> iList = null;
         
-        for(Long l: interests)
-        {
-            iList.add(getCategoryById(l).getName());
+        if(interests != null)
+        { 
+            iList = new ArrayList<>();
+            for(Long l: interests)
+            {
+                iList.add(getCategoryById(l).getName());
+            }
         }
-        
-        customers.add(new Customer(firstName, lastName, email, phoneNum, dateOfJoining, storeCredit, isMember, iList));
+       
+        customers.add(new Customer(getLastCustomerId() + 1 ,firstName, lastName, email, phoneNum, dateOfJoining, storeCredit, isMember, iList));
     }
 
     

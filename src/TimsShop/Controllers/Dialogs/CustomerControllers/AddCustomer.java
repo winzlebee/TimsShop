@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TimsShop.Controllers.Dialogs;
+package TimsShop.Controllers.Dialogs.CustomerControllers;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;

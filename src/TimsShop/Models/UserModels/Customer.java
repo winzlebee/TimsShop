@@ -15,9 +15,9 @@ public class Customer extends User
     private ArrayList<String> interests;
 
 
-    public Customer(String firstName, String lastName, String email, long phoneNum, String dateOfJoining,  float storeCredit, boolean isMember, ArrayList<String> interests)
+    public Customer(long uID ,String firstName, String lastName, String email, long phoneNum, String dateOfJoining,  float storeCredit, boolean isMember, ArrayList<String> interests)
     {
-        super(firstName, lastName, email);
+        super(uID,firstName, lastName, email);
         this.phoneNum = phoneNum;
         this.storeCredit = storeCredit;
         this.isMember = isMember;
@@ -53,10 +53,15 @@ public class Customer extends User
     public String interestsToString()
     {
         String str="";
-        for(String s: interests)
+        if(interests != null)
         {
-            str += s +", ";
+           
+            for(String s: interests)
+            {
+                str += s +", ";
+            }
         }
+     
         return str;
     }
  
@@ -77,6 +82,8 @@ public class Customer extends User
         this.isMember = isMember;
     }
     
+    
+    
 /*
     private void addInterest(Stri c)
     {
@@ -89,6 +96,11 @@ public class Customer extends User
            
     }
 */
+
+    public void setPhoneNum(long phoneNum)
+    {
+        this.phoneNum = phoneNum;
+    }
     
 
     

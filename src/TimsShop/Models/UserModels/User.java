@@ -11,14 +11,12 @@ public abstract class User implements Serializable
     protected String lastName;
     protected String email;
     protected final long userID;
-    static int customerCount = 0;
 
 
     
-    public User(String firstName, String lastName, String email) 
+    public User(long uID, String firstName, String lastName, String email) 
     {
-        customerCount++;
-        this.userID = customerCount;
+        this.userID = uID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

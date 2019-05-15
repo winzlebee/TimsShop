@@ -5,7 +5,7 @@ import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Controllers.Dialogs.AddCategoryDialog;
 import TimsShop.Controllers.Dialogs.AddToyDialog;
-import TimsShop.Controllers.Dialogs.CustomerDialog;
+import TimsShop.Controllers.Dialogs.CustomerControllers.CustomerDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

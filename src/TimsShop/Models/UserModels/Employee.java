@@ -7,9 +7,9 @@ public class Employee extends User
     private int loginPin;
     private long employeeNum;
     
-    public Employee(String firstName, String lastName, String email, int loginPin, long employeeNum)
+    public Employee(long uID, String firstName, String lastName, String email, int loginPin, long employeeNum)
     {
-        super(firstName, lastName, email);
+        super(uID ,firstName, lastName, email);
         this.loginPin = loginPin;
         this.employeeNum = employeeNum;
     }

@@ -1,8 +1,7 @@
 
-package TimsShop.Controllers.Dialogs;
+package TimsShop.Controllers.Dialogs.CustomerControllers;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
-import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.UserModels.Customer;
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +23,8 @@ import javafx.stage.Stage;
 
 public class CustomerDialog implements Initializable
 {
-
+    /******************************CLASS FIELDS******************************/
+    //////////////////////////////////////////////////////////////////////////
     @FXML
     private TextField searchBar;
     @FXML
@@ -33,6 +33,8 @@ public class CustomerDialog implements Initializable
     private Button modifyButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private TextField customerSelected;
     @FXML
     private TableView customerTable;
     
@@ -45,30 +47,34 @@ public class CustomerDialog implements Initializable
     private TableColumn<Customer, Float> creditCol;
     private TableColumn<Customer, Boolean> memberCol;
     private TableColumn<Customer, String> interestsCol;
-
     
-    
-    
-    
-    
-
+    private int selectedCol;
     private ShopDataStorage storage;
+    @FXML
+    private Button refreshButton;
+    /******************************INITIALIZATIONS******************************/
+    //////////////////////////////////////////////////////////////////////////
     @Override
     public void initialize(URL location, ResourceBundle resources)
-    {
-
-       setTableHeader();
-       setTableData();
+    {   
+        setTableHeader();
+        setTableData();
+        toggleButtonEnable(false);
+        customerTable.getSelectionModel().selectedIndexProperty().addListener(obs -> handleSelectedItem());
     }
-    
-
-    
+    /**********************************************************
+     * Sets the shop instance that is passed in from the main
+     * @param storage - the current storage instance
+     * containing shop data
+     **********************************************************/
     public void setStorage(ShopDataStorage storage)
     {
         this.storage = storage;
         customerTable.setItems(storage.getCustomers());
     }
     
+    /*************************TABLE INITIALIZATION****************************/
+    //////////////////////////////////////////////////////////////////////////
     private void setTableHeader()
     {
         idCol = new TableColumn<>("Id");
@@ -80,7 +86,6 @@ public class CustomerDialog implements Initializable
         memberCol = new TableColumn<>("Member");
         interestsCol = new TableColumn<>("Interests");
     }
-    
     private void setTableData()
     {
         idCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getUserID()));
@@ -91,20 +96,17 @@ public class CustomerDialog implements Initializable
         creditCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getStoreCredit()));
         memberCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().isMember()));
         interestsCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().interestsToString()));
-        
-        
-        
-        
         customerTable.getColumns().addAll(idCol, lastNameCol, firstNameCol, emailCol, 
                                             phoneCol, creditCol, memberCol, interestsCol);
     }
     
-    
-    @FXML
-    private void searchBarHandler(KeyEvent event)
-    {
-    }
-
+    /*************************EVENT LISTENERS*********************************/
+    //////////////////////////////////////////////////////////////////////////
+   
+    /********************************************************************
+    * handles the loading of add customer dialog
+    * IOException - FXML couldn't be found at path/couldn't be loaded
+    *******************************************************************/ 
     @FXML
     private void addHandler(MouseEvent event) throws IOException
     {
@@ -121,14 +123,59 @@ public class CustomerDialog implements Initializable
     }
 
     @FXML
-    private void modifyHandler(MouseEvent event)
+    private void modifyHandler(MouseEvent event) throws IOException
     {
+        Stage stage = new Stage();
+        FXMLLoader modifyCustomerLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/ModifyCustomerDialog.fxml"));
+        Parent modifyCustomerDialog = modifyCustomerLoader.load();
+        ModifyCustomer dialog = modifyCustomerLoader.<ModifyCustomer>getController();
+        
+        dialog.setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem());
+        
+        Scene scene = new Scene(modifyCustomerDialog);
+        stage.setScene(scene);
+        stage.show();
+        
     }
 
     @FXML
     private void deleteHandler(MouseEvent event)
     {
     }
+
+    @FXML
+    private void searchBarHandler(KeyEvent event)
+    {
+    }
+
     
+    /********************************************************************
+     * Sets the selected item of the table to the global value of the class 
+     * Toggles modify/delete buttons to be enabled
+     *******************************************************************/ 
+    private void handleSelectedItem()
+    {
+        selectedCol = customerTable.getSelectionModel().selectedIndexProperty().get();
+        customerSelected.setText(lastNameCol.getCellData(selectedCol) + " " + firstNameCol.getCellData(selectedCol).charAt(0)+".");
+        toggleButtonEnable(true);
+    }
     
+    /****************************************************** 
+    * Toggles modify/delete buttons to be enabled/disabled
+    ******************************************************/ 
+    private void toggleButtonEnable(boolean value)
+    {
+        modifyButton.setDisable(!value);
+        deleteButton.setDisable(!value);
+    }
+    
+    /*****************************************
+     * Reloads Data after a modification 
+     ***************************************/
+    @FXML
+    private void refreshHandler(MouseEvent event)
+    {
+        customerTable.refresh();
+    }
+  
 }
