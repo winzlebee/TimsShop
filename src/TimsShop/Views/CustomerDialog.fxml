@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,13 +13,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="543.0" prefWidth="852.0" style="-fx-background-color: #ddd2d2;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Controllers.Dialogs.CustomerControllers.CustomerDialog">
    <children>
-      <GridPane layoutX="14.0" layoutY="7.0" prefHeight="485.0" prefWidth="812.0">
+      <GridPane layoutX="14.0" layoutY="14.0" prefHeight="485.0" prefWidth="812.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="810.0" minWidth="10.0" prefWidth="795.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="370.0" minHeight="10.0" prefHeight="370.0" vgrow="SOMETIMES" />
          </rowConstraints>
@@ -27,8 +27,8 @@
             <GridPane GridPane.rowIndex="2">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="430.0" minWidth="10.0" prefWidth="406.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="139.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="304.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="129.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="288.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -49,8 +49,8 @@
                         <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addHandler" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #64d66e;" text="Add" />
                      </children>
                   </GridPane>
-                  <TextField fx:id="customerSelected" disable="true" prefHeight="32.0" prefWidth="291.0" GridPane.columnIndex="2" />
-                  <Label alignment="CENTER" prefHeight="46.0" prefWidth="118.0" text="Selected:" GridPane.columnIndex="1">
+                  <TextField fx:id="customerSelected" disable="true" prefHeight="32.0" prefWidth="263.0" GridPane.columnIndex="2" />
+                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="120.0" text="Selected:" GridPane.columnIndex="1">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -63,42 +63,34 @@
                </font>
             </Label>
             <TableView fx:id="customerTable" prefHeight="404.0" prefWidth="829.0" GridPane.rowIndex="3" />
-            <GridPane GridPane.rowIndex="1">
+            <GridPane prefHeight="57.0" prefWidth="810.0" GridPane.rowIndex="1">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="524.0" minWidth="10.0" prefWidth="395.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" prefWidth="415.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="524.0" minWidth="10.0" prefWidth="402.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="524.0" minWidth="10.0" prefWidth="408.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="searchBar" alignment="TOP_LEFT" onKeyReleased="#searchBarHandler" prefHeight="41.0" prefWidth="290.0" promptText="Search Customer" />
-                  <GridPane GridPane.columnIndex="1">
+                  <TextField fx:id="searchBar" alignment="TOP_LEFT" onKeyReleased="#searchBarHandler" prefHeight="34.0" prefWidth="403.0" promptText="Search Customer" GridPane.rowIndex="4" />
+                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.0" minWidth="10.0" prefWidth="21.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="112.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="86.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="195.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="4.0" prefWidth="5.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="131.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="279.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <CheckBox alignment="CENTER" mnemonicParsing="false" text="Last Name" GridPane.columnIndex="1" />
-                        <CheckBox alignment="CENTER" mnemonicParsing="false" text="Email" GridPane.columnIndex="2" />
-                        <CheckBox alignment="CENTER" mnemonicParsing="false" text="ID" GridPane.columnIndex="3" />
+                        <ChoiceBox fx:id="filterChoice" prefHeight="34.0" prefWidth="102.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>
-            </GridPane>
-            <GridPane>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="699.0" minWidth="10.0" prefWidth="677.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="133.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
             </GridPane>
          </children>
       </GridPane>

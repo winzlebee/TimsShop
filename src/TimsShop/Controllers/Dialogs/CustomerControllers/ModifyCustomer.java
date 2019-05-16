@@ -36,6 +36,7 @@ public class ModifyCustomer implements Initializable
     private Label errMsgLabel;
     
     private Customer customer;
+    private CallBackEvt tableRefreshCallBack;
     
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -44,9 +45,10 @@ public class ModifyCustomer implements Initializable
         
     }
     
-    public void setCustomer(Customer customer)
+    public void setCustomer(Customer customer, CallBackEvt callBack)
     {
         this.customer = customer;
+        tableRefreshCallBack = callBack;
         setFields();
     }
     
@@ -73,6 +75,7 @@ public class ModifyCustomer implements Initializable
         customer.setLastName(lName.getText());
         customer.setEmail(email.getText());
         customer.setPhoneNum(Long.parseLong(phoneNum.getText()));
+        tableRefreshCallBack.callBack();
        // customer.setFirstName(fName.getText());
         //customer.setFirstName(fName.getText());
     }

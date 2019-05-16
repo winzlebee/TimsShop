@@ -2,17 +2,28 @@
 package TimsShop.Controllers.Dialogs.CustomerControllers;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
+import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Models.UserModels.Customer;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -37,8 +48,12 @@ public class CustomerDialog implements Initializable
     private TextField customerSelected;
     @FXML
     private TableView customerTable;
+    @FXML
+    private Button refreshButton;
+    @FXML
+    private ChoiceBox filterChoice;
     
-      //Table Components
+    //Table Components
     private TableColumn<Customer, Long> idCol;
     private TableColumn<Customer, String> lastNameCol;
     private TableColumn<Customer, String> firstNameCol;
@@ -50,16 +65,19 @@ public class CustomerDialog implements Initializable
     
     private int selectedCol;
     private ShopDataStorage storage;
-    @FXML
-    private Button refreshButton;
+    private Alert deleteAlert;
+    
     /******************************INITIALIZATIONS******************************/
     //////////////////////////////////////////////////////////////////////////
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {   
+        initPopups();
+        initSearchChoices();
         setTableHeader();
         setTableData();
         toggleButtonEnable(false);
+        
         customerTable.getSelectionModel().selectedIndexProperty().addListener(obs -> handleSelectedItem());
     }
     /**********************************************************
@@ -73,6 +91,20 @@ public class CustomerDialog implements Initializable
         customerTable.setItems(storage.getCustomers());
     }
     
+    private void initPopups()
+    {
+        deleteAlert = new Alert(AlertType.CONFIRMATION);
+        deleteAlert.setContentText("WARNING: Deleting Customer Record in Progress");
+        deleteAlert.setTitle("Comfirmation Dialog");
+        deleteAlert.setHeaderText("Are you sure you want to delete " + customerSelected.getText() + "? ");
+    }
+    private void initSearchChoices()
+    {
+        filterChoice.setItems(FXCollections.observableArrayList("Last Name", "Email", "ID"));
+        filterChoice.getSelectionModel().selectFirst();
+    }
+
+
     /*************************TABLE INITIALIZATION****************************/
     //////////////////////////////////////////////////////////////////////////
     private void setTableHeader()
@@ -129,8 +161,8 @@ public class CustomerDialog implements Initializable
         FXMLLoader modifyCustomerLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/ModifyCustomerDialog.fxml"));
         Parent modifyCustomerDialog = modifyCustomerLoader.load();
         ModifyCustomer dialog = modifyCustomerLoader.<ModifyCustomer>getController();
-        
-        dialog.setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem());
+        //sets the storage and call back function to refersh the table upon modification
+        dialog.setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem(), () -> customerTable.refresh());
         
         Scene scene = new Scene(modifyCustomerDialog);
         stage.setScene(scene);
@@ -141,11 +173,64 @@ public class CustomerDialog implements Initializable
     @FXML
     private void deleteHandler(MouseEvent event)
     {
+       
+        ButtonType deleteButton = new ButtonType("Delete");
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        deleteAlert.getButtonTypes().setAll(deleteButton, cancelButton);
+        Optional<ButtonType> result =  deleteAlert.showAndWait();
+         
+         if(result.get() == deleteButton)
+         {
+             deleteCustomer();
+         } 
     }
+    
+    /******************************************
+     * Deletes Customer from shop data
+     *******************************************/
+    private void deleteCustomer()
+    {
+        storage.getCustomers().remove((Customer)customerTable.getSelectionModel().getSelectedItem());
+    }
+    
 
     @FXML
     private void searchBarHandler(KeyEvent event)
     {
+        Predicate<? super Customer> predicate; 
+        //Add Data to list based on filter
+        FilteredList<Customer> filteredData = new FilteredList<>(storage.getCustomers(),  e -> true);
+        //Listener compares table data to  string value entered by user in search bar
+        searchBar.textProperty().addListener((observableValue, oldValue, newValue) -> 
+        {   
+            filteredData.setPredicate( getSearchPredicate(newValue));
+            SortedList<Customer> sortedData = new SortedList<>(filteredData); //Sort the filtered list based on insertion order, then bind the list to the table
+            sortedData.comparatorProperty().bind(customerTable.comparatorProperty());
+            customerTable.setItems(sortedData);
+        }); 
+    }
+    
+    private Predicate<? super Customer> getSearchPredicate(String value)
+    {
+        //if search field is empty, all customers are included in the filtered list
+        if(searchBar.getText().isEmpty() || searchBar.getText().equals("".trim()))
+        {
+            return customer  ->  true;
+        }
+        //Check the set value of the choice box, and return the appropriate predicate
+        if(((String)filterChoice.getValue()).equals("Last Name"))
+        {
+            return customer -> customer.getLastName().toLowerCase().contains(value.toLowerCase());
+        }
+        else if(((String)filterChoice.getValue()).equals("Email"))
+        {
+            return customer -> customer.getEmail().toLowerCase().contains(value.toLowerCase());
+        }
+        else if(((String)filterChoice.getValue()).equals("ID"))
+        {
+            return customer -> customer.getUserID() == Long.parseLong(value);
+        }    
+        return null;
     }
 
     
