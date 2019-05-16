@@ -104,7 +104,6 @@ public class CustomerDialog implements Initializable
         filterChoice.getSelectionModel().selectFirst();
     }
 
-
     /*************************TABLE INITIALIZATION****************************/
     //////////////////////////////////////////////////////////////////////////
     private void setTableHeader()
@@ -134,7 +133,6 @@ public class CustomerDialog implements Initializable
     
     /*************************EVENT LISTENERS*********************************/
     //////////////////////////////////////////////////////////////////////////
-   
     /********************************************************************
     * handles the loading of add customer dialog
     * IOException - FXML couldn't be found at path/couldn't be loaded
@@ -146,9 +144,8 @@ public class CustomerDialog implements Initializable
         FXMLLoader addCustomerLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/AddCustomerDialog.fxml"));
         Parent addCustomerDialog = addCustomerLoader.load();
         AddCustomer dialog = addCustomerLoader.<AddCustomer>getController();
-        
+        //Set storage for AddCustomer 
         dialog.setStorage(storage);
-        
         Scene scene = new Scene(addCustomerDialog);
         stage.setScene(scene);
         stage.show();
@@ -161,30 +158,28 @@ public class CustomerDialog implements Initializable
         FXMLLoader modifyCustomerLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/ModifyCustomerDialog.fxml"));
         Parent modifyCustomerDialog = modifyCustomerLoader.load();
         ModifyCustomer dialog = modifyCustomerLoader.<ModifyCustomer>getController();
+        
         //sets the storage and call back function to refersh the table upon modification
         dialog.setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem(), () -> customerTable.refresh());
-        
         Scene scene = new Scene(modifyCustomerDialog);
         stage.setScene(scene);
         stage.show();
-        
     }
 
     @FXML
     private void deleteHandler(MouseEvent event)
     {
-       
         ButtonType deleteButton = new ButtonType("Delete");
         ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
         deleteAlert.getButtonTypes().setAll(deleteButton, cancelButton);
         Optional<ButtonType> result =  deleteAlert.showAndWait();
-         
+         //Delete button on comfirmation prompt is clicked
          if(result.get() == deleteButton)
          {
              deleteCustomer();
          } 
     }
-    
+
     /******************************************
      * Deletes Customer from shop data
      *******************************************/
@@ -192,17 +187,14 @@ public class CustomerDialog implements Initializable
     {
         storage.getCustomers().remove((Customer)customerTable.getSelectionModel().getSelectedItem());
     }
-    
-
     @FXML
     private void searchBarHandler(KeyEvent event)
     {
-        Predicate<? super Customer> predicate; 
         //Add Data to list based on filter
         FilteredList<Customer> filteredData = new FilteredList<>(storage.getCustomers(),  e -> true);
         //Listener compares table data to  string value entered by user in search bar
         searchBar.textProperty().addListener((observableValue, oldValue, newValue) -> 
-        {   
+        {   //gets the desired predicate based on selected field in choicebox
             filteredData.setPredicate( getSearchPredicate(newValue));
             SortedList<Customer> sortedData = new SortedList<>(filteredData); //Sort the filtered list based on insertion order, then bind the list to the table
             sortedData.comparatorProperty().bind(customerTable.comparatorProperty());
@@ -213,13 +205,11 @@ public class CustomerDialog implements Initializable
     private Predicate<? super Customer> getSearchPredicate(String value)
     {
         //if search field is empty, all customers are included in the filtered list
-        if(searchBar.getText().isEmpty() || searchBar.getText().equals("".trim()))
-        {
+        if(searchBar.getText().isEmpty() || searchBar.getText().equals("".trim())){
             return customer  ->  true;
         }
         //Check the set value of the choice box, and return the appropriate predicate
-        if(((String)filterChoice.getValue()).equals("Last Name"))
-        {
+        if(((String)filterChoice.getValue()).equals("Last Name")){
             return customer -> customer.getLastName().toLowerCase().contains(value.toLowerCase());
         }
         else if(((String)filterChoice.getValue()).equals("Email"))
@@ -233,7 +223,6 @@ public class CustomerDialog implements Initializable
         return null;
     }
 
-    
     /********************************************************************
      * Sets the selected item of the table to the global value of the class 
      * Toggles modify/delete buttons to be enabled
@@ -262,5 +251,4 @@ public class CustomerDialog implements Initializable
     {
         customerTable.refresh();
     }
-  
 }
