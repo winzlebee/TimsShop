@@ -1,5 +1,7 @@
 
 package TimsShop;
+import TimsShop.Controllers.ViewLoader;
+import TimsShop.Controllers.Views;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,12 +31,9 @@ public class Main extends Application  // Application class serves as the Entry 
       ************************************************************************/
     @Override
     public void start(Stage primaryStage) throws Exception 
-    {   //Load xml document
-        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/Views/EmployeeLoginView.fxml"));
-        Scene scene = new Scene(root);
-        
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    {           
+        ViewLoader.getInstance().load(Views.LOGIN);
+        ViewLoader.getInstance().show(Views.LOGIN);
     }
     
     /**

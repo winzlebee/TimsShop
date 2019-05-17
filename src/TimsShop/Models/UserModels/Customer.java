@@ -21,6 +21,7 @@ public class Customer extends User
         this.phoneNum = phoneNum;
         this.storeCredit = storeCredit;
         this.isMember = isMember;
+        this.dateOfJoining = dateOfJoining;
         this.interests = new ArrayList<>(interests);
     }
     

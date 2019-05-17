@@ -2,7 +2,6 @@
 package TimsShop.Controllers.Dialogs.CustomerControllers;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
-import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Models.UserModels.Customer;
 import java.io.IOException;
 import java.net.URL;
@@ -61,6 +60,7 @@ public class CustomerDialog implements Initializable
     private TableColumn<Customer, Long> phoneCol;
     private TableColumn<Customer, Float> creditCol;
     private TableColumn<Customer, Boolean> memberCol;
+    private TableColumn<Customer, String> dateCol;
     private TableColumn<Customer, String> interestsCol;
     
     private int selectedCol;
@@ -116,6 +116,7 @@ public class CustomerDialog implements Initializable
         creditCol = new TableColumn<>("Store Credit ");
         memberCol = new TableColumn<>("Member");
         interestsCol = new TableColumn<>("Interests");
+        dateCol = new TableColumn<>("Date Joined");
     }
     private void setTableData()
     {
@@ -127,8 +128,9 @@ public class CustomerDialog implements Initializable
         creditCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getStoreCredit()));
         memberCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().isMember()));
         interestsCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().interestsToString()));
+        dateCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getDateOfJoining()));
         customerTable.getColumns().addAll(idCol, lastNameCol, firstNameCol, emailCol, 
-                                            phoneCol, creditCol, memberCol, interestsCol);
+                                            phoneCol, creditCol, memberCol, interestsCol, dateCol);
     }
     
     /*************************EVENT LISTENERS*********************************/
