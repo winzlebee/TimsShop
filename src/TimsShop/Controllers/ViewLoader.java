@@ -25,17 +25,20 @@ public class ViewLoader
             {
                 INSTANCE = new ViewLoader();
                 INSTANCE.stageMap = new HashMap<>();
+                INSTANCE.controllerMap = new HashMap<>();
                 //Add the view key to the map, and set the default value of all to nll
                 for(Views views: Views.values())
                 {
+                    INSTANCE.stageMap.put(views.getKey(), null);
                     INSTANCE.stageMap.put(views.getKey(), null);
                 }
             }      
             return INSTANCE;
         }
-    
     }
+    //Maps the stages and controllers of the system to the string key value
     private HashMap<String, Stage> stageMap;
+    private HashMap<String, FXMLLoader> controllerMap;
     
     
     private ViewLoader(){}
@@ -51,10 +54,13 @@ public class ViewLoader
         if(stageMap.get(view.getKey()) == null)
         {   
             Parent root = null;
+            FXMLLoader loader = null;
             Stage stage = new Stage();
             try
             {   //Attempt to load FXML from Views directory
-                root = FXMLLoader.load(getClass().getResource(view.getPath()));
+                loader = new FXMLLoader(getClass().getResource(view.getPath()));
+                root = loader.load();
+            
             } catch (IOException ex)
             {
                 Logger.getLogger(ViewLoader.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,17 +69,55 @@ public class ViewLoader
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stageMap.put(view.getKey(), stage);
+            controllerMap.put(view.getKey(), loader);
         }
     }
-        
-    public  void show(Views view)
+    /******************************************************************
+     * Renders the view to the screen.
+     * @param view  enum representing the view intended to be rendered
+     **********************************************************************/    
+    public void show(Views view)
     {
         if(stageMap.get(view.getKey()) != null)
         {
             stageMap.get(view.getKey()).show();
         }
     }
-    
+    /******************************************************************
+     * @param view
+     * @return whether a successful close operation was executed
+     *****************************************************************/
+    public boolean close(Views view)
+    {
+        if(stageMap.get(view.getKey()) != null  && stageMap.get(view.getKey()).isShowing())
+        {
+            stageMap.get(view.getKey()).close();
+            stageMap.remove(view.getKey());
+            controllerMap.remove(view.getKey());
+            return true;
+        }
+        return false;
+    }
+    /**********************************************
+     * @param view 
+     * @return the stage mapped to the key
+     *********************************************/
+    public Stage getStage(Views view)
+    {
+        return stageMap.get(view.getKey());
+    }
+    /*********************************************************
+     * @param <T> the class type of the Controller.
+       upon calling this, the result 
+       should be casted to the appropriate controller class type
+       controller class type
+     * @param view
+     * @return a view controller.
+     *******************************************************/
+    public <T> T getController(Views view)
+    {
+      return controllerMap.get(view.getKey()).<T>getController();
+    }
     
     
 }

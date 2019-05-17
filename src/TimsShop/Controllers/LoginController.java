@@ -10,22 +10,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /*****************************************************
  * The main view for Employee Login -
  *  Prompts Employees to Enter login pin 
-
  ***************************************************/
 public class LoginController implements Initializable
 {
@@ -53,8 +45,7 @@ public class LoginController implements Initializable
     {
         if(checkLogin())
         {   
-            processLogin(pinField.getText());
-            
+            processLogin(pinField.getText());  
         }
         else
         {   //Shake effect (because why not)
@@ -66,28 +57,16 @@ public class LoginController implements Initializable
     }
     
     private void processLogin(String staffId) throws IOException
-    {       
-            /*********************************
-             TODO:
-              * Report staff member logged in 
-              * Close login stage- DONE
-            **********************************/
-            //Close login stage
-            Stage currentStage = (Stage)lognButton.getScene().getWindow();
-            currentStage.close();
-           
-            //Load Main Stage FXML
-            Stage mainStage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/TimsShop/Views/MainView.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            
-            MainViewController mainView = loader.<MainViewController>getController();
-            mainStage.setScene(scene);
-            mainStage.show();
-            mainStage.setOnCloseRequest((WindowEvent evt) -> {
-                mainView.onClose();
-            });
+    {   //Handle view loading, showing and closing of Login view
+        ViewLoader.getInstance().load(Views.MAIN);
+        ViewLoader.getInstance().show(Views.MAIN);
+        ViewLoader.getInstance().close(Views.LOGIN);
+        //Set on Close Listener
+        MainViewController controller = ViewLoader.getInstance().getController(Views.MAIN);
+        ViewLoader.getInstance().getStage(Views.MAIN).setOnCloseRequest( evt -> controller.onClose()); 
     }
+    
+    
+    //AddToyDialog dialog = toyDialogLoader.<AddToyDialog>getController();
     
 }

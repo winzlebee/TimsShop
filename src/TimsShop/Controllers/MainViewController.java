@@ -124,19 +124,9 @@ public class MainViewController implements  Initializable
      *******************************************************/
     @FXML
     private void addCategoryHandler(MouseEvent evt) throws IOException {
-        FXMLLoader catDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/AddCategoryDialog.fxml"));
-        Parent catDialogRoot = catDialogLoader.load();
-        AddCategoryDialog dialog = catDialogLoader.<AddCategoryDialog>getController();
-        
-        // Set the storage method for the dialog
-        dialog.setStorage(storage);
-        
-        Scene dialogScene = new Scene(catDialogRoot);
-        Stage dialogStage = new Stage();
-        
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.setScene(dialogScene);
-        dialogStage.showAndWait();
+        ViewLoader.getInstance().load(Views.ADD_CATEGORY);
+        ViewLoader.getInstance().show(Views.ADD_CATEGORY); 
+        ((AddCategoryDialog)ViewLoader.getInstance().getController(Views.ADD_CATEGORY)).setStorage(storage);
     }
     
     /********************************************************
@@ -202,16 +192,9 @@ public class MainViewController implements  Initializable
     @FXML
     private void customerButtonHandler(MouseEvent event) throws IOException
     {
-        Stage customerStage = new Stage();
-        FXMLLoader customerDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/CustomerDialog.fxml"));
-        Parent customerDialog = customerDialogLoader.load();
-        CustomerDialog dialog = customerDialogLoader.<CustomerDialog>getController();
-        
-        dialog.setStorage(storage); 
-        
-        Scene scene = new Scene(customerDialog);
-        customerStage.setScene(scene);
-        customerStage.show();  
+        ViewLoader.getInstance().load(Views.CUSTOMER);
+        ViewLoader.getInstance().show(Views.CUSTOMER);
+        ((CustomerDialog)ViewLoader.getInstance().getController(Views.CUSTOMER)).setStorage(storage);
     }
     
     /********************************************************
