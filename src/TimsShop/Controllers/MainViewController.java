@@ -26,7 +26,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -89,7 +88,7 @@ public class MainViewController implements  Initializable
         toyData = storage.getToys();
         toyTable.setItems(toyData);
      }
-  
+
     private void setTableHeaders()
     {
         idCol = new TableColumn<>("Id");
@@ -105,7 +104,6 @@ public class MainViewController implements  Initializable
         categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(storage.getCategoryById(p.getValue().getCategoryId()).getName()));
         toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol);
     }
-
     
     /*******************************EVENT LISTENERS****************************/
     ///////////////////////////////////////////////////////////////////////////
@@ -142,21 +140,12 @@ public class MainViewController implements  Initializable
             a.showAndWait();
             return;
         }
-        
-        // Function to launch the dialog to insert certain items into the database
-        FXMLLoader toyDialogLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/InsertToyDialog.fxml"));
-        Parent toyDialogRoot = toyDialogLoader.load();
-        AddToyDialog dialog = toyDialogLoader.<AddToyDialog>getController();
-        
-        // Set the storage method for the dialog
-        dialog.setStorage(storage);
-        
-        Scene dialogScene = new Scene(toyDialogRoot);
-        Stage dialogStage = new Stage();
-        
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.setScene(dialogScene);
-        dialogStage.showAndWait();
+       
+        //Dispaly Dialog
+        ViewLoader.getInstance().load(Views.ADD_TOY);
+        ViewLoader.getInstance().show(Views.ADD_TOY);
+        ((AddToyDialog)ViewLoader.getInstance().getController(Views.ADD_TOY)).setStorage(storage);  
+           
     }
     
     /********************************************************
@@ -167,21 +156,9 @@ public class MainViewController implements  Initializable
     @FXML
     private void logoutHandler(MouseEvent event) throws IOException
     {
-        /*********************************
-        TODO:
-         * Report staff member logged in 
-         * Close login stage- DONE
-        **********************************/
-        //Close login stage
-        Stage currentStage = (Stage)logoutButton.getScene().getWindow();
-        currentStage.close();
-
-        //Load Main Stage FXML
-        Stage loginStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/TimsShop/Views/EmployeeLoginView.fxml"));
-        Scene scene = new Scene(root);
-        loginStage.setScene(scene);
-        loginStage.show();
+        ViewLoader.getInstance().close(Views.MAIN);
+        ViewLoader.getInstance().load(Views.LOGIN);
+        ViewLoader.getInstance().show(Views.LOGIN);
     }
     
     /********************************************************
@@ -223,10 +200,6 @@ public class MainViewController implements  Initializable
             SortedList<Toy> sortedData = new SortedList<>(filteredData);
             sortedData.comparatorProperty().bind(toyTable.comparatorProperty());
             toyTable.setItems(sortedData);
-        });
-        
+        }); 
     }
-
-    
-    
 }

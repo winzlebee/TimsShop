@@ -1,6 +1,8 @@
 
 package TimsShop.Controllers.Dialogs.CustomerControllers;
 
+import TimsShop.Controllers.ViewLoader;
+import TimsShop.Controllers.Views;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.UserModels.Customer;
 import java.io.IOException;
@@ -13,10 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -28,7 +27,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 
 public class CustomerDialog implements Initializable
@@ -71,13 +69,13 @@ public class CustomerDialog implements Initializable
     //////////////////////////////////////////////////////////////////////////
     @Override
     public void initialize(URL location, ResourceBundle resources)
-    {   
+    {  
         initPopups();
         initSearchChoices();
         setTableHeader();
         setTableData();
         toggleButtonEnable(false);
-        
+        //Event callback to display the selected Customer to the view
         customerTable.getSelectionModel().selectedIndexProperty().addListener(obs -> handleSelectedItem());
     }
     /**********************************************************
@@ -90,7 +88,9 @@ public class CustomerDialog implements Initializable
         this.storage = storage;
         customerTable.setItems(storage.getCustomers());
     }
-    
+    /*******************************************************
+     * Initializes the confirmation dialogs used in the view
+     ********************************************************/
     private void initPopups()
     {
         deleteAlert = new Alert(AlertType.CONFIRMATION);
@@ -142,32 +142,27 @@ public class CustomerDialog implements Initializable
     @FXML
     private void addHandler(MouseEvent event) throws IOException
     {
-        Stage stage = new Stage();
-        FXMLLoader addCustomerLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/AddCustomerDialog.fxml"));
-        Parent addCustomerDialog = addCustomerLoader.load();
-        AddCustomer dialog = addCustomerLoader.<AddCustomer>getController();
-        //Set storage for AddCustomer 
-        dialog.setStorage(storage);
-        Scene scene = new Scene(addCustomerDialog);
-        stage.setScene(scene);
-        stage.show();
+        ViewLoader.getInstance().load(Views.ADD_CUSTOMER);
+        ViewLoader.getInstance().show(Views.ADD_CUSTOMER);
+        ((AddCustomer)ViewLoader.getInstance().getController(Views.ADD_CUSTOMER)).setStorage(storage);
     }
-
+ 
+    /**********************************************************
+     * Displays the dialog to alter Customer records/fields
+     * @param event - on click event
+     **********************************************************/
     @FXML
     private void modifyHandler(MouseEvent event) throws IOException
     {
-        Stage stage = new Stage();
-        FXMLLoader modifyCustomerLoader = new FXMLLoader(getClass().getResource("/TimsShop/Views/ModifyCustomerDialog.fxml"));
-        Parent modifyCustomerDialog = modifyCustomerLoader.load();
-        ModifyCustomer dialog = modifyCustomerLoader.<ModifyCustomer>getController();
-        
-        //sets the storage and call back function to refersh the table upon modification
-        dialog.setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem(), () -> customerTable.refresh());
-        Scene scene = new Scene(modifyCustomerDialog);
-        stage.setScene(scene);
-        stage.show();
+        ViewLoader.getInstance().load(Views.MODIFY_CUSTOMER);
+        ViewLoader.getInstance().show(Views.MODIFY_CUSTOMER); 
+        ((ModifyCustomer) ViewLoader.getInstance().getController(Views.MODIFY_CUSTOMER)).
+        setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem(), () -> customerTable.refresh());
     }
-
+    /*********************************************************
+     * Prompts the user to confirms deletion of a customer record
+     * @param event on click event
+     **********************************************************/
     @FXML
     private void deleteHandler(MouseEvent event)
     {
@@ -189,6 +184,11 @@ public class CustomerDialog implements Initializable
     {
         storage.getCustomers().remove((Customer)customerTable.getSelectionModel().getSelectedItem());
     }
+    
+    /*********************************************************
+     *  Re-populates the table view based on search terms
+     * @param event on key release event
+     **********************************************************/
     @FXML
     private void searchBarHandler(KeyEvent event)
     {
@@ -203,7 +203,10 @@ public class CustomerDialog implements Initializable
             customerTable.setItems(sortedData);
         }); 
     }
-    
+    /*****************************************************************************
+     * @param value the search 
+     * @return the check condition for what customer records filtered list includes
+     *****************************************************************************/
     private Predicate<? super Customer> getSearchPredicate(String value)
     {
         //if search field is empty, all customers are included in the filtered list
@@ -224,7 +227,6 @@ public class CustomerDialog implements Initializable
         }    
         return null;
     }
-
     /********************************************************************
      * Sets the selected item of the table to the global value of the class 
      * Toggles modify/delete buttons to be enabled
@@ -235,7 +237,6 @@ public class CustomerDialog implements Initializable
         customerSelected.setText(lastNameCol.getCellData(selectedCol) + " " + firstNameCol.getCellData(selectedCol).charAt(0)+".");
         toggleButtonEnable(true);
     }
-    
     /****************************************************** 
     * Toggles modify/delete buttons to be enabled/disabled
     ******************************************************/ 
@@ -244,7 +245,6 @@ public class CustomerDialog implements Initializable
         modifyButton.setDisable(!value);
         deleteButton.setDisable(!value);
     }
-    
     /*****************************************
      * Reloads Data after a modification 
      ***************************************/

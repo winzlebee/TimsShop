@@ -38,12 +38,7 @@ public class ModifyCustomer implements Initializable
     private Customer customer;
     private CallBackEvt tableRefreshCallBack;
     
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        
-        
-    }
+ 
     
     public void setCustomer(Customer customer, CallBackEvt callBack)
     {
@@ -58,14 +53,6 @@ public class ModifyCustomer implements Initializable
         lName.setText(customer.getLastName());
         email.setText(customer.getEmail());
         phoneNum.setText(customer.getPhoneNum()+"");
-        interestField.setText(customer.interestsToString());
-   
-    }
-
-    @FXML
-    private void addInterestHandler(MouseEvent event)
-    {
-        
     }
 
     @FXML
@@ -76,10 +63,10 @@ public class ModifyCustomer implements Initializable
         customer.setEmail(email.getText());
         customer.setPhoneNum(Long.parseLong(phoneNum.getText()));
         tableRefreshCallBack.callBack();
-       // customer.setFirstName(fName.getText());
-        //customer.setFirstName(fName.getText());
     }
-    
-    
+    @FXML
+    private void addInterestHandler(MouseEvent event){}
+    @Override
+    public void initialize(URL location, ResourceBundle resources){}
     
 }
