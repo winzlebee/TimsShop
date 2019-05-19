@@ -1,7 +1,9 @@
 
 package TimsShop.Models.ItemModels;
 
+import TimsShop.Models.UserModels.Supplier;
 import java.io.Serializable;
+import java.util.ArrayList;
 /****************************************************
  * This class represents the superclass of the item
     model set. 
@@ -17,15 +19,21 @@ public abstract class Item implements Serializable
     private final long id;
     private String name;
     private float price;
+    private int stockCount;
+    private ArrayList<Long> suppliers;
     
     private long categoryId;
     
-    public Item(long id,String name,float price, long categoryId)
+    public Item(long id, String name, float price, long categoryId, int stockCount, ArrayList<Long> suppliers)
     {
         this.name = name;
         this.id = id;
         this.price=price;
         this.categoryId = categoryId;
+        this.suppliers = new ArrayList<>();
+        this.stockCount = stockCount;
+        this.suppliers = suppliers;
+ 
     }
 
    /********GETTERS**********/
@@ -49,6 +57,17 @@ public abstract class Item implements Serializable
         return categoryId;
     }
 
+    public int getStockCount()
+    {
+        return stockCount;
+    }
+
+    public ArrayList<Long> getSuppliers()
+    {
+        return suppliers;
+    }
+    
+
     /********SETTERS**********/
     public void setPrice(float price) 
     {
@@ -62,6 +81,17 @@ public abstract class Item implements Serializable
     {
         this.categoryId = categoryId;
     }
+    
+    public void addSupplier(Long s)
+    {
+        suppliers.add(s);
+    }
+    public void removeSupplier(Long s)
+    {
+        suppliers.remove(s);
+    }
+    
+    
         
     @Override
     public String toString() {

@@ -1,6 +1,5 @@
 package TimsShop.Models.UserModels;
 
-import TimsShop.Models.ItemModels.Category;
 import java.util.ArrayList;
 
 

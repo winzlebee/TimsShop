@@ -6,6 +6,7 @@ import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Controllers.Dialogs.AddCategoryDialog;
 import TimsShop.Controllers.Dialogs.AddToyDialog;
 import TimsShop.Controllers.Dialogs.CustomerControllers.CustomerDialog;
+import TimsShop.Controllers.Dialogs.SupplierControllers.SupplierView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,18 +16,16 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import javafx.util.Callback;
 
 
 /**************************************************************
@@ -42,8 +41,6 @@ public class MainViewController implements  Initializable
     @FXML
     private TextField searchBar;
     @FXML
-    private Button orderingButton;
-    @FXML
     private Button browseButton;
     @FXML
     private Button insertButton;
@@ -55,12 +52,17 @@ public class MainViewController implements  Initializable
     private Button customerButton; 
     @FXML 
     private TableView toyTable;
+    @FXML
+    private Button supplierButton;
     
     //Table Components
     private TableColumn<Toy, Long> idCol;
     private TableColumn<Toy, String> nameCol;
     private TableColumn<Toy, String> priceCol;
     private TableColumn<Toy, String> categoryCol;
+    private TableColumn<Toy, Integer> qtyCol;
+    
+    
     private ObservableList<Toy> toyData;
   
     //Data storage for the application
@@ -78,6 +80,7 @@ public class MainViewController implements  Initializable
         bindData();
         setTableHeaders();
         setTableData();
+        setColumnCallBacks();
     }
     
     /***********************TABLE INITIALIZATION*******************************/
@@ -95,6 +98,8 @@ public class MainViewController implements  Initializable
         nameCol = new TableColumn<>("Name");
         priceCol = new TableColumn<>("Price");
         categoryCol = new TableColumn<>("Category");
+        qtyCol = new TableColumn<>("In Stock");
+        
     }
     private void setTableData()
     {
@@ -102,9 +107,17 @@ public class MainViewController implements  Initializable
         nameCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));
         priceCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(String.format("$%.2f", p.getValue().getPrice())));
         categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(storage.getCategoryById(p.getValue().getCategoryId()).getName()));
-        toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol);
+        qtyCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getStockCount()));
+        
+        toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol, qtyCol);
     }
     
+    private void setColumnCallBacks()
+    {
+     
+ 
+      
+    }
     /*******************************EVENT LISTENERS****************************/
     ///////////////////////////////////////////////////////////////////////////
     /********************************************************
@@ -161,6 +174,16 @@ public class MainViewController implements  Initializable
         ViewLoader.getInstance().show(Views.LOGIN);
     }
     
+    
+    @FXML
+    private void supplierButtonHandler(MouseEvent event)
+    {
+        ViewLoader.getInstance().load(Views.SUPPLIER);
+        ViewLoader.getInstance().show(Views.SUPPLIER);
+        ((SupplierView)ViewLoader.getInstance().getController(Views.SUPPLIER)).setStorage(storage);
+        
+    }
+    
     /********************************************************
      * Displays customer dialog
      * @param event - on Mouse click event
@@ -202,4 +225,5 @@ public class MainViewController implements  Initializable
             toyTable.setItems(sortedData);
         }); 
     }
+
 }

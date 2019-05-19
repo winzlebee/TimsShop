@@ -11,6 +11,7 @@ import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Models.UserModels.Customer;
 import TimsShop.Models.UserModels.Employee;
+import TimsShop.Models.UserModels.Supplier;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ public class ShopDataStorage {
     private ObservableList<Category> categories;
     private ObservableList<Employee> employees;
     private ObservableList<Customer> customers;
+    private ObservableList<Supplier> suppliers;
     
     private AbstractDatabase storageEngine;
     
@@ -35,55 +37,128 @@ public class ShopDataStorage {
             return;
         }
         
+     
+        
         // If there's no data storage in place, we're going to initialize our observables as empty lists.
         toys = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList();
         employees = FXCollections.observableArrayList();
         customers = FXCollections.observableArrayList();
+        suppliers = FXCollections.observableArrayList();
+        
+        //TEST----------------------------------------------------
+        LOAD_TEST_DATA();
+        
+    }
+    /////////////////////////////////////////////////////////////
+    /********************TEST DATA *****************************/
+    //////////////////////////////////////////////////////////////
+    
+    public void LOAD_TEST_DATA()
+    {
+        categories.add(new Category(1, "Locomotives", null));
+        categories.add(new Category(2, "WWI Aircraft", null));
+        categories.add(new Category(3, "WWII Aircraft", null));
+        categories.add(new Category(4, "Cruise Liners", null));
+        categories.add(new Category(5, "WWI Heavy Artillery", null));
+        categories.add(new Category(6, "Sports Cars", null));
+        categories.add(new Category(7, "Science Fiction", null));
+        
+        suppliers.add(new Supplier(1, "Loco-Moco Pty. Ltd.", "12 Downing St ", "Phillip Ambrose", 0432526));
+        suppliers.add(new Supplier(1, "C4Lyfe.", "16 May Ave", "Danuek Kreepa", 04325236));
+        suppliers.add(new Supplier(1, "Crowd Model.", "9 Reagent St ", "Henrieeta Clarenace", 04325236));
+        suppliers.add(new Supplier(1, "Mad-House", "305 Baker Crsnt", "Alfred Connie", 0432526));
+        suppliers.add(new Supplier(1, "Superb Supplier.", "128 Downing Street ", "Regenald Rowey", 0432526));
+  
+        
+        toys.add(new Toy(1, "Loco-Master-Pro", 82, 1, 5, null, "") );
+        toys.add(new Toy(2, "DoodleBug", 62, 3, 1, null, "") );
+        toys.add(new Toy(3, "Aircraft Carrier", 82, 4, 6, null, "") );
+        toys.add(new Toy(4, "Fast Car V1", 82, 6, 5, null, "") );
+        toys.add(new Toy(5, "SS Enterprise", 182, 7, 5, null, "") );
+        toys.add(new Toy(6, "SS Discovery", 125, 7, 5, null, "") );
+        toys.add(new Toy(7, "VI Tank", 195,5, 5, null, "") );
+        toys.add(new Toy(8, "VII Tank", 150 ,5, 5, null, "") );
+        toys.add(new Toy(9, "MX5 Deluxe Edition", 200, 6, 5, null, "") );
+        toys.add(new Toy(10, "Steam liner", 1100,1, 5, null, "") );
+        
+        
+        ArrayList<String> iList = new ArrayList<>();
+        iList.add("Locomotives");
+        iList.add("Science Fiction");
+        iList.add("WWII Aircraft");
+         
+        customers.add(new Customer(1 ,"Norman", "Bates", "nBato1950@aapt.net.au", 04672526, "19/05/2019", 0, true, iList));
+        customers.add(new Customer(2 ,"Alfred", "Elgiggle", "ae@gmail.com", 043252216, "19/05/2019", 0, false, iList));
+        customers.add(new Customer(3 ,"Gerald", "George", "Geegee@hotmail.com", 0432526, "19/05/2019", 0, true, iList));
+        customers.add(new Customer(4 ,"Susie", "Sussex", "sussantor@uowmail.edu.au", 0432526, "19/05/2019", 0, true, iList));
+        customers.add(new Customer(5 ,"Georgina", "Goolieo", "gina@gmail.com", 04332726, "19/05/2019", 0, true, iList));
+        customers.add(new Customer(6 ,"Maryanne", "Hellyeah", "Mh@gmail.com", 04332726, "19/05/2019", 0, true, iList));
+        customers.add(new Customer(7 ,"Arnold", "Fruns", "Afuzzo@gmai.com", 0432526, "19/05/2019", 0, true, iList));
+
+         
+    }
+  
+    /////////////////////////////////////////////////////////////
+    /********************END TEST DATA *****************************/
+    //////////////////////////////////////////////////////////////
+     public void write() {
+        // Write the data storage to the specified storage engine
+        storageEngine.writeDataStorage(this);
+    }
+      
+    /****************************TOY******************************/
+    //////////////////////////////////////////////////////////////
+    public ObservableList<Toy> getToys() {
+        return toys;
+    }
+    public void setToys(ArrayList<Toy> newToys) {
+        this.toys = FXCollections.observableArrayList(newToys);
     }
     
+    public void insertToy(String name, float price, String description, long categoryId, int count, ArrayList<Long> suppliers) {
+        // Inserts a toy into the shop data model 
+        System.out.println("Name" + name + " price " + price + " descript " + description  + "Cat ID" + categoryId +" cont " +  count);
+        toys.add(new Toy(getLastToyId() + 1, name, price,categoryId, count, suppliers, description) );
+    }
     private long getLastToyId() {
         if (toys.isEmpty()) return 0;
         return toys.get(toys.size()-1).getId();
     }
     
+    /****************************CATEGORY******************************/
+    ///////////////////////////////////////////////////////////////////
+    public ObservableList<Category> getCategories() {
+        return categories;
+    }
+        
+    public void setCategories(ArrayList<Category> newCategories) {
+        this.categories = FXCollections.observableArrayList(newCategories);
+    }
+    
+    public void addCategory(String name, ArrayList<String> tags) {
+      // Inserts a toy into the shop data model
+      categories.add(new Category(getLastCategoryId()+1, name, tags));
+  }
+
     private long getLastCategoryId() {
         return categories.isEmpty() ? 0 : categories.get(categories.size()-1).getID();
     }
     
-    private long getLastCustomerId()
-    {
-        return customers.isEmpty() ? 0 : customers.get(customers.size()-1).getUserID();
-    }
-
-    
-    public void write() {
-        // Write the data storage to the specified storage engine
-        storageEngine.writeDataStorage(this);
-    }
-    
-    public void insertToy(String name, float price, String description, long categoryId) {
-        // Inserts a toy into the shop data model
-        toys.add(new Toy(getLastToyId() + 1, name, price, categoryId, description));
-    }
-    
-    public void addCategory(String name, ArrayList<String> tags) {
-        // Inserts a toy into the shop data model
-        categories.add(new Category(getLastCategoryId()+1, name, tags));
-    }
-    
-    /**
-     * Get a category by id. Returns null if not found.
-     * @param id The id of the category to retrieve
-     * @return Null if category not found.
-     */
     public Category getCategoryById(long id) {
         return categories.stream().filter(x -> x.getID() == id).findFirst().orElse(null);
     }
-        
-    public void addEmployee(Employee emp) {
-        // Inserts a toy into the shop data model
-        employees.add(emp);
+    
+    /****************************CUSTOMER******************************/
+    ///////////////////////////////////////////////////////////////////
+    public ObservableList<Customer> getCustomers()
+    {
+        return customers;
+    }
+    
+    public void setCustomers(ArrayList<Customer> newCustomers)
+    {
+        this.customers = FXCollections.observableArrayList(newCustomers);
     }
     
     public void addCustomer(String firstName, String lastName, String email, long phoneNum, String dateOfJoining,  float storeCredit, boolean isMember, ArrayList<Long> interests)
@@ -93,50 +168,53 @@ public class ShopDataStorage {
         if(interests != null)
         { 
             iList = new ArrayList<>();
-            for(Long l: interests)
+            for (Long l : interests)
             {
                 iList.add(getCategoryById(l).getName());
             }
         }
-       
         customers.add(new Customer(getLastCustomerId() + 1 ,firstName, lastName, email, phoneNum, dateOfJoining, storeCredit, isMember, iList));
     }
+    
+    
+    private long getLastCustomerId()
+    {
+        return customers.isEmpty() ? 0 : customers.get(customers.size()-1).getUserID();
+    }
+    
+    /****************************SUPPLIER******************************/
+    ///////////////////////////////////////////////////////////////////   
+    public ObservableList<Supplier> getSuppliers()
+    {
+        return suppliers;
+    }
+    public void setSuppliers(ArrayList<Supplier> newSuppliers)
+    {
+        this.suppliers = FXCollections.observableArrayList(newSuppliers);
+    }
+   
+    public void addSupplier(String name, String address, String contact, long phoneNum)
+    {
+        
+        suppliers.add(new Supplier(getLastSupplierId() + 1, name, address, contact, phoneNum));
+    }
+    private long getLastSupplierId()
+    {
+         return suppliers.isEmpty() ? 0 : suppliers.get(suppliers.size()-1).getSupplierId(); 
+         
+    }
+    public Supplier getSupplierById(long id)
+    {
+        return suppliers.stream().filter(x -> x.getSupplierId() == id).findFirst().orElse(null);
+    }
 
-    
-    
-    /*************************GETTERS************************************/
-     /////////////////////////////////////////////////////////////////////
-    public ObservableList<Toy> getToys() {
-        return toys;
-    }
-    
-    public ObservableList<Category> getCategories() {
-        return categories;
-    }
-    
+        
+    /****************************EMPLOYEE******************************/
+    ///////////////////////////////////////////////////////////////////  
+       
     public ObservableList<Employee> getEmployees()
     {
         return employees;
-    }
-    
-    public ObservableList<Customer> getCustomers()
-    {
-        return customers;
-    }
-    
-    /*************************SETTERS************************************/
-    /////////////////////////////////////////////////////////////////////
-    public void setCustomers(ArrayList<Customer> newCustomers)
-    {
-        this.customers = FXCollections.observableArrayList(newCustomers);
-    }
-    
-    public void setToys(ArrayList<Toy> newToys) {
-        this.toys = FXCollections.observableArrayList(newToys);
-    }
-    
-    public void setCategories(ArrayList<Category> newCategories) {
-        this.categories = FXCollections.observableArrayList(newCategories);
     }
     
     public void setEmployees(ArrayList<Employee> newEmployyes)
@@ -144,4 +222,8 @@ public class ShopDataStorage {
         this.employees = FXCollections.observableArrayList(newEmployyes);
     }
     
+    public void addEmployee(Employee emp) {
+        // Inserts a toy into the shop data model
+        employees.add(emp);
+    }
 }

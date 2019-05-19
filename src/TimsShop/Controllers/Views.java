@@ -13,7 +13,8 @@ public enum Views
     ADD_CUSTOMER("/TimsShop/Views/AddCustomerDialog.fxml","ADD_CUSTOMER"),
     MODIFY_CUSTOMER("/TimsShop/Views/ModifyCustomerDialog.fxml","MODIFY_CUSTOMER"),
     ADD_TOY("/TimsShop/Views/InsertToyDialog.fxml","ADD_TOY"),
-    ADD_CATEGORY("/TimsShop/Views/AddCategoryDialog.fxml","ADD_CATEGORY ");
+    ADD_CATEGORY("/TimsShop/Views/AddCategoryDialog.fxml","ADD_CATEGORY "),
+    SUPPLIER("/TimsShop/Views/SupplierView.fxml", "SUPPLIER");
     
     private final String path;
     private final String key;
