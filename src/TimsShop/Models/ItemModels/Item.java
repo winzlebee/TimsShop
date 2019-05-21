@@ -20,19 +20,35 @@ public abstract class Item implements Serializable
     private String name;
     private float price;
     private int stockCount;
+    private String dateStocked;
+    private String storeLocation;
     private ArrayList<Long> suppliers;
     
     private long categoryId;
     
-    public Item(long id, String name, float price, long categoryId, int stockCount, ArrayList<Long> suppliers)
+    public Item(long id, String name, float price, long categoryId, int stockCount, ArrayList<Long> suppliers, String dateStocked, String storeLocation)
     {
         this.name = name;
         this.id = id;
-        this.price=price;
+        this.price = price;
         this.categoryId = categoryId;
-        this.suppliers = new ArrayList<>();
         this.stockCount = stockCount;
-        this.suppliers = suppliers;
+        this.dateStocked = dateStocked;
+        this.storeLocation = storeLocation;
+        this.suppliers = new ArrayList<>(suppliers);
+     
+    }
+    
+    public Item(long id, String name, float price, long categoryId, int stockCount, String dateStocked, String storeLocation)
+    {
+        this.name = name;
+        this.id = id;
+        this.price = price;
+        this.categoryId = categoryId;
+        this.stockCount = stockCount;
+        this.suppliers = new ArrayList<>();
+        this.dateStocked = dateStocked;
+        this.storeLocation = storeLocation;
  
     }
 
@@ -62,11 +78,22 @@ public abstract class Item implements Serializable
         return stockCount;
     }
 
-    public ArrayList<Long> getSuppliers()
+    public ArrayList<Long> getSupliers()
     {
         return suppliers;
     }
+
+    public String getDateStocked()
+    {
+        return dateStocked;
+    }
+
+    public String getStoreLocation()
+    {
+        return storeLocation;
+    }
     
+
 
     /********SETTERS**********/
     public void setPrice(float price) 
@@ -90,6 +117,23 @@ public abstract class Item implements Serializable
     {
         suppliers.remove(s);
     }
+
+    public void setStockCount(int stockCount)
+    {
+        this.stockCount = stockCount;
+    }
+
+    public void setDateStocked(String dateStocked)
+    {
+        this.dateStocked = dateStocked;
+    }
+
+    public void setStoreLocation(String storeLocation)
+    {
+        this.storeLocation = storeLocation;
+    }
+    
+    
     
     
         

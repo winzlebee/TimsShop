@@ -14,7 +14,8 @@ public enum Views
     MODIFY_CUSTOMER("/TimsShop/Views/ModifyCustomerDialog.fxml","MODIFY_CUSTOMER"),
     ADD_TOY("/TimsShop/Views/InsertToyDialog.fxml","ADD_TOY"),
     ADD_CATEGORY("/TimsShop/Views/AddCategoryDialog.fxml","ADD_CATEGORY "),
-    SUPPLIER("/TimsShop/Views/SupplierView.fxml", "SUPPLIER");
+    SUPPLIER("/TimsShop/Views/SupplierView.fxml", "SUPPLIER"),
+    ADD_SUPPLIER("/TimsShop/Views/AddSupplierView.fxml", "ADD_SUPPLIER");
     
     private final String path;
     private final String key;

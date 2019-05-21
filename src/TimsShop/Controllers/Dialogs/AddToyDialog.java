@@ -102,7 +102,8 @@ public class AddToyDialog implements Initializable {
         
         //TODO: Add toy handler code
         dataStorage.insertToy(nameField.getText(), priceField.getValueFactory().getValue().floatValue(),
-                descriptionField.getText(), ((Category) categoryField.getValue()).getID(), amountField.getValue().intValue(), supplierList  );
+                            descriptionField.getText(), ((Category) categoryField.getValue()).getID(),
+                            amountField.getValue().intValue(), supplierList, " ", " " );
     }
 
     @FXML

@@ -16,7 +16,6 @@ public class Supplier implements Serializable
         this.address = address;
         this.contactPerson = contactPerson;
         this.phoneNum = phoneNum;
-        System.out.println(toString());
     }
     /************************GETTERS***************************/
     ///////////////////////////////////////////////////////////

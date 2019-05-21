@@ -6,6 +6,7 @@ import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Controllers.Dialogs.AddCategoryDialog;
 import TimsShop.Controllers.Dialogs.AddToyDialog;
 import TimsShop.Controllers.Dialogs.CustomerControllers.CustomerDialog;
+import TimsShop.Controllers.Dialogs.SupplierControllers.AddSupplierView;
 import TimsShop.Controllers.Dialogs.SupplierControllers.SupplierView;
 import java.io.IOException;
 import java.net.URL;
@@ -54,6 +55,10 @@ public class MainViewController implements  Initializable
     private TableView toyTable;
     @FXML
     private Button supplierButton;
+    @FXML
+    private TextField supplerSearchBar;
+    @FXML
+    private TableView supplierTable;
     
     //Table Components
     private TableColumn<Toy, Long> idCol;
@@ -61,6 +66,9 @@ public class MainViewController implements  Initializable
     private TableColumn<Toy, String> priceCol;
     private TableColumn<Toy, String> categoryCol;
     private TableColumn<Toy, Integer> qtyCol;
+    private TableColumn<Toy, String> dateOrdered;
+    private TableColumn<Toy, String> locationCol;
+    private TableColumn<Toy, String> supplierCol;
     
     
     private ObservableList<Toy> toyData;
@@ -90,15 +98,23 @@ public class MainViewController implements  Initializable
         storage = new ShopDataStorage();
         toyData = storage.getToys();
         toyTable.setItems(toyData);
+        supplierTable.setItems(toyData);
      }
 
     private void setTableHeaders()
     {
+        //Toy Table
         idCol = new TableColumn<>("Id");
         nameCol = new TableColumn<>("Name");
         priceCol = new TableColumn<>("Price");
         categoryCol = new TableColumn<>("Category");
         qtyCol = new TableColumn<>("In Stock");
+        
+        //Supplier Table
+        dateOrdered = new TableColumn<>("Date Stocked");
+        locationCol = new TableColumn<>("Store Location");
+        supplierCol = new TableColumn<>("Suppliers");
+        
         
     }
     private void setTableData()
@@ -108,13 +124,18 @@ public class MainViewController implements  Initializable
         priceCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(String.format("$%.2f", p.getValue().getPrice())));
         categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(storage.getCategoryById(p.getValue().getCategoryId()).getName()));
         qtyCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getStockCount()));
+        dateOrdered.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getDateStocked()));
+        locationCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getStoreLocation()));
+        supplierCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(storage.getSupplierString(p.getValue())));
+        
         
         toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol, qtyCol);
+        supplierTable.getColumns().addAll(idCol,nameCol, dateOrdered, locationCol, supplierCol);
     }
     
     private void setColumnCallBacks()
     {
-     
+        
  
       
     }
@@ -180,7 +201,7 @@ public class MainViewController implements  Initializable
     {
         ViewLoader.getInstance().load(Views.SUPPLIER);
         ViewLoader.getInstance().show(Views.SUPPLIER);
-        ((SupplierView)ViewLoader.getInstance().getController(Views.SUPPLIER)).setStorage(storage);
+        ((SupplierView)ViewLoader.getInstance().getController(Views.SUPPLIER)).setStorage(storage,  () -> supplierTable.refresh());
         
     }
     

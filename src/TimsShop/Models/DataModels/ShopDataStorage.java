@@ -1,4 +1,4 @@
-/*
+/******************************************************************************
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,7 +17,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
  * @author win
  */
 public class ShopDataStorage {
@@ -36,9 +35,7 @@ public class ShopDataStorage {
             storageEngine.readDataStorage(this);
             return;
         }
-        
-     
-        
+
         // If there's no data storage in place, we're going to initialize our observables as empty lists.
         toys = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList();
@@ -65,22 +62,33 @@ public class ShopDataStorage {
         categories.add(new Category(7, "Science Fiction", null));
         
         suppliers.add(new Supplier(1, "Loco-Moco Pty. Ltd.", "12 Downing St ", "Phillip Ambrose", 0432526));
-        suppliers.add(new Supplier(1, "C4Lyfe.", "16 May Ave", "Danuek Kreepa", 04325236));
-        suppliers.add(new Supplier(1, "Crowd Model.", "9 Reagent St ", "Henrieeta Clarenace", 04325236));
-        suppliers.add(new Supplier(1, "Mad-House", "305 Baker Crsnt", "Alfred Connie", 0432526));
-        suppliers.add(new Supplier(1, "Superb Supplier.", "128 Downing Street ", "Regenald Rowey", 0432526));
-  
+        suppliers.add(new Supplier(2, "C4Lyfe.", "16 May Ave", "Danuek Kreepa", 04325236));
+        suppliers.add(new Supplier(3, "Crowd Model.", "9 Reagent St ", "Henrieeta Clarenace", 04325236));
+        suppliers.add(new Supplier(4, "Mad-House", "305 Baker Crsnt", "Alfred Connie", 0432526));
+        suppliers.add(new Supplier(5, "Superb Supplier.", "128 Downing Street ", "Regenald Rowey", 0432526));
         
-        toys.add(new Toy(1, "Loco-Master-Pro", 82, 1, 5, null, "") );
-        toys.add(new Toy(2, "DoodleBug", 62, 3, 1, null, "") );
-        toys.add(new Toy(3, "Aircraft Carrier", 82, 4, 6, null, "") );
-        toys.add(new Toy(4, "Fast Car V1", 82, 6, 5, null, "") );
-        toys.add(new Toy(5, "SS Enterprise", 182, 7, 5, null, "") );
-        toys.add(new Toy(6, "SS Discovery", 125, 7, 5, null, "") );
-        toys.add(new Toy(7, "VI Tank", 195,5, 5, null, "") );
-        toys.add(new Toy(8, "VII Tank", 150 ,5, 5, null, "") );
-        toys.add(new Toy(9, "MX5 Deluxe Edition", 200, 6, 5, null, "") );
-        toys.add(new Toy(10, "Steam liner", 1100,1, 5, null, "") );
+        ArrayList<Long> sList = new ArrayList<>();
+        sList.add((long)1);
+        sList.add((long)2);
+        
+        ArrayList<Long> sList2 = new ArrayList<>();
+        sList2.add((long)3);
+        
+        ArrayList<Long> sList3 =  new ArrayList<>();
+        sList3.add((long)4);
+        sList3.add((long)1);
+        sList3.add((long)5);
+        
+        toys.add(new Toy(1, "Loco-Master-Pro", 82, 1, 5, sList, "", "20/05/2019","Aisle 1") );
+        toys.add(new Toy(2, "DoodleBug", 62, 3, 1, "", "20/05/2019", "Aisle 1") );
+        toys.add(new Toy(3, "Aircraft Carrier", 82, 4, 6, sList2, "", "20/05/2019", "Aisle 1") );
+        toys.add(new Toy(4, "Fast Car V1", 82, 6, 5, sList2, "", "20/05/2019", "Aisle 1") );
+        toys.add(new Toy(5, "SS Enterprise", 182, 7, 5, "", "20/05/2019", "Aisle 1") );
+        toys.add(new Toy(6, "SS Discovery", 125, 7, 5, sList3, "", "20/05/2019", "Aisle 2") );
+        toys.add(new Toy(7, "VI Tank", 195,5, 5,sList , "", "20/05/2019", "Aisle 3") );
+        toys.add(new Toy(8, "VII Tank", 150 ,5, 5,sList ,"", "20/05/2019", "Aisle 4") );
+        toys.add(new Toy(9, "MX5 Deluxe Edition", 200, 6, 5,sList2 , "", "20/05/2019", "Aisle 2") );
+        toys.add(new Toy(10, "Steam liner", 1100,1, 5,sList3 , "", "20/05/2019", "Aisle 3") );
         
         
         ArrayList<String> iList = new ArrayList<>();
@@ -116,15 +124,43 @@ public class ShopDataStorage {
         this.toys = FXCollections.observableArrayList(newToys);
     }
     
-    public void insertToy(String name, float price, String description, long categoryId, int count, ArrayList<Long> suppliers) {
-        // Inserts a toy into the shop data model 
-        System.out.println("Name" + name + " price " + price + " descript " + description  + "Cat ID" + categoryId +" cont " +  count);
-        toys.add(new Toy(getLastToyId() + 1, name, price,categoryId, count, suppliers, description) );
+    public void insertToy(String name, float price, String description, long categoryId, int count, ArrayList<Long> suppliers, String date, String location) {
+        toys.add(new Toy(getLastToyId() + 1, name, price,categoryId, count, suppliers, description, date, location) );
     }
     private long getLastToyId() {
         if (toys.isEmpty()) return 0;
         return toys.get(toys.size()-1).getId();
     }
+    
+    /****************************************************************************
+     * @param toy the toy of which will have formated display of their supplier list
+     * @return a toys supplier list concatenated into a single string 
+     *****************************************************************************/
+    public String getSupplierString(Toy toy)
+    {
+        String str = "";
+        try
+        {   //If getSuppliers() is null, catch
+            ArrayList<Long> supList = new ArrayList<>(toy.getSupliers());
+            if(!supList.isEmpty() || supList == null)
+            {
+                for(int i = 0; i < supList.size(); i++)
+                {
+                    str += "- "+ getSupplierById(supList.get(i)).getBusinessName() + "\n";
+                }      
+            }
+            else
+            {
+                str = "None";
+            }
+        }
+        catch(NullPointerException e)
+        {
+            str = "None";
+        }
+        return str;
+    }
+    
     
     /****************************CATEGORY******************************/
     ///////////////////////////////////////////////////////////////////
@@ -226,4 +262,6 @@ public class ShopDataStorage {
         // Inserts a toy into the shop data model
         employees.add(emp);
     }
+    
+    
 }

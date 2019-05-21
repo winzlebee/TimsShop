@@ -96,7 +96,7 @@ public class CustomerDialog implements Initializable
         deleteAlert = new Alert(AlertType.CONFIRMATION);
         deleteAlert.setContentText("WARNING: Deleting Customer Record in Progress");
         deleteAlert.setTitle("Comfirmation Dialog");
-        deleteAlert.setHeaderText("Are you sure you want to delete " + customerSelected.getText() + "? ");
+     
     }
     private void initSearchChoices()
     {
@@ -165,16 +165,19 @@ public class CustomerDialog implements Initializable
      **********************************************************/
     @FXML
     private void deleteHandler(MouseEvent event)
-    {
+    {   //Button Initialisation
         ButtonType deleteButton = new ButtonType("Delete");
         ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        //Set Dialog Properties
         deleteAlert.getButtonTypes().setAll(deleteButton, cancelButton);
-        Optional<ButtonType> result =  deleteAlert.showAndWait();
+        deleteAlert.setHeaderText("Are you sure you want to delete " + customerSelected.getText() + "? ");
+        
          //Delete button on comfirmation prompt is clicked
-         if(result.get() == deleteButton)
-         {
-             deleteCustomer();
-         } 
+        Optional<ButtonType> result =  deleteAlert.showAndWait();
+        if(result.get() == deleteButton)
+        {
+            deleteCustomer();
+        } 
     }
 
     /******************************************

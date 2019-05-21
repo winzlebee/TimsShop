@@ -23,7 +23,7 @@
                   <Font name="Calibri Bold" size="36.0" />
                </font>
             </Label>
-            <SplitPane dividerPositions="0.49755501222493886">
+            <SplitPane dividerPositions="0.5794621026894865">
               <items>
                   <TabPane tabClosingPolicy="UNAVAILABLE">
                      <tabs>
@@ -47,7 +47,7 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" prefHeight="36.0" prefWidth="335.0" />
+                                          <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" prefHeight="36.0" prefWidth="234.0" />
                                        </children>
                                     </GridPane>
                                     <TableView fx:id="toyTable" prefHeight="415.0" prefWidth="406.0" GridPane.rowIndex="1" />
@@ -56,9 +56,32 @@
                            </content>
                         </Tab>
                         <Tab text="Supplier View">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
+                           <content>
+                              <GridPane prefHeight="503.0" prefWidth="447.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="578.0" minWidth="10.0" prefWidth="252.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="413.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="453.0" minHeight="10.0" prefHeight="426.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <GridPane prefHeight="0.0" prefWidth="530.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="292.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="0.0" prefWidth="112.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <TextField fx:id="supplerSearchBar" onKeyReleased="#handleSearchEntry" prefHeight="36.0" prefWidth="335.0" />
+                                       </children>
+                                    </GridPane>
+                                    <TableView fx:id="supplierTable" prefHeight="415.0" prefWidth="406.0" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
+                           </content>
                         </Tab>
                      </tabs>
                   </TabPane>
