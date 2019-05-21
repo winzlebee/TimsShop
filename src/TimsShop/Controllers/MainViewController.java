@@ -4,6 +4,7 @@ package TimsShop.Controllers;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Controllers.Dialogs.AddCategoryDialog;
+import TimsShop.Controllers.Dialogs.AddSaleDialog;
 import TimsShop.Controllers.Dialogs.AddToyDialog;
 import TimsShop.Controllers.Dialogs.CustomerControllers.CustomerDialog;
 import TimsShop.Controllers.Dialogs.SupplierControllers.SupplierView;
@@ -165,6 +166,7 @@ public class MainViewController implements  Initializable
     private void saleHandler(MouseEvent event) throws IOException {
         ViewLoader.getInstance().load(Views.ADD_SALE);
         ViewLoader.getInstance().show(Views.ADD_SALE);
+        ((AddSaleDialog) ViewLoader.getInstance().getController(Views.ADD_SALE)).setStorage(storage);
     }
     
     /********************************************************

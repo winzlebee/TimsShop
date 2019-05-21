@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class AddCategoryDialog implements Initializable {
+public class AddCategoryDialog implements Initializable, Dialog {
     
     @FXML
     private TextField catNameField;
@@ -28,6 +28,7 @@ public class AddCategoryDialog implements Initializable {
     
     private ShopDataStorage dataStorage;
 
+    @Override
     public void setStorage(ShopDataStorage storage) {
         this.dataStorage = storage;
     }

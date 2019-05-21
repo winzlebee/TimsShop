@@ -22,7 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class AddToyDialog implements Initializable {
+public class AddToyDialog implements Initializable, Dialog {
     @FXML
     private TextField nameField;
     @FXML
@@ -76,6 +76,7 @@ public class AddToyDialog implements Initializable {
         });  
     }
 
+    @Override
     public void setStorage(ShopDataStorage storage) {
         this.dataStorage = storage;
         
