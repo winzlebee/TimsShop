@@ -8,11 +8,15 @@ package TimsShop.Models.DataModels;
 import DatabaseEngines.AbstractDatabase;
 import DatabaseEngines.TextFileDatabase;
 import TimsShop.Models.ItemModels.Category;
+import TimsShop.Models.ItemModels.Item;
 import TimsShop.Models.ItemModels.Toy;
+import TimsShop.Models.RelationModels.Sale;
 import TimsShop.Models.UserModels.Customer;
 import TimsShop.Models.UserModels.Employee;
 import TimsShop.Models.UserModels.Supplier;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,6 +30,7 @@ public class ShopDataStorage {
     private ObservableList<Employee> employees;
     private ObservableList<Customer> customers;
     private ObservableList<Supplier> suppliers;
+    private ObservableList<Sale> sales;
     
     private AbstractDatabase storageEngine;
     
@@ -45,6 +50,7 @@ public class ShopDataStorage {
         employees = FXCollections.observableArrayList();
         customers = FXCollections.observableArrayList();
         suppliers = FXCollections.observableArrayList();
+        sales = FXCollections.observableArrayList();
         
         //TEST----------------------------------------------------
         LOAD_TEST_DATA();
@@ -96,7 +102,10 @@ public class ShopDataStorage {
         customers.add(new Customer(6 ,"Maryanne", "Hellyeah", "Mh@gmail.com", 04332726, "19/05/2019", 0, true, iList));
         customers.add(new Customer(7 ,"Arnold", "Fruns", "Afuzzo@gmai.com", 0432526, "19/05/2019", 0, true, iList));
 
-         
+        Map<Item, Integer> sale = new HashMap<>();
+        sale.put(toys.get(0), 2);
+        sale.put(toys.get(4), 1);
+        sales.add(new Sale(sale, customers.get(0)));
     }
   
     /////////////////////////////////////////////////////////////
@@ -106,7 +115,23 @@ public class ShopDataStorage {
         // Write the data storage to the specified storage engine
         storageEngine.writeDataStorage(this);
     }
+     
+    /****************************SALE******************************/
+    //////////////////////////////////////////////////////////////
       
+    public ObservableList<Sale> getSales() {
+        return sales;
+    }
+    
+    public void setSales(ArrayList<Sale> newSales) {
+        this.sales = FXCollections.observableArrayList(newSales);
+    }
+    
+    public void insertSale() {
+        // Insert a sale into the database. Note that a sale can include a number of toys
+        
+    }
+     
     /****************************TOY******************************/
     //////////////////////////////////////////////////////////////
     public ObservableList<Toy> getToys() {

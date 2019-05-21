@@ -8,6 +8,7 @@ package DatabaseEngines;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Toy;
+import TimsShop.Models.RelationModels.Sale;
 import TimsShop.Models.UserModels.Customer;
 import TimsShop.Models.UserModels.Employee;
 import TimsShop.Models.UserModels.Supplier;
@@ -48,6 +49,7 @@ public class TextFileDatabase implements AbstractDatabase {
             objectOutWrite.writeObject(new ArrayList<Employee>(storage.getEmployees()));
             objectOutWrite.writeObject(new ArrayList<Customer>(storage.getCustomers()));
             objectOutWrite.writeObject(new ArrayList<Supplier>(storage.getSuppliers()));
+            objectOutWrite.writeObject(new ArrayList<Sale>(storage.getSales()));
             
             objectOutWrite.close();
             outWrite.close();
@@ -65,7 +67,8 @@ public class TextFileDatabase implements AbstractDatabase {
         ArrayList<Category> categoriesList = new ArrayList<>();
         ArrayList<Employee> employeeList = new ArrayList<>();
         ArrayList<Customer> customerList = new ArrayList<>();
-        ArrayList<Supplier> supplierList = new ArrayList();
+        ArrayList<Supplier> supplierList = new ArrayList<>();
+        ArrayList<Sale> salesList = new ArrayList<>();
          
         try
         {
@@ -77,7 +80,7 @@ public class TextFileDatabase implements AbstractDatabase {
             employeeList  = (ArrayList) ois.readObject();
             customerList = (ArrayList) ois.readObject();
             supplierList = (ArrayList) ois.readObject();
-            
+            salesList = (ArrayList) ois.readObject();
  
             ois.close();
             fis.close();
@@ -100,6 +103,7 @@ public class TextFileDatabase implements AbstractDatabase {
         storage.setEmployees(employeeList);
         storage.setCustomers(customerList);
         storage.setSuppliers(supplierList);
+        storage.setSales(salesList);
          
         //Verify list data
         for (Toy toy : toysList) {
