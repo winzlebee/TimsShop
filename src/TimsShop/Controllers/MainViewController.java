@@ -41,7 +41,7 @@ public class MainViewController implements  Initializable
     @FXML
     private TextField searchBar;
     @FXML
-    private Button browseButton;
+    private Button saleButton;
     @FXML
     private Button insertButton;
     @FXML
@@ -159,6 +159,12 @@ public class MainViewController implements  Initializable
         ViewLoader.getInstance().show(Views.ADD_TOY);
         ((AddToyDialog)ViewLoader.getInstance().getController(Views.ADD_TOY)).setStorage(storage);  
            
+    }
+    
+    @FXML
+    private void saleHandler(MouseEvent event) throws IOException {
+        ViewLoader.getInstance().load(Views.ADD_SALE);
+        ViewLoader.getInstance().show(Views.ADD_SALE);
     }
     
     /********************************************************

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Controllers.MainViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Controllers.MainViewController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -74,7 +74,7 @@
                     </rowConstraints>
                      <children>
                         <Button fx:id="supplierButton" mnemonicParsing="false" onMouseClicked="#supplierButtonHandler" prefHeight="168.0" prefWidth="436.0" text="Suppliers" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="browseButton" mnemonicParsing="false" prefHeight="190.0" prefWidth="203.0" text="Browse" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="saleButton" mnemonicParsing="false" onMouseClicked="#saleHandler" prefHeight="190.0" prefWidth="203.0" text="Make Sale" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutHandler" prefHeight="214.0" prefWidth="203.0" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <Button id="insertButton" fx:id="insertButton" mnemonicParsing="false" onMouseClicked="#insertHandler" prefHeight="168.0" prefWidth="429.0" text="Insert Toy" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Button fx:id="addCategoryButton" mnemonicParsing="false" onMouseClicked="#addCategoryHandler" prefHeight="170.0" prefWidth="234.0" text="Add Category" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
