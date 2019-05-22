@@ -1,4 +1,3 @@
-
 package TimsShop.Controllers;
 
 import java.io.IOException;
@@ -119,5 +118,20 @@ public class ViewLoader
       return controllerMap.get(view.getKey()).<T>getController();
     }
     
-    
+    /*************************
+     * Closes all open views 
+     ***************************/
+   public void notifyAllToClose()
+    {
+        for(String s: stageMap.keySet())
+        {
+            Stage openStage =  stageMap.get(s);
+            if(openStage != null)
+            {
+                openStage.close();
+            }
+        }
+    }
 }
+    
+    

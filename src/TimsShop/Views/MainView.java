@@ -1,42 +1,36 @@
 
-package TimsShop.Controllers;
+package TimsShop.Views;
 
+import TimsShop.Controllers.ApplicationController;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
-import TimsShop.Controllers.Dialogs.AddCategoryDialog;
-import TimsShop.Controllers.Dialogs.AddSaleDialog;
-import TimsShop.Controllers.Dialogs.AddToyDialog;
-import TimsShop.Controllers.Dialogs.CustomerControllers.CustomerDialog;
-import TimsShop.Controllers.Dialogs.SupplierControllers.AddSupplierView;
-import TimsShop.Controllers.Dialogs.SupplierControllers.SupplierView;
+import TimsShop.Controllers.StorageSettable;
+import TimsShop.Controllers.Views;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
 
 
 /**************************************************************
- *  The MainViewController is used to handle 
+ *  The MainView is used to handle 
     the navigation between the root view of the application and 
     the its branches. While also serving as the primary event 
     handling controller for the mainview
  ************************************************************/
-public class MainViewController implements  Initializable  
+public class MainView implements  Initializable, StorageSettable
 {
      /**************CLASS FIELDS ********************/
     //////////////////////////////////////////////////  
@@ -72,7 +66,6 @@ public class MainViewController implements  Initializable
     private TableColumn<Toy, String> supplierCol;
     
     
-    private ObservableList<Toy> toyData;
   
     //Data storage for the application
     private ShopDataStorage storage;
@@ -86,22 +79,19 @@ public class MainViewController implements  Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     { 
-        bindData();
         setTableHeaders();
         setTableData();
-        setColumnCallBacks();
+    }
+    @Override
+    public void setStorage(ShopDataStorage storage)
+    {
+        this.storage = storage;
+        toyTable.setItems(storage.getToys());
+        supplierTable.setItems(storage.getToys());
     }
     
     /***********************TABLE INITIALIZATION*******************************/
     ///////////////////////////////////////////////////////////////////////////
-    private void bindData()
-    {   // Initialize the data storage engine. It will create a database if it doesn't exist yet.
-        storage = new ShopDataStorage();
-        toyData = storage.getToys();
-        toyTable.setItems(toyData);
-        supplierTable.setItems(toyData);
-     }
-
     private void setTableHeaders()
     {
         //Toy Table
@@ -115,8 +105,7 @@ public class MainViewController implements  Initializable
         dateOrdered = new TableColumn<>("Date Stocked");
         locationCol = new TableColumn<>("Store Location");
         supplierCol = new TableColumn<>("Suppliers");
-        
-        
+  
     }
     private void setTableData()
     {
@@ -133,23 +122,9 @@ public class MainViewController implements  Initializable
         toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol, qtyCol);
         supplierTable.getColumns().addAll(idCol,nameCol, dateOrdered, locationCol, supplierCol);
     }
-    
-    private void setColumnCallBacks()
-    {
-        
- 
-      
-    }
+
     /*******************************EVENT LISTENERS****************************/
     ///////////////////////////////////////////////////////////////////////////
-    /********************************************************
-     * Closes program and writes any data to storage
-     *******************************************************/
-    public void onClose() {
-        System.out.println("Saving database...");
-        storage.write();
-    }
-    
     /********************************************************
      * Displays add category dialog
      * @param event - on Mouse click event
@@ -157,11 +132,8 @@ public class MainViewController implements  Initializable
      *******************************************************/
     @FXML
     private void addCategoryHandler(MouseEvent evt) throws IOException {
-        ViewLoader.getInstance().load(Views.ADD_CATEGORY);
-        ViewLoader.getInstance().show(Views.ADD_CATEGORY); 
-        ((AddCategoryDialog)ViewLoader.getInstance().getController(Views.ADD_CATEGORY)).setStorage(storage);
+        ApplicationController.getInstance().display(Views.ADD_CATEGORY);
     }
-    
     /********************************************************
      * Displays insert toy dialog
      * @param event - on Mouse click event
@@ -175,19 +147,14 @@ public class MainViewController implements  Initializable
             a.showAndWait();
             return;
         }
-       
         //Dispaly Dialog
-        ViewLoader.getInstance().load(Views.ADD_TOY);
-        ViewLoader.getInstance().show(Views.ADD_TOY);
-        ((AddToyDialog)ViewLoader.getInstance().getController(Views.ADD_TOY)).setStorage(storage);  
+        ApplicationController.getInstance().display(Views.ADD_TOY);
            
     }
     
     @FXML
     private void saleHandler(MouseEvent event) throws IOException {
-        ViewLoader.getInstance().load(Views.ADD_SALE);
-        ViewLoader.getInstance().show(Views.ADD_SALE);
-        ((AddSaleDialog) ViewLoader.getInstance().getController(Views.ADD_SALE)).setStorage(storage);
+        ApplicationController.getInstance().display(Views.ADD_SALE);
     }
     
     /********************************************************
@@ -198,19 +165,16 @@ public class MainViewController implements  Initializable
     @FXML
     private void logoutHandler(MouseEvent event) throws IOException
     {
-        ViewLoader.getInstance().close(Views.MAIN);
-        ViewLoader.getInstance().load(Views.LOGIN);
-        ViewLoader.getInstance().show(Views.LOGIN);
+        ApplicationController.getInstance().display(Views.LOGIN);
+        ApplicationController.getInstance().closeView(Views.LOGIN);
+        
     }
     
     
     @FXML
     private void supplierButtonHandler(MouseEvent event)
     {
-        ViewLoader.getInstance().load(Views.SUPPLIER);
-        ViewLoader.getInstance().show(Views.SUPPLIER);
-        ((SupplierView)ViewLoader.getInstance().getController(Views.SUPPLIER)).setStorage(storage,  () -> supplierTable.refresh());
-        
+        ApplicationController.getInstance().display(Views.SUPPLIER);
     }
     
     /********************************************************
@@ -221,9 +185,7 @@ public class MainViewController implements  Initializable
     @FXML
     private void customerButtonHandler(MouseEvent event) throws IOException
     {
-        ViewLoader.getInstance().load(Views.CUSTOMER);
-        ViewLoader.getInstance().show(Views.CUSTOMER);
-        ((CustomerDialog)ViewLoader.getInstance().getController(Views.CUSTOMER)).setStorage(storage);
+        ApplicationController.getInstance().display(Views.CUSTOMER);
     }
     
     /********************************************************
@@ -234,7 +196,7 @@ public class MainViewController implements  Initializable
     private void handleSearchEntry(KeyEvent event)
     {
         //Add Data to list based on filter
-        FilteredList<Toy> filteredData = new FilteredList<>(toyData,  e -> true);
+        FilteredList<Toy> filteredData = new FilteredList<>(storage.getToys(),  e -> true);
         
         //Listener compares table data to  string value entered by user in search bar
         searchBar.textProperty().addListener((observableValue, oldValue, newValue) -> 
@@ -254,5 +216,8 @@ public class MainViewController implements  Initializable
             toyTable.setItems(sortedData);
         }); 
     }
+
+
+
 
 }

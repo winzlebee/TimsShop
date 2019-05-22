@@ -1,6 +1,7 @@
 
 package TimsShop.Controllers.Dialogs.CustomerControllers;
 
+import TimsShop.Controllers.StorageSettable;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
 import TimsShop.Models.DataModels.ShopDataStorage;
@@ -29,7 +30,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 
-public class CustomerDialog implements Initializable
+public class CustomerDialog implements Initializable, StorageSettable
 {
     /******************************CLASS FIELDS******************************/
     //////////////////////////////////////////////////////////////////////////
@@ -144,7 +145,7 @@ public class CustomerDialog implements Initializable
     {
         ViewLoader.getInstance().load(Views.ADD_CUSTOMER);
         ViewLoader.getInstance().show(Views.ADD_CUSTOMER);
-        ((AddCustomer)ViewLoader.getInstance().getController(Views.ADD_CUSTOMER)).setStorage(storage);
+//       / ((AddCustomer)ViewLoader.getInstance().getController(Views.ADD_CUSTOMER)).setStorage(storage);
     }
  
     /**********************************************************
@@ -156,8 +157,8 @@ public class CustomerDialog implements Initializable
     {
         ViewLoader.getInstance().load(Views.MODIFY_CUSTOMER);
         ViewLoader.getInstance().show(Views.MODIFY_CUSTOMER); 
-        ((ModifyCustomer) ViewLoader.getInstance().getController(Views.MODIFY_CUSTOMER)).
-        setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem(), () -> customerTable.refresh());
+       // ((ModifyCustomer) ViewLoader.getInstance().getController(Views.MODIFY_CUSTOMER)).
+        //setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem(), () -> customerTable.refresh());
     }
     /*********************************************************
      * Prompts the user to confirms deletion of a customer record

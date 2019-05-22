@@ -17,7 +17,7 @@ import javafx.scene.control.TableView;
  *
  * @author win
  */
-public class AddSaleDialog implements Initializable, Dialog {
+public class AddSaleDialog implements Initializable {
     
     @FXML
     private TableView saleItemsTable;
@@ -32,7 +32,6 @@ public class AddSaleDialog implements Initializable, Dialog {
         // TODO: Add methods on initializeof AddSaleDialog
     }
     
-    @Override
     public void setStorage(ShopDataStorage storage) {
         this.dataStorage = storage;
         

@@ -40,7 +40,7 @@ public class ShopDataStorage {
             storageEngine.readDataStorage(this);
             return;
         }
-
+        
         // If there's no data storage in place, we're going to initialize our observables as empty lists.
         toys = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList();

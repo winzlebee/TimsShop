@@ -1,5 +1,6 @@
 
 package TimsShop;
+import TimsShop.Controllers.ApplicationController;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
 import javafx.application.Application;
@@ -31,10 +32,9 @@ public class Main extends Application  // Application class serves as the Entry 
      Result: Sets the frame to show.
       ************************************************************************/
     @Override
-    public void start(Stage primaryStage) throws Exception 
-    {           
-        ViewLoader.getInstance().load(Views.LOGIN);
-        ViewLoader.getInstance().show(Views.LOGIN);
+    public void start(Stage primaryStage) 
+    {         
+        ApplicationController.getInstance().startApplication();
     }
     
     /**

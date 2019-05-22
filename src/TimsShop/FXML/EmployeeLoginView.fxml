@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="297.0" prefWidth="555.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="TimsShop.Controllers.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="297.0" prefWidth="555.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="TimsShop.Views.EmployeeLoginView">
    <children>
       <Button fx:id="lognButton" layoutX="339.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#loginHandler" prefHeight="78.0" prefWidth="94.0" text="LOGON" />
       <PasswordField fx:id="pinField" layoutX="112.0" layoutY="110.0" prefHeight="78.0" prefWidth="202.0">

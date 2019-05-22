@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TimsShop.Models.DataModels;
+package TimsShop.Controllers;
 
-import javafx.collections.ObservableList;
+import TimsShop.Models.DataModels.ShopDataStorage;
 
 /**
  *
- * @author Alex
+ * @author win
  */
-public interface Storable<T>
-{
-   public void setData();
-   public ObservableList<T> getStorage();
+public interface StorageSettable {
+    
+    public  void setStorage(ShopDataStorage storage);
     
 }

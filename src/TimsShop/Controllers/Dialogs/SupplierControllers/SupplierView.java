@@ -141,7 +141,7 @@ public class SupplierView implements Initializable
     {
         ViewLoader.getInstance().load(Views.ADD_SUPPLIER);
         ViewLoader.getInstance().show(Views.ADD_SUPPLIER);
-        ((AddSupplierView)ViewLoader.getInstance().getController(Views.ADD_SUPPLIER)).setStorage(storage, () -> supplierTable.refresh());
+        //((AddSupplierView)ViewLoader.getInstance().getController(Views.ADD_SUPPLIER)).setStorage(storage, () -> supplierTable.refresh());
     }
 
     @FXML
