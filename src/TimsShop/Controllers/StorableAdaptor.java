@@ -1,7 +1,6 @@
 
 package TimsShop.Controllers;
 
-import TimsShop.Models.DataModels.ShopDataStorage;
 import javafx.fxml.FXMLLoader;
 
 /***********************************

@@ -1,12 +1,7 @@
 
 package TimsShop;
 import TimsShop.Controllers.ApplicationController;
-import TimsShop.Controllers.ViewLoader;
-import TimsShop.Controllers.Views;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
