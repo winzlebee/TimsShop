@@ -12,8 +12,6 @@ import TimsShop.Models.DataModels.ShopDataStorage;
 public class DBQueryProcessor
 {
     private ShopDataStorage storage;
-
-
     public DBQueryProcessor()
     {
         this.storage = new ShopDataStorage();
@@ -28,7 +26,5 @@ public class DBQueryProcessor
     public ShopDataStorage getStorage()
     {
         return storage;
-    }
-    
-    
+    }   
 }

@@ -4,7 +4,6 @@ import TimsShop.Controllers.ApplicationController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-
 /****************************************************************
 This class serves as controller between the views of  Tims Toy shop.
 NOte: Any @FXML annotations denote XML loaded components/listeners

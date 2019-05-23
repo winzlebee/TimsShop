@@ -19,12 +19,14 @@ public class ApplicationController
     private DBQueryProcessor queryProcessor;
     private LoginController loginController;
     private CustomerController  customerController;
+    private StockController stockController;
    
     private ApplicationController()
     {
         queryProcessor     = new DBQueryProcessor();
         loginController    = new LoginController(queryProcessor.getStorage().getEmployees());
         customerController = new CustomerController(queryProcessor.getStorage());
+        stockController    = new StockController(queryProcessor.getStorage());
         
     }
      /*************SINGLETON INSTANTIATION***************/
@@ -73,7 +75,6 @@ public class ApplicationController
          ViewLoader.getInstance().close(view);
     }
     
-    
     //CONTROLLER HANDLERS
     /************************************************************
     * Allow for public access for login controller to the login view
@@ -87,6 +88,11 @@ public class ApplicationController
     public CustomerController getCustomerController()
     {
         return customerController;
+    }
+    
+    public StockController getStockController()
+    {
+        return stockController;
     }
 }
 

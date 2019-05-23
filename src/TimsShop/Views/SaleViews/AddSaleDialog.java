@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TimsShop.Controllers.Dialogs;
+package TimsShop.Views.SaleViews;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
 import java.net.URL;

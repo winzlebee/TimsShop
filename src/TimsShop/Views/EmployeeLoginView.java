@@ -44,5 +44,4 @@ public class EmployeeLoginView implements Initializable
     {
          controller = ApplicationController.getInstance().getLoginController();
     }
-   
 }

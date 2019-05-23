@@ -1,6 +1,8 @@
-package TimsShop.Controllers.Dialogs;
+package TimsShop.Views.ToyViews;
 
 // Local Imports
+import TimsShop.Controllers.ApplicationController;
+import TimsShop.Controllers.StockController;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
 import TimsShop.Models.DataModels.ShopDataStorage;
@@ -21,6 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class AddToyDialog implements Initializable {
+    
+    /*********************CLASS FIELDS************************/
+    /////////////////////////////////////////////////////////
     @FXML
     private TextField nameField;
     @FXML
@@ -42,11 +47,10 @@ public class AddToyDialog implements Initializable {
     @FXML
     private TextArea supplierArea;
     
-    
-   
     private Label errMsgLabel;
-    private ShopDataStorage dataStorage;
     private ArrayList<Long> supplierList;
+    
+    private StockController controller;
     
     /********************INITIALIZATIONS**************************/
     //////////////////////////////////////////////////////////////
@@ -54,7 +58,19 @@ public class AddToyDialog implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Populate initial values 
         supplierList = new ArrayList<>();
+        initController();
+        initFields();
         initSpinners();  
+    }
+    private void initController()
+    {
+        controller = ApplicationController.getInstance().getStockController();
+        
+    }
+    private void initFields()
+    {
+        categoryField.setItems(controller.getCategories());
+        supplierField.setItems(controller.getSuppliers());
     }
     
     public void initSpinners()
@@ -74,35 +90,23 @@ public class AddToyDialog implements Initializable {
         });  
     }
 
-
-    public void setStorage(ShopDataStorage storage) {
-        this.dataStorage = storage;
-        
-        // Initialize necessary fields from storage
-        categoryField.setItems(dataStorage.getCategories()); 
-        supplierField.setItems(dataStorage.getSuppliers());
-    }
     /********************EVENT HANDLERS**************************/
     //////////////////////////////////////////////////////////////
     @FXML
     void onSubmit(MouseEvent event) {
         
-        if (nameField.getText().isEmpty()) {
-            errMsgLabel.setText("Please enter a toy name.");
-            return;
-        }
-        
-        if (categoryField.getValue() == null) {
-            errMsgLabel.setText("Please select a category for the toy.");
-            return;
-        }
-        
-        System.out.println(priceField.getValue().floatValue());
-        
-        //TODO: Add toy handler code
-        dataStorage.insertToy(nameField.getText(), priceField.getValueFactory().getValue().floatValue(),
+        //Request Controller to validate form data
+        if(controller.isValidForm(nameField.getText(), ((Category)categoryField.getValue()).getID()))
+        {
+            controller.makeInsertionRequest(nameField.getText(), priceField.getValueFactory().getValue().floatValue(),
                             descriptionField.getText(), ((Category) categoryField.getValue()).getID(),
-                            amountField.getValue().intValue(), supplierList, " ", " " );
+                            amountField.getValue().intValue(), supplierList, " ");
+        }
+        else
+        {
+            //Show error message
+            
+        }
     }
 
     @FXML
@@ -117,10 +121,6 @@ public class AddToyDialog implements Initializable {
     private void addSupplierHandler(MouseEvent event)
     {
         supplierArea.appendText(((Supplier)supplierField.getSelectionModel().getSelectedItem()).toString());
-        supplierList.add(((Supplier)supplierField.getSelectionModel().getSelectedItem()).getSupplierId());
-        
+        supplierList.add(((Supplier)supplierField.getSelectionModel().getSelectedItem()).getSupplierId());   
     }
-
-
-
 }

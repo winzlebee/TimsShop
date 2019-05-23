@@ -2,6 +2,7 @@
 package TimsShop.Views;
 
 import TimsShop.Controllers.ApplicationController;
+import TimsShop.Controllers.StockController;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Controllers.StorageSettable;
@@ -30,7 +31,7 @@ import javafx.scene.input.MouseEvent;
     the its branches. While also serving as the primary event 
     handling controller for the mainview
  ************************************************************/
-public class MainView implements  Initializable, StorageSettable
+public class MainView implements  Initializable
 {
      /**************CLASS FIELDS ********************/
     //////////////////////////////////////////////////  
@@ -69,6 +70,8 @@ public class MainView implements  Initializable, StorageSettable
   
     //Data storage for the application
     private ShopDataStorage storage;
+    private static StockController stockController;
+    
   
     /**********************************************************************
     called to initialize a controller after its 
@@ -79,17 +82,24 @@ public class MainView implements  Initializable, StorageSettable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     { 
+        initController();
+        bindData();
         setTableHeaders();
         setTableData();
     }
-    @Override
-    public void setStorage(ShopDataStorage storage)
+    
+    private void initController()
     {
-        this.storage = storage;
-        toyTable.setItems(storage.getToys());
-        supplierTable.setItems(storage.getToys());
+        stockController = ApplicationController.getInstance().getStockController();
     }
     
+    private void bindData()
+    {
+        toyTable.setItems(stockController.getToys());
+        supplierTable.setItems(stockController.getToys());
+    }
+    
+
     /***********************TABLE INITIALIZATION*******************************/
     ///////////////////////////////////////////////////////////////////////////
     private void setTableHeaders()
@@ -112,11 +122,11 @@ public class MainView implements  Initializable, StorageSettable
         idCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getId()));
         nameCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));
         priceCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(String.format("$%.2f", p.getValue().getPrice())));
-        categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(storage.getCategoryById(p.getValue().getCategoryId()).getName()));
+        categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(stockController.getCategiryName(p.getValue().getCategoryId())));
         qtyCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getStockCount()));
         dateOrdered.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getDateStocked()));
         locationCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getStoreLocation()));
-        supplierCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(storage.getSupplierString(p.getValue())));
+        supplierCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(stockController.getFormattedSuppliers(p.getValue())));
         
         
         toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol, qtyCol);
@@ -142,12 +152,13 @@ public class MainView implements  Initializable, StorageSettable
     @FXML
     private void insertHandler(MouseEvent evt) throws IOException {
         
-        if (storage.getCategories().isEmpty()) {
+        if (stockController.categoriesIsEmpty()) 
+        {
             Alert a = new Alert(Alert.AlertType.WARNING, "Please define a category before adding a toy.");
             a.showAndWait();
             return;
         }
-        //Dispaly Dialog
+        //Display Dialog
         ApplicationController.getInstance().display(Views.ADD_TOY);
            
     }
@@ -169,8 +180,7 @@ public class MainView implements  Initializable, StorageSettable
         ApplicationController.getInstance().closeView(Views.LOGIN);
         
     }
-    
-    
+
     @FXML
     private void supplierButtonHandler(MouseEvent event)
     {

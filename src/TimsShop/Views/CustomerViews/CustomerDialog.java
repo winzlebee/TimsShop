@@ -33,7 +33,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
 
-
 public class CustomerDialog implements Initializable
 {
     /******************************CLASS FIELDS******************************/
@@ -91,7 +90,6 @@ public class CustomerDialog implements Initializable
         controller = ApplicationController.getInstance().getCustomerController();
         customerTable.setItems(controller.getCustomers());
     }
-    
     
     private void setTableCallBack()
     {
