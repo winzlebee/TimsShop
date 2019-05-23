@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**********************************************************
  * The FXMLLoader is a factory class used to build FXML views
@@ -117,6 +119,11 @@ public class ViewLoader
     {
       return controllerMap.get(view.getKey()).<T>getController();
     }
+    
+    public void setWindowsClose(Views view, EventHandler<WindowEvent> evt)
+     {
+         (stageMap.get(view.getKey())).setOnCloseRequest(evt);
+     }
     
     /*************************
      * Closes all open views 

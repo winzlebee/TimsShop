@@ -1,6 +1,8 @@
 
-package TimsShop.Controllers.Dialogs.CustomerControllers;
+package TimsShop.Views.CustomerViews;
 
+import TimsShop.Controllers.ApplicationController;
+import TimsShop.Controllers.CustomerControllers.CustomerController;
 import TimsShop.Controllers.StorageSettable;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
@@ -15,6 +17,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -28,9 +31,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.WindowEvent;
 
 
-public class CustomerDialog implements Initializable, StorageSettable
+public class CustomerDialog implements Initializable
 {
     /******************************CLASS FIELDS******************************/
     //////////////////////////////////////////////////////////////////////////
@@ -66,28 +70,33 @@ public class CustomerDialog implements Initializable, StorageSettable
     private ShopDataStorage storage;
     private Alert deleteAlert;
     
+    private static CustomerController controller; 
+    
     /******************************INITIALIZATIONS******************************/
     //////////////////////////////////////////////////////////////////////////
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {  
+        //Set the appropraite controller for the CustomerView
+        initController();
         initPopups();
         initSearchChoices();
         setTableHeader();
         setTableData();
+        setTableCallBack();
         toggleButtonEnable(false);
-        //Event callback to display the selected Customer to the view
-        customerTable.getSelectionModel().selectedIndexProperty().addListener(obs -> handleSelectedItem());
     }
-    /**********************************************************
-     * Sets the shop instance that is passed in from the main
-     * @param storage - the current storage instance
-     * containing shop data
-     **********************************************************/
-    public void setStorage(ShopDataStorage storage)
+    private void initController()
     {
-        this.storage = storage;
-        customerTable.setItems(storage.getCustomers());
+        controller = ApplicationController.getInstance().getCustomerController();
+        customerTable.setItems(controller.getCustomers());
+    }
+    
+    
+    private void setTableCallBack()
+    {
+        controller.setRefreshCallBack(() -> customerTable.refresh());
+        
     }
     /*******************************************************
      * Initializes the confirmation dialogs used in the view
@@ -130,6 +139,8 @@ public class CustomerDialog implements Initializable, StorageSettable
         memberCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().isMember()));
         interestsCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().interestsToString()));
         dateCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getDateOfJoining()));
+        //Event callback to display the selected Customer to the view
+        customerTable.getSelectionModel().selectedIndexProperty().addListener(obs -> handleSelectedItem());
         customerTable.getColumns().addAll(idCol, lastNameCol, firstNameCol, emailCol, 
                                             phoneCol, creditCol, memberCol, interestsCol, dateCol);
     }
@@ -141,11 +152,9 @@ public class CustomerDialog implements Initializable, StorageSettable
     * IOException - FXML couldn't be found at path/couldn't be loaded
     *******************************************************************/ 
     @FXML
-    private void addHandler(MouseEvent event) throws IOException
+    private void addHandler(MouseEvent event) 
     {
-        ViewLoader.getInstance().load(Views.ADD_CUSTOMER);
-        ViewLoader.getInstance().show(Views.ADD_CUSTOMER);
-//       / ((AddCustomer)ViewLoader.getInstance().getController(Views.ADD_CUSTOMER)).setStorage(storage);
+        ApplicationController.getInstance().display(Views.ADD_CUSTOMER);
     }
  
     /**********************************************************
@@ -153,12 +162,11 @@ public class CustomerDialog implements Initializable, StorageSettable
      * @param event - on click event
      **********************************************************/
     @FXML
-    private void modifyHandler(MouseEvent event) throws IOException
+    private void modifyHandler(MouseEvent event) 
     {
-        ViewLoader.getInstance().load(Views.MODIFY_CUSTOMER);
-        ViewLoader.getInstance().show(Views.MODIFY_CUSTOMER); 
-       // ((ModifyCustomer) ViewLoader.getInstance().getController(Views.MODIFY_CUSTOMER)).
-        //setCustomer((Customer)customerTable.getSelectionModel().getSelectedItem(), () -> customerTable.refresh());
+        ApplicationController.getInstance().display(Views.MODIFY_CUSTOMER);
+        controller.setCustomerForModification(((Customer)customerTable.getSelectionModel().getSelectedItem()));
+        ((ModifyCustomer)ViewLoader.getInstance().getController(Views.MODIFY_CUSTOMER)).setFields();
     }
     /*********************************************************
      * Prompts the user to confirms deletion of a customer record
@@ -176,17 +184,9 @@ public class CustomerDialog implements Initializable, StorageSettable
          //Delete button on comfirmation prompt is clicked
         Optional<ButtonType> result =  deleteAlert.showAndWait();
         if(result.get() == deleteButton)
-        {
-            deleteCustomer();
+        {   //Request a deletion operation from the Customer Controller
+             controller.requestDelete((Customer)customerTable.getSelectionModel().getSelectedItem());
         } 
-    }
-
-    /******************************************
-     * Deletes Customer from shop data
-     *******************************************/
-    private void deleteCustomer()
-    {
-        storage.getCustomers().remove((Customer)customerTable.getSelectionModel().getSelectedItem());
     }
     
     /*********************************************************

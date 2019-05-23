@@ -1,6 +1,8 @@
 
 package TimsShop.Controllers;
 
+import TimsShop.Controllers.CustomerControllers.CustomerController;
+
 /**************************************************************************************
 The ApplicationController class is responsible for the Application scoped functions
  such as Starting, Closing The application.
@@ -16,11 +18,13 @@ public class ApplicationController
     /////////////////////////////////////////////////////////
     private DBQueryProcessor queryProcessor;
     private LoginController loginController;
+    private CustomerController  customerController;
    
     private ApplicationController()
     {
-        queryProcessor = new DBQueryProcessor();
-        loginController = new LoginController(queryProcessor.getStorage().getEmployees());
+        queryProcessor     = new DBQueryProcessor();
+        loginController    = new LoginController(queryProcessor.getStorage().getEmployees());
+        customerController = new CustomerController(queryProcessor.getStorage());
         
     }
      /*************SINGLETON INSTANTIATION***************/
@@ -49,8 +53,7 @@ public class ApplicationController
     *****************************************************************/
     public void startApplication()
     {
-        ViewLoader.getInstance().load(Views.LOGIN);
-        ViewLoader.getInstance().show(Views.LOGIN);
+        display(Views.LOGIN);
     }
     /********************************************************************
     * Calls the ViewLoader to display a desired View.
@@ -63,10 +66,8 @@ public class ApplicationController
     {
         ViewLoader.getInstance().load(view);
         ViewLoader.getInstance().show(view);
-        ((StorageSettable)ViewLoader.getInstance().getController(view)).setStorage(queryProcessor.getStorage());  
     }
-    
-    
+      
     public void closeView(Views view)
     {
          ViewLoader.getInstance().close(view);
@@ -81,6 +82,11 @@ public class ApplicationController
     public LoginController getLoginController()
     {
         return loginController;
+    }
+    
+    public CustomerController getCustomerController()
+    {
+        return customerController;
     }
 }
 

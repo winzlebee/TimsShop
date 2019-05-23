@@ -23,15 +23,15 @@ public class EmployeeLoginView implements Initializable
     private PasswordField pinField;
     @FXML
     private Button lognButton;
-    
     private Shaker shaker;
     
-    private static ApplicationController appController = ApplicationController.getInstance();
+    //Controller Fields - NOTE: Views will only have access to the controllers they need
+    private static LoginController controller;
 
     @FXML
     private void loginHandler(MouseEvent event) 
     {
-        if(!appController.getLoginController().checkLogin(pinField.getText()))
+        if(!controller.checkLogin(pinField.getText()))
         {   //Shake effect (because why not)
             shaker = new Shaker(pinField);
             shaker.shake();
@@ -40,6 +40,9 @@ public class EmployeeLoginView implements Initializable
     }
  
     @Override
-    public void initialize(URL location, ResourceBundle resources) {}
+    public void initialize(URL location, ResourceBundle resources) 
+    {
+         controller = ApplicationController.getInstance().getLoginController();
+    }
    
 }

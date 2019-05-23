@@ -20,9 +20,11 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
+/****************************************************
  * @author win
- */
+ * the ShopDataStorage defines the business logic for 
+ * interfacing with the storage units of the system
+ ***************************************************************/
 public class ShopDataStorage {
     private ObservableList<Toy> toys;
     private ObservableList<Category> categories;

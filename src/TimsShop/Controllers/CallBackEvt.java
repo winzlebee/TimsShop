@@ -1,5 +1,5 @@
 
-package TimsShop.Controllers.Dialogs.CustomerControllers;
+package TimsShop.Controllers;
 
 public interface CallBackEvt
 {

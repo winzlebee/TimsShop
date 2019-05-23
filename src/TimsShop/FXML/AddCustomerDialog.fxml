@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="394.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Controllers.Dialogs.CustomerControllers.AddCustomer">
+<AnchorPane id="AnchorPane" prefHeight="394.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Views.CustomerViews.AddCustomer">
    <children>
       <TextField fx:id="lName" layoutX="202.0" layoutY="71.0" prefHeight="35.0" prefWidth="170.0" promptText="Last Name" />
       <Label layoutX="14.0" layoutY="21.0" prefHeight="35.0" prefWidth="182.0" text="Add Customer">

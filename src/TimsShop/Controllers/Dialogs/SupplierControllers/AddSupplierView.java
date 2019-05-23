@@ -1,7 +1,7 @@
 
 package TimsShop.Controllers.Dialogs.SupplierControllers;
 
-import TimsShop.Controllers.Dialogs.CustomerControllers.CallBackEvt;
+import TimsShop.Controllers.CallBackEvt;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import java.net.URL;
 import java.util.ResourceBundle;

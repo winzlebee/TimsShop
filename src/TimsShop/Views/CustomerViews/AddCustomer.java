@@ -1,6 +1,8 @@
 
-package TimsShop.Controllers.Dialogs.CustomerControllers;
+package TimsShop.Views.CustomerViews;
 
+import TimsShop.Controllers.ApplicationController;
+import TimsShop.Controllers.CustomerControllers.CustomerController;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;
 import java.net.URL;
@@ -8,7 +10,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,7 +23,6 @@ public class AddCustomer implements Initializable
 {
    /******************************CLASS FIELDS******************************/
     ///////////////////////////////////////////////////////////////////////////
-    
     @FXML
     private TextField lName;
     @FXML
@@ -43,23 +43,23 @@ public class AddCustomer implements Initializable
     private TextField interestField;
     
    
-    private ShopDataStorage dataStorage;
+    
     private ArrayList<Long> interestList;
+    
+    private static CustomerController controller; 
     
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        //Set the appropraite controller for the CustomerView
+        initController();
         interestList = new ArrayList<>();
     }
     
-    /********************************************
-     * sets the storage for the controller to use
-     * @param storage the loaded shop data 
-     ********************************************/
-    public void setStorage(ShopDataStorage storage)
+    private void initController()
     {
-        this.dataStorage = storage;
-        interestPicker.setItems(dataStorage.getCategories());
+        controller = ApplicationController.getInstance().getCustomerController();
+        interestPicker.setItems(controller.getCategories());
     }
     /*************************EVENT LISTENERS*********************************/
     //////////////////////////////////////////////////////////////////////////
@@ -85,45 +85,20 @@ public class AddCustomer implements Initializable
     @FXML
     private void saveHandler(MouseEvent event)
     {
-        if(isValidForm())
+        //Request Controller to validate form data
+        if(controller.isValidForm(fName.getText(), lName.getText(), email.getText(), phoneNum.getText()))
         { 
             DateTimeFormatter date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDateTime currentDate = LocalDateTime.now();
             
-            //add Customer to storage
-            dataStorage.addCustomer(fName.getText(), lName.getText(), email.getText(),
-                    Long.parseLong(phoneNum.getText()), date.format(currentDate), 0, false, interestList);
+            //Requests Controller to process customer input data
+            controller.addCustomer(fName.getText(), lName.getText(), email.getText(),
+                Long.parseLong(phoneNum.getText()), date.format(currentDate), 
+                0, false, interestList);
         }
-    }
-    
-    /*************************************************
-     * @return checks all fields have values in them
-     **************************************************/
-    private boolean isValidForm()
-    {   //First name field
-        if(fName.getText().isEmpty())
+        else
         {
-             errMsgLabel.setText("Please enter a name.");
-             return false;
+            errMsgLabel.setText("Please Fill In All Fields");
         }
-        //last name field
-        if(lName.getText().isEmpty())
-        {
-            errMsgLabel.setText("Please enter a name.");
-            return false;
-        }
-        //Email field
-        if(email.getText().isEmpty())
-        {
-            errMsgLabel.setText("Please Enter a valid email");
-            return false;
-        }
-        //Phone number field
-        if(phoneNum.getText().isEmpty())
-        {
-            errMsgLabel.setText("Please Enter a valid Phone Number");
-            return false;
-        }
-        return true;
     }
 }

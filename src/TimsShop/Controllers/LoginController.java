@@ -39,9 +39,10 @@ public class LoginController
      * for the main application
      *************************************************************/
     private void processLogin() 
-    {   //Handle view loading, showing and closing of Login view
-         ApplicationController.getInstance().display(Views.MAIN);
-         ApplicationController.getInstance().closeView(Views.LOGIN);
+    {   //Display Main
+        ApplicationController.getInstance().display(Views.MAIN);
+        //Close Login
+        ApplicationController.getInstance().closeView(Views.LOGIN);
         //Set on Close Listener
         ViewLoader.getInstance().getStage(Views.MAIN).setOnCloseRequest( evt ->
         {
