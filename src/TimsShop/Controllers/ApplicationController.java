@@ -1,6 +1,7 @@
 
 package TimsShop.Controllers;
 
+import TimsShop.Controllers.StockController.StockController;
 import TimsShop.Controllers.CustomerControllers.CustomerController;
 
 /**************************************************************************************

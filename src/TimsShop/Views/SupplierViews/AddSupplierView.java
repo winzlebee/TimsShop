@@ -1,5 +1,5 @@
 
-package TimsShop.Controllers.Dialogs.SupplierControllers;
+package TimsShop.Views.SupplierViews;
 
 import TimsShop.Controllers.CallBackEvt;
 import TimsShop.Models.DataModels.ShopDataStorage;

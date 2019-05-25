@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="485.0" prefWidth="401.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Controllers.Dialogs.SupplierControllers.AddSupplierView">
+<AnchorPane id="AnchorPane" prefHeight="485.0" prefWidth="401.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Views.SupplierViews.AddSupplierView">
    <children>
       <GridPane layoutX="-2.0" layoutY="-2.0" prefHeight="485.0" prefWidth="370.0">
         <columnConstraints>

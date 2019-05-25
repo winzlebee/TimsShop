@@ -63,4 +63,5 @@ public class AddCategoryDialog implements Initializable {
         // TODO: Load category data when editing on initialize
     }
 
+
 }

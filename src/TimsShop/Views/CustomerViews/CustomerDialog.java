@@ -3,7 +3,6 @@ package TimsShop.Views.CustomerViews;
 
 import TimsShop.Controllers.ApplicationController;
 import TimsShop.Controllers.CustomerControllers.CustomerController;
-import TimsShop.Controllers.StorageSettable;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
 import TimsShop.Models.DataModels.ShopDataStorage;

@@ -2,7 +2,7 @@ package TimsShop.Views.ToyViews;
 
 // Local Imports
 import TimsShop.Controllers.ApplicationController;
-import TimsShop.Controllers.StockController;
+import TimsShop.Controllers.StockController.StockController;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
 import TimsShop.Models.DataModels.ShopDataStorage;

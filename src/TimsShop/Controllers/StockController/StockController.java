@@ -1,4 +1,4 @@
-package TimsShop.Controllers;
+package TimsShop.Controllers.StockController;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;

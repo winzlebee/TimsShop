@@ -2,10 +2,9 @@
 package TimsShop.Views;
 
 import TimsShop.Controllers.ApplicationController;
-import TimsShop.Controllers.StockController;
+import TimsShop.Controllers.StockController.StockController;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
-import TimsShop.Controllers.StorageSettable;
 import TimsShop.Controllers.Views;
 import java.io.IOException;
 import java.net.URL;
