@@ -1,7 +1,8 @@
 package TimsShop.Views.ToyViews;
 
 // Local Imports
-import TimsShop.Models.DataModels.ShopDataStorage;
+import TimsShop.Controllers.ApplicationController;
+import TimsShop.Controllers.StockController.StockController;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,13 +27,24 @@ public class AddCategoryDialog implements Initializable {
     @FXML
     private Label errMsgLabel;
     
-    private ShopDataStorage dataStorage;
+    private StockController controller;
 
-  
-    public void setStorage(ShopDataStorage storage) {
-        this.dataStorage = storage;
+    
+    
+    /********************INITIALIZATIONS**************************/
+    //////////////////////////////////////////////////////////////
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //intialize our stuff
+        initController();
     }
     
+    public void initController() {
+        controller = ApplicationController.getInstance().getStockController();
+    }
+    
+    /********************EVENT HANDLERS**************************/
+    //////////////////////////////////////////////////////////////
     @FXML
     void onSubmit(MouseEvent event) {
         
@@ -41,7 +53,7 @@ public class AddCategoryDialog implements Initializable {
             return;
         }
         
-        dataStorage.addCategory(catNameField.getText(), new ArrayList<String>(Arrays.asList(catTagsField.getText().split(","))));
+        controller.insertCategory(catNameField.getText(), new ArrayList<String>(Arrays.asList(catTagsField.getText().split(","))));
         System.out.println("A category has been added.");
         
         closeDialog(event);
@@ -52,16 +64,11 @@ public class AddCategoryDialog implements Initializable {
         closeDialog(event);
     }
     
+    
     private void closeDialog(MouseEvent evt) {
         Node  source = (Node)  evt.getSource(); 
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
     }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // TODO: Load category data when editing on initialize
-    }
-
 
 }

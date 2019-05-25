@@ -120,7 +120,7 @@ public class MainView implements  Initializable
         idCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getId()));
         nameCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));
         priceCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(String.format("$%.2f", p.getValue().getPrice())));
-        categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(stockController.getCategiryName(p.getValue().getCategoryId())));
+        categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(stockController.getCategoryName(p.getValue().getCategoryId())));
         qtyCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getStockCount()));
         dateOrdered.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getDateStocked()));
         locationCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getStoreLocation()));

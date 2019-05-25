@@ -46,6 +46,13 @@ public class StockController
         }
     }
     
+    public void insertCategory(String name, ArrayList<String> tags)
+    {
+        storage.addCategory(name, tags);
+    }
+    
+    
+    
     /**************************
      * Validate that key form  entries are mode
      * @param name - the toy name, entered from form
@@ -94,7 +101,7 @@ public class StockController
         return toys;
     }
     
-    public String getCategiryName(long id)
+    public String getCategoryName(long id)
     {
         return (storage.getCategoryById(id)).getName();
     }
