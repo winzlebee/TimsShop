@@ -23,7 +23,7 @@ public class LoginController
      * @param staffId - user entered value
      * @return - whether a succesful staff login was entered
      *************************************************************/
-    public boolean checkLogin(String staffId) 
+    public boolean checkLogin(String staffId)
     { // TODO: check against pool of loaded staff-logins
         if(staffId.equals("1234")) //<----------TEST LOGIN
         {

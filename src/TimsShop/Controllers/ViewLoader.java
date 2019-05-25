@@ -49,7 +49,7 @@ public class ViewLoader
         return SingletonHolder.INSTANCE;
     }
     
-    public  void load(Views view)
+    public void load(Views view)
     {
         //Checks if view is already loaded into the map
         if(stageMap.get(view.getKey()) == null)

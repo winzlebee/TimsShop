@@ -69,7 +69,6 @@ public class MainView implements  Initializable
     
   
     //Data storage for the application
-    private ShopDataStorage storage;
     private static StockController stockController;
     
   
@@ -177,7 +176,7 @@ public class MainView implements  Initializable
     private void logoutHandler(MouseEvent event) throws IOException
     {
         ApplicationController.getInstance().display(Views.LOGIN);
-        ApplicationController.getInstance().closeView(Views.LOGIN);
+        ApplicationController.getInstance().closeView(Views.MAIN);
         
     }
 
@@ -206,7 +205,7 @@ public class MainView implements  Initializable
     private void handleSearchEntry(KeyEvent event)
     {
         //Add Data to list based on filter
-        FilteredList<Toy> filteredData = new FilteredList<>(storage.getToys(),  e -> true);
+        FilteredList<Toy> filteredData = new FilteredList<>(stockController.getToys(),  e -> true);
         
         //Listener compares table data to  string value entered by user in search bar
         searchBar.textProperty().addListener((observableValue, oldValue, newValue) -> 
