@@ -32,13 +32,18 @@ public class StockController
     /******************STORAGE PROCEDURES**********************************/
     ///////////////////////////////////////////////////////////////////////
     public void makeInsertionRequest(String name, float price, String description, 
-            long categoryId, int count, ArrayList<Long> suppliers, String location)
+            Object categoryId, int count, ArrayList<Long> suppliers, String location)
     {
+        try{
+        
         DateTimeFormatter date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
          LocalDateTime currentDate = LocalDateTime.now();
         
         
-        storage.insertToy(name, price, description, categoryId, count, suppliers, date.format(currentDate), location);
+        storage.insertToy(name, price, description, ((Category)categoryId).getID(), count, suppliers, date.format(currentDate), location);
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
     
     /**************************
@@ -47,19 +52,23 @@ public class StockController
      * @param id the Category ID, entered from form
      * @return 
      *****************************************/
-    public boolean isValidForm(String name, Long id)
+    public boolean isValidForm(String name, Object id)
     {
-        if (name.isEmpty() || name.equals("".trim())) 
-        {
-            return false;
+        try {
+            if (name.isEmpty() || name.equals("".trim())) 
+            {
+                return false;
+            }
+
+            if (((Category)id).getID() == 0)
+            {
+                return false;
+            }
+            return true;
+        }catch(Exception e){
+            System.out.println(e);
         }
-        
-        if (id == null)
-        {
-            return false;
-        }
-        
-        return true;
+        return false;
     }
     
     

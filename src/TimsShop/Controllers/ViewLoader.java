@@ -16,37 +16,28 @@ import javafx.stage.WindowEvent;
  ************************************************************/
 public class ViewLoader 
 {
-    private static class SingletonHolder
-    {
-        static ViewLoader INSTANCE = createInstance();
-        private SingletonHolder(){}
-        private static ViewLoader createInstance()
-        {
-            if(INSTANCE == null )
-            {
-                INSTANCE = new ViewLoader();
-                INSTANCE.stageMap = new HashMap<>();
-                INSTANCE.controllerMap = new HashMap<>();
-                //Add the view key to the map, and set the default value of all to nll
-                for(Views views: Views.values())
-                {
-                    INSTANCE.stageMap.put(views.getKey(), null);
-                    INSTANCE.stageMap.put(views.getKey(), null);
-                }
-            }      
-            return INSTANCE;
-        }
-    }
     //Maps the stages and controllers of the system to the string key value
     private HashMap<String, Stage> stageMap;
     private HashMap<String, FXMLLoader> controllerMap;
     
     
-    private ViewLoader(){}
+    private ViewLoader(){
+        stageMap = new HashMap<>();
+        controllerMap = new HashMap<>();
+        //Add the view key to the map, and set the default value of all to nll
+        for(Views views: Views.values())
+        {
+            stageMap.put(views.getKey(), null);
+            stageMap.put(views.getKey(), null);
+        }
+    }
     
+     /*************SINGLETON INSTANTIATION***************/
+    /////////////////////////////////////////////////////////
+    private static ViewLoader INSTANCE;
     public static ViewLoader getInstance()
     {
-        return SingletonHolder.INSTANCE;
+        return INSTANCE == null ? INSTANCE = new ViewLoader(): INSTANCE;
     }
     
     public void load(Views view)
