@@ -17,7 +17,7 @@ public class Shaker
         translateTransition = new TranslateTransition(Duration.millis(75),node);
         translateTransition.setFromX(0f);
         translateTransition.setByX(10f);
-        translateTransition.setCycleCount(3);      
+        translateTransition.setCycleCount(4);      
         translateTransition.setAutoReverse(true);
     }
     
