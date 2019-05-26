@@ -2,10 +2,12 @@
 package TimsShop.Views;
 
 import TimsShop.Controllers.ApplicationController;
+import TimsShop.Controllers.CustomerControllers.CustomerController;
 import TimsShop.Controllers.StockController.StockController;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Toy;
 import TimsShop.Controllers.Views;
+import TimsShop.Models.RelationModels.Sale;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,6 +56,8 @@ public class MainView implements  Initializable
     private TextField supplerSearchBar;
     @FXML
     private TableView supplierTable;
+    @FXML
+    private TableView salesTable;
     
     //Table Components
     private TableColumn<Toy, Long> idCol;
@@ -63,14 +67,21 @@ public class MainView implements  Initializable
     private TableColumn<Toy, String> priceCol;
     private TableColumn<Toy, String> categoryCol;
     private TableColumn<Toy, Integer> qtyCol;
+    
+    // Supplier Table
     private TableColumn<Toy, String> dateOrdered;
     private TableColumn<Toy, String> locationCol;
     private TableColumn<Toy, String> supplierCol;
     
-    
-  
+    // Sales Table
+    private TableColumn<Sale, String> saleDate;
+    private TableColumn<Sale, Integer> itemNum;
+    private TableColumn<Sale, Integer> itemQuantity;
+    private TableColumn<Sale, String> customerName;
+
     //Data storage for the application
     private static StockController stockController;
+    private static CustomerController custController;
     
   
     /**********************************************************************
@@ -92,12 +103,15 @@ public class MainView implements  Initializable
     {
         stockController = ApplicationController.getInstance().getStockController();
         stockController.setRefreshCallback(() -> toyTable.refresh());
+        
+        custController = ApplicationController.getInstance().getCustomerController();
     }
     
     private void bindData()
     {
         toyTable.setItems(stockController.getToys());
         supplierTable.setItems(stockController.getToys());
+        salesTable.setItems(stockController.getSales());
     }
     
 
@@ -118,10 +132,17 @@ public class MainView implements  Initializable
         dateOrdered = new TableColumn<>("Date Stocked");
         locationCol = new TableColumn<>("Store Location");
         supplierCol = new TableColumn<>("Suppliers");
+        
+        // Sales table
+        saleDate = new TableColumn<>("Date");
+        itemNum = new TableColumn<>("Number of Items");
+        itemQuantity = new TableColumn<>("Total Quantity");
+        customerName = new TableColumn<>("Customer");
   
     }
     private void setTableData()
     {
+        // Toy table
         idCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getId()));
         idCol2.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getId()));
         nameCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));
@@ -129,13 +150,23 @@ public class MainView implements  Initializable
         priceCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(String.format("$%.2f", p.getValue().getPrice())));
         categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(stockController.getCategoryName(p.getValue().getCategoryId())));
         qtyCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getStockCount()));
+        
+        // Supplier Table
         dateOrdered.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getDateStocked()));
         locationCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getStoreLocation()));
         supplierCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(stockController.getFormattedSuppliers(p.getValue())));
         
+        // Sales Table
+        saleDate.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getDate().toString()));
+        itemNum.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getNumItems()));
+        itemQuantity.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getTotalQuantity()));
+        customerName.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(custController.getCustomerById(p.getValue().getCustomerId()).getFirstName()));
         
+        // Add all the relevant columns
         toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol, qtyCol);
         supplierTable.getColumns().addAll(idCol2,nameCol2, dateOrdered, locationCol, supplierCol);
+        salesTable.getColumns().addAll(saleDate, itemNum, itemQuantity, customerName);
+        
     }
 
     /*******************************EVENT LISTENERS****************************/

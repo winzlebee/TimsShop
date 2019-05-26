@@ -33,7 +33,7 @@ public class StockController
         toys = storage.getToys();
         suppliers = storage.getSuppliers();
         categories = storage.getCategories();
-        
+        sales = storage.getSales();
     }
     
     

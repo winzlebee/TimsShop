@@ -81,6 +81,11 @@ public class CustomerController
         return selectedCustomer;
     }
     
+    public Customer getCustomerById(long id)
+    {
+        return customers.filtered((c) -> c.getUserID() == id).get(0);
+    }
+    
     /*****************SETTERS***********************/
     ///////////////////////////////////////////////////
      public void setCustomerForModification(Customer c)
