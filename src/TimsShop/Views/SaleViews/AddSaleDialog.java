@@ -82,6 +82,8 @@ public class AddSaleDialog implements Initializable {
     /**  WARNING LABELS **/
     @FXML
     private Label itemWarn;
+    @FXML
+    private Label custWarnLabel;
     
     private StockController m_stockControl;
     private CustomerController m_customerControl;
@@ -155,12 +157,12 @@ public class AddSaleDialog implements Initializable {
         // Copy the items into a HashMap compatible with the sale view
         Customer selectedCust = (Customer) customerDropDown.getSelectionModel().getSelectedItem();
         if (selectedCust == null) {
-            // TODO: Make error prompt
+            custWarnLabel.setText("Please select a customer.");
             return;
         }
         
         if (m_tempItems.isEmpty()) {
-            
+            custWarnLabel.setText("Please add items to the sale.");
             return;
         }
         
