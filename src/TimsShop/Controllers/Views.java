@@ -7,16 +7,16 @@ package TimsShop.Controllers;
 
 public enum Views
 {
-    LOGIN("/TimsShop/FXML/EmployeeLoginView.fxml", "LOGIN"),
-    MAIN("/TimsShop/FXML/MainView.fxml", "MAIN"),
-    CUSTOMER("/TimsShop/FXML/CustomerDialog.fxml","CUSTOMER"),
-    ADD_CUSTOMER("/TimsShop/FXML/AddCustomerDialog.fxml","ADD_CUSTOMER"),
-    MODIFY_CUSTOMER("/TimsShop/FXML/ModifyCustomerDialog.fxml","MODIFY_CUSTOMER"),
-    ADD_TOY("/TimsShop/FXML/InsertToyDialog.fxml","ADD_TOY"),
-    ADD_CATEGORY("/TimsShop/FXML/AddCategoryDialog.fxml","ADD_CATEGORY "),
-    SUPPLIER("/TimsShop/FXML/SupplierView.fxml", "SUPPLIER"),
-    ADD_SUPPLIER("/TimsShop/FXML/AddSupplierView.fxml", "ADD_SUPPLIER"),
-    ADD_SALE("/TimsShop/FXML/MakeSaleView.fxml", "MAKE_SALE");
+    LOGIN("/TimsShop/Views/EmployeeLoginView.fxml", "LOGIN"),
+    MAIN("/TimsShop/Views/MainView.fxml", "MAIN"),
+    CUSTOMER("/TimsShop/Views/CustomerDialog.fxml","CUSTOMER"),
+    ADD_CUSTOMER("/TimsShop/Views/AddCustomerDialog.fxml","ADD_CUSTOMER"),
+    MODIFY_CUSTOMER("/TimsShop/Views/ModifyCustomerDialog.fxml","MODIFY_CUSTOMER"),
+    ADD_TOY("/TimsShop/Views/InsertToyDialog.fxml","ADD_TOY"),
+    ADD_CATEGORY("/TimsShop/Views/AddCategoryDialog.fxml","ADD_CATEGORY "),
+    SUPPLIER("/TimsShop/Views/SupplierView.fxml", "SUPPLIER"),
+    ADD_SUPPLIER("/TimsShop/Views/AddSupplierView.fxml", "ADD_SUPPLIER"),
+    ADD_SALE("/TimsShop/Views/MakeSaleView.fxml", "MAKE_SALE");
   
     private final String path;
     private final String key;

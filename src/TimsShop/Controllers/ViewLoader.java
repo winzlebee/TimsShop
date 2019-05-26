@@ -1,46 +1,54 @@
+
 package TimsShop.Controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**********************************************************
  * The FXMLLoader is a factory class used to build FXML views
  ************************************************************/
 public class ViewLoader 
 {
+    private static class SingletonHolder
+    {
+        static ViewLoader INSTANCE = createInstance();
+        private SingletonHolder(){}
+        private static ViewLoader createInstance()
+        {
+            if(INSTANCE == null )
+            {
+                INSTANCE = new ViewLoader();
+                INSTANCE.stageMap = new HashMap<>();
+                INSTANCE.controllerMap = new HashMap<>();
+                //Add the view key to the map, and set the default value of all to nll
+                for(Views views: Views.values())
+                {
+                    INSTANCE.stageMap.put(views.getKey(), null);
+                    INSTANCE.stageMap.put(views.getKey(), null);
+                }
+            }      
+            return INSTANCE;
+        }
+    }
     //Maps the stages and controllers of the system to the string key value
     private HashMap<String, Stage> stageMap;
     private HashMap<String, FXMLLoader> controllerMap;
     
     
-    private ViewLoader(){
-        stageMap = new HashMap<>();
-        controllerMap = new HashMap<>();
-        //Add the view key to the map, and set the default value of all to nll
-        for(Views views: Views.values())
-        {
-            stageMap.put(views.getKey(), null);
-            stageMap.put(views.getKey(), null);
-        }
-    }
+    private ViewLoader(){}
     
-     /*************SINGLETON INSTANTIATION***************/
-    /////////////////////////////////////////////////////////
-    private static ViewLoader INSTANCE;
     public static ViewLoader getInstance()
     {
-        return INSTANCE == null ? INSTANCE = new ViewLoader(): INSTANCE;
+        return SingletonHolder.INSTANCE;
     }
     
-    public void load(Views view)
+    public  void load(Views view)
     {
         //Checks if view is already loaded into the map
         if(stageMap.get(view.getKey()) == null)
@@ -111,25 +119,5 @@ public class ViewLoader
       return controllerMap.get(view.getKey()).<T>getController();
     }
     
-    public void setWindowsClose(Views view, EventHandler<WindowEvent> evt)
-     {
-         (stageMap.get(view.getKey())).setOnCloseRequest(evt);
-     }
     
-    /*************************
-     * Closes all open views 
-     ***************************/
-   public void notifyAllToClose()
-    {
-        for(String s: stageMap.keySet())
-        {
-            Stage openStage =  stageMap.get(s);
-            if(openStage != null)
-            {
-                openStage.close();
-            }
-        }
-    }
 }
-    
-    
