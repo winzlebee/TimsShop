@@ -31,8 +31,6 @@ public class SupplierView implements Initializable
     /******************************CLASS FIELDS******************************/
     //////////////////////////////////////////////////////////////////////////
     @FXML
-    private Button modifyButton;
-    @FXML
     private Button deleteButton;
     @FXML
     private Button addButton;
@@ -104,11 +102,6 @@ public class SupplierView implements Initializable
     
     /*************************EVENT LISTENERS*********************************/
     //////////////////////////////////////////////////////////////////////////
-    @FXML
-    private void modifyHandler(MouseEvent event)
-    {
-        
-    }
     
     /*********************************************************
      * Prompts the user to confirms deletion of a supplier record
@@ -156,7 +149,6 @@ public class SupplierView implements Initializable
     }
     private void toggleButtonEnable(boolean value)
     {
-        modifyButton.setDisable(!value);
         deleteButton.setDisable(!value);
     }
         

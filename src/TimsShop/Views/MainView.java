@@ -213,6 +213,27 @@ public class MainView implements  Initializable
         ApplicationController.getInstance().display(Views.ADD_SALE);
     }
     
+    @FXML
+    private void onVoidSale(MouseEvent event)
+    {
+        Sale selectedSale = (Sale) salesTable.getSelectionModel().getSelectedItem();
+        
+        if (selectedSale == null) return;
+        
+        stockController.removeSale(selectedSale);
+    }
+    
+    @FXML
+    private void onStocktake(MouseEvent event) {
+        Toy selectedToy = (Toy) toyTable.getSelectionModel().getSelectedItem();
+        
+        // Open the stocktake dialog with the selected toy
+        if (selectedToy != null) {
+            stockController.setSelectedToy(selectedToy);
+            ApplicationController.getInstance().display(Views.STOCKTAKE);
+        }
+    }
+    
     /********************************************************
      * Destroys mainview and displays login view
      * @param event - on Mouse click event

@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -34,11 +35,16 @@
                                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                                  </columnConstraints>
                                  <rowConstraints>
-                                    <RowConstraints maxHeight="413.0" />
+                                    <RowConstraints vgrow="SOMETIMES" />
                                     <RowConstraints />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" GridPane.columnSpan="2147483647" />
+                                    <HBox GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                       <children>
+                                          <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" promptText="Search Stock by Name.." HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#onStocktake" text="Stocktake" />
+                                       </children>
+                                    </HBox>
                                     <TableView fx:id="toyTable" prefHeight="415.0" prefWidth="406.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -58,7 +64,7 @@
                                     <RowConstraints maxHeight="496.0" minHeight="10.0" prefHeight="457.0" vgrow="ALWAYS" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="supplerSearchBar" onKeyReleased="#handleSearchEntry2" GridPane.columnSpan="2147483647" />
+                                    <TextField fx:id="supplerSearchBar" onKeyReleased="#handleSearchEntry2" promptText="Search Suppliers by Name.." GridPane.columnSpan="2147483647" />
                                     <TableView fx:id="supplierTable" prefHeight="444.0" prefWidth="494.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -74,11 +80,16 @@
                                     <ColumnConstraints hgrow="ALWAYS" />
                                  </columnConstraints>
                                  <rowConstraints>
-                                    <RowConstraints />
-                                    <RowConstraints maxHeight="496.0" minHeight="10.0" prefHeight="457.0" vgrow="ALWAYS" />
+                                    <RowConstraints vgrow="NEVER" />
+                                    <RowConstraints vgrow="ALWAYS" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="supplerSearchBar1" onKeyReleased="#handleSearchEntry3" GridPane.columnSpan="2147483647" />
+                                    <HBox>
+                                       <children>
+                                          <TextField fx:id="supplerSearchBar1" onKeyReleased="#handleSearchEntry3" promptText="Search Sales by Date.." HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#onVoidSale" text="Void Sale" />
+                                       </children>
+                                    </HBox>
                                     <TableView fx:id="salesTable" prefHeight="444.0" prefWidth="494.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

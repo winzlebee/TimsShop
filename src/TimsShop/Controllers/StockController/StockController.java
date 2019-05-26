@@ -24,6 +24,8 @@ public class StockController
     private ObservableList<Supplier> suppliers;
     private ObservableList<Sale> sales;
     
+    private Toy selectedToy;
+    
     private CallBackEvt toyCallBack;
     private ShopDataStorage storage;
     
@@ -59,6 +61,25 @@ public class StockController
         storage.addCategory(name, tags);
     }
     
+    public void setSelectedToy(Toy t)
+    {
+        this.selectedToy = t;
+    }
+    
+    public Toy getSelectedToy()
+    {
+        return selectedToy;
+    }
+    
+    public void removeToy(Toy t) {
+        this.storage.removeToy(t);
+    }
+    
+    public void setToyQuantity(Toy t, int quantity) {
+        t.setStockCount(quantity);
+        toyCallBack.callBack();
+    }
+    
     public void makeSale(Customer cust, Map<Item, Integer> quantities)
     {
         // Remove each of the item quantities where necessary
@@ -68,6 +89,20 @@ public class StockController
         }
         
         storage.insertSale(quantities, cust);
+        
+        toyCallBack.callBack();
+    }
+    
+    public void removeSale(Sale sale)
+    {
+        // Do the reverse of the operation of make sale
+        for (Long l : sale.getSaleItems().keySet()) {
+            Item item = storage.getToyById(l);
+            if (item == null) continue;
+            item.setStockCount(item.getStockCount() + sale.getSaleItems().get(l));
+        }
+        
+        storage.removeSale(sale);
         
         toyCallBack.callBack();
     }
@@ -160,9 +195,5 @@ public class StockController
     {
         return storage.getSupplierString(t);
     }
-    
-    
-     
-    
     
 }

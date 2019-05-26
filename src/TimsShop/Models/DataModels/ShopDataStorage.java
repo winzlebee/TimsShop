@@ -143,6 +143,10 @@ public class ShopDataStorage {
         // Insert a sale into the database. Note that a sale can include a number of toys
         sales.add(new Sale(items, cust));
     }
+    
+    public void removeSale(Sale s) {
+        sales.remove(s);
+    }
      
     /****************************TOY******************************/
     //////////////////////////////////////////////////////////////
@@ -156,6 +160,12 @@ public class ShopDataStorage {
     public void insertToy(String name, float price, String description, long categoryId, int count, ArrayList<Long> suppliers, String date, String location) {
         toys.add(new Toy(getLastToyId() + 1, name, price,categoryId, count, suppliers, description, date, location) );
     }
+    
+    public void removeToy(Toy t)
+    {
+        toys.remove(t);
+    }
+    
     private long getLastToyId() {
         if (toys.isEmpty()) return 0;
         return toys.get(toys.size()-1).getId();
