@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -34,11 +35,16 @@
                                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                                  </columnConstraints>
                                  <rowConstraints>
-                                    <RowConstraints maxHeight="413.0" />
+                                    <RowConstraints vgrow="SOMETIMES" />
                                     <RowConstraints />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" GridPane.columnSpan="2147483647" />
+                                    <HBox GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                       <children>
+                                          <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#onStocktake" text="Stocktake" />
+                                       </children>
+                                    </HBox>
                                     <TableView fx:id="toyTable" prefHeight="415.0" prefWidth="406.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

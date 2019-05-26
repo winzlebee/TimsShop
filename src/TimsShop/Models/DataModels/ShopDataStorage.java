@@ -156,6 +156,12 @@ public class ShopDataStorage {
     public void insertToy(String name, float price, String description, long categoryId, int count, ArrayList<Long> suppliers, String date, String location) {
         toys.add(new Toy(getLastToyId() + 1, name, price,categoryId, count, suppliers, description, date, location) );
     }
+    
+    public void removeToy(Toy t)
+    {
+        toys.remove(t);
+    }
+    
     private long getLastToyId() {
         if (toys.isEmpty()) return 0;
         return toys.get(toys.size()-1).getId();
