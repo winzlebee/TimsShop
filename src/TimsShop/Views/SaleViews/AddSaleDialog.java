@@ -5,6 +5,9 @@
  */
 package TimsShop.Views.SaleViews;
 
+import TimsShop.Controllers.ApplicationController;
+import TimsShop.Controllers.CustomerControllers.CustomerController;
+import TimsShop.Controllers.StockController.StockController;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,18 +28,22 @@ public class AddSaleDialog implements Initializable {
     @FXML
     private ComboBox customerDropDown;
     
-    private ShopDataStorage dataStorage;
+    private StockController m_stockControl;
+    private CustomerController m_customerControl;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO: Add methods on initializeof AddSaleDialog
+        
+        initFields();
     }
     
-    public void setStorage(ShopDataStorage storage) {
-        this.dataStorage = storage;
+    public void initFields() {
+        this.m_stockControl = ApplicationController.getInstance().getStockController();
+        this.m_customerControl = ApplicationController.getInstance().getCustomerController();
         
         // Initialize necessary fields from storage
-        customerDropDown.setItems(dataStorage.getCustomers()); 
+        customerDropDown.setItems(m_customerControl.getCustomers());
     }
     
 }

@@ -96,7 +96,4 @@ public class ApplicationController
         return stockController;
     }
 }
-
-
-    
    

@@ -2,11 +2,15 @@ package TimsShop.Controllers.StockController;
 
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;
+import TimsShop.Models.ItemModels.Item;
 import TimsShop.Models.ItemModels.Toy;
+import TimsShop.Models.RelationModels.Sale;
+import TimsShop.Models.UserModels.Customer;
 import TimsShop.Models.UserModels.Supplier;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 import javafx.collections.ObservableList;
 
 
@@ -17,6 +21,8 @@ public class StockController
     private ObservableList<Toy> toys;
     private ObservableList<Category> categories;
     private ObservableList<Supplier> suppliers;
+    private ObservableList<Sale> sales;
+    
     private ShopDataStorage storage;
     
     public StockController(ShopDataStorage storage)
@@ -51,6 +57,10 @@ public class StockController
         storage.addCategory(name, tags);
     }
     
+    public void makeSale(Customer cust, Map<Item, Integer> quantities)
+    {
+        storage.insertSale(quantities, cust);
+    }
     
     
     /**************************
@@ -99,6 +109,11 @@ public class StockController
     public ObservableList<Toy> getToys()
     {
         return toys;
+    }
+    
+    public ObservableList<Sale> getSales()
+    {
+        return sales;
     }
     
     public String getCategoryName(long id)

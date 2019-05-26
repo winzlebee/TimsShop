@@ -137,9 +137,9 @@ public class ShopDataStorage {
         this.sales = FXCollections.observableArrayList(newSales);
     }
     
-    public void insertSale() {
+    public void insertSale(Map<Item, Integer> items, Customer cust) {
         // Insert a sale into the database. Note that a sale can include a number of toys
-        
+        sales.add(new Sale(items, cust));
     }
      
     /****************************TOY******************************/
