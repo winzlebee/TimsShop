@@ -1,72 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package TimsShop.Controllers;
 
-import TimsShop.Controllers.Animations.Shaker;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.input.MouseEvent;
+import TimsShop.Models.UserModels.Employee;
+import javafx.collections.ObservableList;
 
-/*****************************************************
- * The main view for Employee Login -
- *  Prompts Employees to Enter login pin 
- ***************************************************/
-public class LoginController implements Initializable
-{
-
-    @FXML
-    private PasswordField pinField;
-    @FXML
-    private Button lognButton;
-    
-    private Shaker shaker; 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) 
+/**************************************************************************
+ * The LoginController class defines the initial login validation logic
+ * while also providing a light-weight initialization of the  Application
+ **************************************************************************/
+public class LoginController
+{    
+  
+    private ObservableList<Employee> employeeList;
+    public LoginController(ObservableList<Employee> employees)
     {
-       
-    }
-    
-    private boolean checkLogin()
+        this.employeeList = employees;
+    } 
+
+  /************************************************************
+      Checks against valid login credentials based on the 
+      user entered value
+     * @param staffId - user entered value
+     * @return - whether a succesful staff login was entered
+     *************************************************************/
+    public boolean checkLogin(String staffId)
     { // TODO: check against pool of loaded staff-logins
-      return pinField.getText().equals("1234");
-    }
-
-    @FXML
-    private void loginHandler(MouseEvent event) throws IOException
-    {
-        if(checkLogin())
-        {   
-            processLogin(pinField.getText());  
+        if(staffId.equals("1234")) //<----------TEST LOGIN
+        {
+            processLogin();
+            return true;
         }
-        else
-        {   //Shake effect (because why not)
-            shaker = new Shaker(pinField);
-            shaker.shake();
-            pinField.setStyle("-fx-border-color:red;-fx-;");
-        }
-       
+        return false;
     }
     
-    private void processLogin(String staffId) throws IOException
-    {   //Handle view loading, showing and closing of Login view
-        ViewLoader.getInstance().load(Views.MAIN);
-        ViewLoader.getInstance().show(Views.MAIN);
-        ViewLoader.getInstance().close(Views.LOGIN);
+    /************************************************************
+     * Processes login and launches the main application
+     * processLogin() also determines a windows close callback 
+     * for the main application
+     *************************************************************/
+    private void processLogin() 
+    {   //Display Main
+        ApplicationController.getInstance().display(Views.MAIN);
+        //Close Login
+        ApplicationController.getInstance().closeView(Views.LOGIN);
         //Set on Close Listener
-        MainViewController controller = ViewLoader.getInstance().getController(Views.MAIN);
-        ViewLoader.getInstance().getStage(Views.MAIN).setOnCloseRequest( evt -> controller.onClose()); 
+        ViewLoader.getInstance().getStage(Views.MAIN).setOnCloseRequest( evt ->
+        {
+            ApplicationController.getInstance().closeApplication();
+        });
     }
-    
-    
-    //AddToyDialog dialog = toyDialogLoader.<AddToyDialog>getController();
-    
 }

@@ -1,13 +1,8 @@
 
 package TimsShop;
-import TimsShop.Controllers.ViewLoader;
-import TimsShop.Controllers.Views;
+import TimsShop.Controllers.ApplicationController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 
 /****************************************************************
 This class serves as controller between the views of  Tims Toy shop.
@@ -31,10 +26,9 @@ public class Main extends Application  // Application class serves as the Entry 
      Result: Sets the frame to show.
       ************************************************************************/
     @Override
-    public void start(Stage primaryStage) throws Exception 
-    {           
-        ViewLoader.getInstance().load(Views.LOGIN);
-        ViewLoader.getInstance().show(Views.LOGIN);
+    public void start(Stage primaryStage) 
+    {         
+        ApplicationController.getInstance().startApplication();
     }
     
     /**

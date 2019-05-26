@@ -20,9 +20,11 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
+/****************************************************
  * @author win
- */
+ * the ShopDataStorage defines the business logic for 
+ * interfacing with the storage units of the system
+ ***************************************************************/
 public class ShopDataStorage {
     private ObservableList<Toy> toys;
     private ObservableList<Category> categories;
@@ -40,7 +42,7 @@ public class ShopDataStorage {
             storageEngine.readDataStorage(this);
             return;
         }
-
+        
         // If there's no data storage in place, we're going to initialize our observables as empty lists.
         toys = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList();
@@ -66,6 +68,7 @@ public class ShopDataStorage {
         categories.add(new Category(5, "WWI Heavy Artillery", null));
         categories.add(new Category(6, "Sports Cars", null));
         categories.add(new Category(7, "Science Fiction", null));
+        categories.add(new Category(8, "Drone", null));
         
         suppliers.add(new Supplier(1, "Loco-Moco Pty. Ltd.", "12 Downing St ", "Phillip Ambrose", 0432526));
         suppliers.add(new Supplier(2, "C4Lyfe.", "16 May Ave", "Danuek Kreepa", 04325236));
@@ -95,6 +98,7 @@ public class ShopDataStorage {
         toys.add(new Toy(8, "VII Tank", 150 ,5, 5,sList ,"", "20/05/2019", "Aisle 4") );
         toys.add(new Toy(9, "MX5 Deluxe Edition", 200, 6, 5,sList2 , "", "20/05/2019", "Aisle 2") );
         toys.add(new Toy(10, "Steam liner", 1100,1, 5,sList3 , "", "20/05/2019", "Aisle 3") );
+        toys.add(new Toy(11, "DJI F450", 500, 8, 5, sList3, "Large quadcopter with support for gimbal system.", "24/05/2019", "Aisle 1") );
         
         
         ArrayList<String> iList = new ArrayList<>();
@@ -135,9 +139,9 @@ public class ShopDataStorage {
         this.sales = FXCollections.observableArrayList(newSales);
     }
     
-    public void insertSale() {
+    public void insertSale(Map<Item, Integer> items, Customer cust) {
         // Insert a sale into the database. Note that a sale can include a number of toys
-        
+        sales.add(new Sale(items, cust));
     }
      
     /****************************TOY******************************/
