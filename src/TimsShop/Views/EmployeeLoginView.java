@@ -35,7 +35,7 @@ public class EmployeeLoginView implements Initializable
         {   //Shake effect (because why not)
             shaker = new Shaker(pinField);
             shaker.shake();
-            pinField.setStyle("-fx-border-color:red;-fx-;");
+            pinField.setStyle("-fx-border-color:red;");
         }
     }
  
