@@ -143,6 +143,10 @@ public class ShopDataStorage {
         // Insert a sale into the database. Note that a sale can include a number of toys
         sales.add(new Sale(items, cust));
     }
+    
+    public void removeSale(Sale s) {
+        sales.remove(s);
+    }
      
     /****************************TOY******************************/
     //////////////////////////////////////////////////////////////

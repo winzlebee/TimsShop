@@ -93,6 +93,20 @@ public class StockController
         toyCallBack.callBack();
     }
     
+    public void removeSale(Sale sale)
+    {
+        // Do the reverse of the operation of make sale
+        for (Long l : sale.getSaleItems().keySet()) {
+            Item item = storage.getToyById(l);
+            if (item == null) continue;
+            item.setStockCount(item.getStockCount() + sale.getSaleItems().get(l));
+        }
+        
+        storage.removeSale(sale);
+        
+        toyCallBack.callBack();
+    }
+    
     public void addSupplier(String name, String address, String contact, long phoneNum)
     {
         storage.addSupplier(name, address, contact, phoneNum);

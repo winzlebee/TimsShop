@@ -212,6 +212,16 @@ public class MainView implements  Initializable
     }
     
     @FXML
+    private void onVoidSale(MouseEvent event)
+    {
+        Sale selectedSale = (Sale) salesTable.getSelectionModel().getSelectedItem();
+        
+        if (selectedSale == null) return;
+        
+        stockController.removeSale(selectedSale);
+    }
+    
+    @FXML
     private void onStocktake(MouseEvent event) {
         Toy selectedToy = (Toy) toyTable.getSelectionModel().getSelectedItem();
         
