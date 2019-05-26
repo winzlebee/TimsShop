@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Views.MainView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimsShop.Views.MainView">
    <children>
-      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="526.0" prefWidth="933.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label text="TIM'S TOY SHOP" VBox.vgrow="ALWAYS">
+            <Label text="Tim's Toy Shop Management System" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Calibri Bold" size="36.0" />
                </font>
@@ -47,7 +47,7 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" prefHeight="36.0" prefWidth="234.0" />
+                                          <TextField fx:id="searchBar" onKeyReleased="#handleSearchEntry" prefHeight="36.0" prefWidth="234.0" GridPane.columnSpan="2147483647" />
                                        </children>
                                     </GridPane>
                                     <TableView fx:id="toyTable" prefHeight="415.0" prefWidth="406.0" GridPane.rowIndex="1" />
@@ -96,12 +96,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="supplierButton" mnemonicParsing="false" onMouseClicked="#supplierButtonHandler" prefHeight="168.0" prefWidth="436.0" text="Suppliers" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="saleButton" mnemonicParsing="false" onMouseClicked="#saleHandler" prefHeight="190.0" prefWidth="203.0" text="Make Sale" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutHandler" prefHeight="214.0" prefWidth="203.0" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button id="insertButton" fx:id="insertButton" mnemonicParsing="false" onMouseClicked="#insertHandler" prefHeight="168.0" prefWidth="429.0" text="Insert Toy" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="addCategoryButton" mnemonicParsing="false" onMouseClicked="#addCategoryHandler" prefHeight="170.0" prefWidth="234.0" text="Add Category" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <Button fx:id="customerButton" mnemonicParsing="false" onMouseClicked="#customerButtonHandler" prefHeight="168.0" prefWidth="442.0" text="Customers" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="supplierButton" mnemonicParsing="false" onMouseClicked="#supplierButtonHandler" prefHeight="200.0" prefWidth="200.0" text="Suppliers" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="saleButton" mnemonicParsing="false" onMouseClicked="#saleHandler" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(255, 120, 95);" text="Make Sale" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutHandler" prefHeight="200.0" prefWidth="200.0" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button id="insertButton" fx:id="insertButton" mnemonicParsing="false" onMouseClicked="#insertHandler" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(95, 255, 120);" text="Insert Toy" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="addCategoryButton" mnemonicParsing="false" onMouseClicked="#addCategoryHandler" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(120, 95, 255);" text="Add Category" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Button fx:id="customerButton" mnemonicParsing="false" onMouseClicked="#customerButtonHandler" prefHeight="200.0" prefWidth="200.0" text="Customers" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
               </items>
