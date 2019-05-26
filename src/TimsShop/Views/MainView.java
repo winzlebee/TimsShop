@@ -57,7 +57,9 @@ public class MainView implements  Initializable
     
     //Table Components
     private TableColumn<Toy, Long> idCol;
+    private TableColumn<Toy, Long> idCol2;
     private TableColumn<Toy, String> nameCol;
+    private TableColumn<Toy, String> nameCol2;
     private TableColumn<Toy, String> priceCol;
     private TableColumn<Toy, String> categoryCol;
     private TableColumn<Toy, Integer> qtyCol;
@@ -104,6 +106,8 @@ public class MainView implements  Initializable
     {
         //Toy Table
         idCol = new TableColumn<>("Id");
+        idCol2 = new TableColumn<>("Id");
+        nameCol2 = new TableColumn<>("Name");
         nameCol = new TableColumn<>("Name");
         priceCol = new TableColumn<>("Price");
         categoryCol = new TableColumn<>("Category");
@@ -118,7 +122,9 @@ public class MainView implements  Initializable
     private void setTableData()
     {
         idCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getId()));
+        idCol2.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getId()));
         nameCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));
+        nameCol2.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));
         priceCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(String.format("$%.2f", p.getValue().getPrice())));
         categoryCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(stockController.getCategoryName(p.getValue().getCategoryId())));
         qtyCol.setCellValueFactory( p -> new ReadOnlyObjectWrapper<>(p.getValue().getStockCount()));
@@ -128,7 +134,7 @@ public class MainView implements  Initializable
         
         
         toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol, qtyCol);
-        supplierTable.getColumns().addAll(idCol,nameCol, dateOrdered, locationCol, supplierCol);
+        supplierTable.getColumns().addAll(idCol2,nameCol2, dateOrdered, locationCol, supplierCol);
     }
 
     /*******************************EVENT LISTENERS****************************/
