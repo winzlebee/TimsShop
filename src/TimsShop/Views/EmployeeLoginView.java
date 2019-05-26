@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /*****************************************************
@@ -43,5 +45,18 @@ public class EmployeeLoginView implements Initializable
     public void initialize(URL location, ResourceBundle resources) 
     {
          controller = ApplicationController.getInstance().getLoginController();
+    }
+
+    @FXML
+    private void loginHandler2(KeyEvent event) { //for if Enter is pressed
+        
+        if(event.getCode() == KeyCode.ENTER){
+            if(!controller.checkLogin(pinField.getText())) {
+                shaker = new Shaker(pinField);
+                shaker.shake();
+                pinField.setStyle("-fx-border-color:red;");
+            }
+        }
+        
     }
 }
