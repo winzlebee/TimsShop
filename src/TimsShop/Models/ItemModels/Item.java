@@ -122,6 +122,13 @@ public abstract class Item implements Serializable
     {
         this.stockCount = stockCount;
     }
+    
+    public void removeStock(int amount)
+    {
+        if (stockCount < amount) return;
+        
+        this.stockCount -= amount;
+    }
 
     public void setDateStocked(String dateStocked)
     {

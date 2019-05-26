@@ -59,6 +59,12 @@ public class StockController
     
     public void makeSale(Customer cust, Map<Item, Integer> quantities)
     {
+        // Remove each of the item quantities where necessary
+        for (Item i : quantities.keySet()) {
+            int quantity = quantities.get(i);
+            i.removeStock(quantity);
+        }
+        
         storage.insertSale(quantities, cust);
     }
     

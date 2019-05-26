@@ -133,6 +133,11 @@ public class AddSaleDialog implements Initializable {
             return;
         }
         
+        if (quantity > selectedItem.getStockCount()) {
+            itemWarn.setText("Not enough in stock of that item!");
+            return;
+        }
+        
         m_tempItems.add(new ItemAddition(selectedItem, quantity));
         itemWarn.setText("");
     }
