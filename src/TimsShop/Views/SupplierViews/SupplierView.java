@@ -1,7 +1,9 @@
 
 package TimsShop.Views.SupplierViews;
 
+import TimsShop.Controllers.ApplicationController;
 import TimsShop.Controllers.CallBackEvt;
+import TimsShop.Controllers.StockController.StockController;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
 import TimsShop.Models.DataModels.ShopDataStorage;
@@ -53,9 +55,7 @@ public class SupplierView implements Initializable
     private Alert deleteAlert;
     private CallBackEvt evnt;
             
-    
-    
-    private ShopDataStorage storage;
+    private StockController stockController;
     /******************************INITIALIZATIONS******************************/
     //////////////////////////////////////////////////////////////////////////
     @Override
@@ -67,16 +67,11 @@ public class SupplierView implements Initializable
         toggleButtonEnable(false);
         
         supplierTable.getSelectionModel().selectedIndexProperty().addListener(obs -> handleSelectedItem());
-    
-    }
-    
-    public void setStorage(ShopDataStorage storage, CallBackEvt e)
-    {
-        this.storage = storage;
-        supplierTable.setItems(storage.getSuppliers());
-        evnt = e;
+        stockController = ApplicationController.getInstance().getStockController();
         
+        supplierTable.setItems(stockController.getSuppliers());
     }
+
     private void initPopups()
     {
         deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -167,8 +162,7 @@ public class SupplierView implements Initializable
         
     private void deleteSupplier()
     {
-        storage.getSuppliers().remove((Supplier)supplierTable.getSelectionModel().getSelectedItem());
-        evnt.callBack();
+        stockController.removeSupplier((Supplier)supplierTable.getSelectionModel().getSelectedItem());
     }
   
     

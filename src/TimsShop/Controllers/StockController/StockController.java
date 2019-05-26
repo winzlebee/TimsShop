@@ -72,6 +72,15 @@ public class StockController
         toyCallBack.callBack();
     }
     
+    public void addSupplier(String name, String address, String contact, long phoneNum)
+    {
+        storage.addSupplier(name, address, contact, phoneNum);
+    }
+    
+    public void removeSupplier(Supplier supp) {
+        storage.removeSupplier(supp);
+    }
+    
     public void setRefreshCallback(CallBackEvt evt)
     {
         toyCallBack = evt;

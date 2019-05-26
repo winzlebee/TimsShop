@@ -261,6 +261,12 @@ public class ShopDataStorage {
         
         suppliers.add(new Supplier(getLastSupplierId() + 1, name, address, contact, phoneNum));
     }
+    
+    public void removeSupplier(Supplier supplier)
+    {
+        suppliers.remove(supplier);
+    }
+    
     private long getLastSupplierId()
     {
          return suppliers.isEmpty() ? 0 : suppliers.get(suppliers.size()-1).getSupplierId(); 

@@ -1,7 +1,9 @@
 
 package TimsShop.Views.SupplierViews;
 
+import TimsShop.Controllers.ApplicationController;
 import TimsShop.Controllers.CallBackEvt;
+import TimsShop.Controllers.StockController.StockController;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,26 +30,20 @@ public class AddSupplierView implements Initializable
     
     
     private CallBackEvt evnt;
-    private ShopDataStorage storage;
+    
+    private StockController stockController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-       
-    }
-    
-    public void setStorage(ShopDataStorage storage, CallBackEvt e)
-    {
-        this.storage = storage;
-        evnt = e;
+       stockController = ApplicationController.getInstance().getStockController();
     }
 
     @FXML
     private void addHandler(MouseEvent event)
     {
-        storage.addSupplier(nameField.getText(), addressField.getText(),
+        stockController.addSupplier(nameField.getText(), addressField.getText(),
                 contactField.getText(), Long.parseLong(phoneField.getText()));
-        evnt.callBack();
     }
 
     @FXML
