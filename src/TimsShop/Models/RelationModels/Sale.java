@@ -58,4 +58,8 @@ public class Sale implements Serializable {
         
         return total;
     }
+    
+    public Map<Long, Integer> getSaleItems() {
+        return m_quantities;
+    }
 }

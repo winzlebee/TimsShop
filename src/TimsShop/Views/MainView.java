@@ -77,6 +77,7 @@ public class MainView implements  Initializable
     private TableColumn<Sale, String> saleDate;
     private TableColumn<Sale, Integer> itemNum;
     private TableColumn<Sale, Integer> itemQuantity;
+    private TableColumn<Sale, String> salePriceCol;
     private TableColumn<Sale, String> customerName;
 
     //Data storage for the application
@@ -139,8 +140,9 @@ public class MainView implements  Initializable
         
         // Sales table
         saleDate = new TableColumn<>("Date");
-        itemNum = new TableColumn<>("Number of Items");
-        itemQuantity = new TableColumn<>("Total Quantity");
+        itemNum = new TableColumn<>("Item Count");
+        itemQuantity = new TableColumn<>("Quantity");
+        salePriceCol = new TableColumn<>("Price");
         customerName = new TableColumn<>("Customer");
   
     }
@@ -165,11 +167,12 @@ public class MainView implements  Initializable
         itemNum.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getNumItems()));
         itemQuantity.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getTotalQuantity()));
         customerName.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(custController.getCustomerById(p.getValue().getCustomerId()).getFirstName()));
+        salePriceCol.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(String.format("$%.2f", stockController.getSalePrice(p.getValue()))));
         
         // Add all the relevant columns
         toyTable.getColumns().addAll(idCol, nameCol, priceCol, categoryCol, qtyCol);
         supplierTable.getColumns().addAll(idCol2,nameCol2, dateOrdered, locationCol, supplierCol);
-        salesTable.getColumns().addAll(saleDate, itemNum, itemQuantity, customerName);
+        salesTable.getColumns().addAll(saleDate, itemNum, itemQuantity, customerName, salePriceCol);
         
     }
 

@@ -117,6 +117,16 @@ public class StockController
     /*********************GETTERS************************/
     /////////////////////////////////////////////////////////
     
+    public double getSalePrice(Sale sale) {
+        double total = 0;
+        for (Long itemIndex : sale.getSaleItems().keySet()) {
+            Toy t = storage.getToyById(itemIndex);
+            if (t == null) continue;
+            total += t.getPrice() * sale.getSaleItems().get(itemIndex);
+        }
+        return total;
+    }
+    
     public boolean categoriesIsEmpty()
     {
         return categories.isEmpty();

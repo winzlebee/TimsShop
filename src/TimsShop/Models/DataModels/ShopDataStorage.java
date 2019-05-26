@@ -161,6 +161,13 @@ public class ShopDataStorage {
         return toys.get(toys.size()-1).getId();
     }
     
+    public Toy getToyById(long id) {
+        for (Toy t : toys) {
+            if (t.getId() == id) return t;
+        }
+        return null;
+    }
+    
     /****************************************************************************
      * @param toy the toy of which will have formated display of their supplier list
      * @return a toys supplier list concatenated into a single string 
