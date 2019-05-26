@@ -89,6 +89,7 @@ public class MainView implements  Initializable
     private void initController()
     {
         stockController = ApplicationController.getInstance().getStockController();
+        stockController.setRefreshCallback(() -> toyTable.refresh());
     }
     
     private void bindData()

@@ -1,5 +1,6 @@
 package TimsShop.Controllers.StockController;
 
+import TimsShop.Controllers.CallBackEvt;
 import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.ItemModels.Item;
@@ -23,6 +24,7 @@ public class StockController
     private ObservableList<Supplier> suppliers;
     private ObservableList<Sale> sales;
     
+    private CallBackEvt toyCallBack;
     private ShopDataStorage storage;
     
     public StockController(ShopDataStorage storage)
@@ -66,6 +68,13 @@ public class StockController
         }
         
         storage.insertSale(quantities, cust);
+        
+        toyCallBack.callBack();
+    }
+    
+    public void setRefreshCallback(CallBackEvt evt)
+    {
+        toyCallBack = evt;
     }
     
     

@@ -81,7 +81,7 @@ public class SupplierView implements Initializable
     {
         deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
         deleteAlert.setContentText("WARNING: Deleting Supplier  Record in Progress");
-        deleteAlert.setTitle("Comfirmation Dialog");
+        deleteAlert.setTitle("Confirmation Dialog");
 
     }
      /*************************TABLE INITIALIZATION****************************/
