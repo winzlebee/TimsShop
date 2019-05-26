@@ -36,26 +36,4 @@ public class Sale implements Serializable {
         m_quantities = new HashMap<>();
         quantities.forEach((item, quantity) -> m_quantities.put(item.getId(), quantity));
     }
-    
-    public Date getDate() {
-        return m_saleDate;
-    }
-    
-    public long getCustomerId() {
-        return m_customerId;
-    }
-    
-    public int getNumItems() {
-        return m_quantities.size();
-    }
-    
-    public int getTotalQuantity() {
-        int total = 0;
-        
-        for (Long item : m_quantities.keySet()) {
-            total += m_quantities.get(item);
-        }
-        
-        return total;
-    }
 }
