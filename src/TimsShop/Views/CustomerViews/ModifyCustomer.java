@@ -2,7 +2,6 @@
 package TimsShop.Views.CustomerViews;
 
 import TimsShop.Controllers.ApplicationController;
-import TimsShop.Controllers.CallBackEvt;
 import TimsShop.Controllers.CustomerControllers.CustomerController;
 import TimsShop.Controllers.Views;
 import TimsShop.Models.UserModels.Customer;

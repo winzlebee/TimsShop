@@ -5,9 +5,7 @@ import TimsShop.Controllers.ApplicationController;
 import TimsShop.Controllers.CustomerControllers.CustomerController;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
-import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.UserModels.Customer;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -16,7 +14,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -30,7 +27,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.WindowEvent;
 
 public class CustomerDialog implements Initializable
 {
@@ -65,7 +61,6 @@ public class CustomerDialog implements Initializable
     private TableColumn<Customer, String> interestsCol;
     
     private int selectedCol;
-    private ShopDataStorage storage;
     private Alert deleteAlert;
     
     private static CustomerController controller; 
@@ -194,7 +189,7 @@ public class CustomerDialog implements Initializable
     private void searchBarHandler(KeyEvent event)
     {
         //Add Data to list based on filter
-        FilteredList<Customer> filteredData = new FilteredList<>(storage.getCustomers(),  e -> true);
+        FilteredList<Customer> filteredData = new FilteredList<>(controller.getCustomers(),  e -> true);
         //Listener compares table data to  string value entered by user in search bar
         searchBar.textProperty().addListener((observableValue, oldValue, newValue) -> 
         {   //gets the desired predicate based on selected field in choicebox
