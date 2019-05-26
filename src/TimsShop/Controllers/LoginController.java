@@ -1,6 +1,7 @@
 
 package TimsShop.Controllers;
 
+import TimsShop.Models.DataModels.ShopDataStorage;
 import TimsShop.Models.UserModels.Employee;
 import javafx.collections.ObservableList;
 
@@ -11,10 +12,11 @@ import javafx.collections.ObservableList;
 public class LoginController
 {    
   
-    private ObservableList<Employee> employeeList;
-    public LoginController(ObservableList<Employee> employees)
+    private ShopDataStorage m_storage;
+    
+    public LoginController(ShopDataStorage storage)
     {
-        this.employeeList = employees;
+        m_storage = storage;
     } 
 
   /************************************************************
@@ -25,12 +27,21 @@ public class LoginController
      *************************************************************/
     public boolean checkLogin(String staffId)
     { // TODO: check against pool of loaded staff-logins
-        if(staffId.equals("1234")) //<----------TEST LOGIN
-        {
-            processLogin();
-            return true;
+        try {
+            int pin = Integer.parseInt(staffId);
+
+            if (m_storage.getPins().contains(pin)) {
+                processLogin();
+                return true;
+            }
+        } catch (NumberFormatException ex) {
+            return false;
         }
         return false;
+    }
+    
+    public void addPin(int pin) {
+        m_storage.addPin(pin);
     }
     
     /************************************************************
@@ -44,6 +55,7 @@ public class LoginController
         //Close Login
         ApplicationController.getInstance().closeView(Views.LOGIN);
         //Set on Close Listener
+        System.out.println("Hello");
         ViewLoader.getInstance().getStage(Views.MAIN).setOnCloseRequest( evt ->
         {
             ApplicationController.getInstance().closeApplication();

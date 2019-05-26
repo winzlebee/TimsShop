@@ -189,6 +189,12 @@ public class MainView implements  Initializable
     private void addCategoryHandler(MouseEvent evt) throws IOException {
         ApplicationController.getInstance().display(Views.ADD_CATEGORY);
     }
+    
+    @FXML
+    private void addPinHandler(MouseEvent evt) {
+        ApplicationController.getInstance().display(Views.ADD_PIN);
+    }
+    
     /********************************************************
      * Displays insert toy dialog
      * @param event - on Mouse click event

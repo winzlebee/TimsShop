@@ -25,7 +25,7 @@ public class ApplicationController
     private ApplicationController()
     {
         queryProcessor     = new DBQueryProcessor();
-        loginController    = new LoginController(queryProcessor.getStorage().getEmployees());
+        loginController    = new LoginController(queryProcessor.getStorage());
         customerController = new CustomerController(queryProcessor.getStorage());
         stockController    = new StockController(queryProcessor.getStorage());
         

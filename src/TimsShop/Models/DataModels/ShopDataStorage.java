@@ -33,6 +33,8 @@ public class ShopDataStorage {
     private ObservableList<Supplier> suppliers;
     private ObservableList<Sale> sales;
     
+    private ArrayList<Integer> pins;
+    
     private AbstractDatabase storageEngine;
     
     public ShopDataStorage() {
@@ -50,6 +52,8 @@ public class ShopDataStorage {
         customers = FXCollections.observableArrayList();
         suppliers = FXCollections.observableArrayList();
         sales = FXCollections.observableArrayList();
+        
+        pins = new ArrayList();
         
         //TEST----------------------------------------------------
         LOAD_TEST_DATA();
@@ -118,6 +122,22 @@ public class ShopDataStorage {
         sale.put(toys.get(0), 2);
         sale.put(toys.get(4), 1);
         sales.add(new Sale(sale, customers.get(0)));
+        
+        pins.add(1234);
+    }
+    
+    // Pins
+    
+    public void addPin(int pin) {
+        this.pins.add(pin);
+    }
+    
+    public void setPins(ArrayList<Integer> pins) {
+        this.pins = pins;
+    }
+    
+    public ArrayList<Integer> getPins() {
+        return this.pins;
     }
   
     /////////////////////////////////////////////////////////////

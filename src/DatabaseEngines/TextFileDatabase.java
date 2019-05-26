@@ -50,6 +50,7 @@ public class TextFileDatabase implements AbstractDatabase {
             objectOutWrite.writeObject(new ArrayList<Customer>(storage.getCustomers()));
             objectOutWrite.writeObject(new ArrayList<Supplier>(storage.getSuppliers()));
             objectOutWrite.writeObject(new ArrayList<Sale>(storage.getSales()));
+            objectOutWrite.writeObject(storage.getPins());
             
             objectOutWrite.close();
             outWrite.close();
@@ -69,6 +70,7 @@ public class TextFileDatabase implements AbstractDatabase {
         ArrayList<Customer> customerList = new ArrayList<>();
         ArrayList<Supplier> supplierList = new ArrayList<>();
         ArrayList<Sale> salesList = new ArrayList<>();
+        ArrayList<Integer> pinsList = new ArrayList<>();
          
         try
         {
@@ -81,6 +83,7 @@ public class TextFileDatabase implements AbstractDatabase {
             customerList = (ArrayList) ois.readObject();
             supplierList = (ArrayList) ois.readObject();
             salesList = (ArrayList) ois.readObject();
+            pinsList = (ArrayList) ois.readObject();
  
             ois.close();
             fis.close();
@@ -104,6 +107,7 @@ public class TextFileDatabase implements AbstractDatabase {
         storage.setCustomers(customerList);
         storage.setSuppliers(supplierList);
         storage.setSales(salesList);
+        storage.setPins(pinsList);
          
         //Verify list data
         for (Toy toy : toysList) {

@@ -17,7 +17,8 @@ public enum Views
     SUPPLIER("/TimsShop/FXML/SupplierView.fxml", "SUPPLIER"),
     ADD_SUPPLIER("/TimsShop/FXML/AddSupplierView.fxml", "ADD_SUPPLIER"),
     ADD_SALE("/TimsShop/FXML/MakeSaleView.fxml", "MAKE_SALE"),
-    STOCKTAKE("/TimsShop/FXML/ModifyToyDialog.fxml", "STOCKTAKE");
+    STOCKTAKE("/TimsShop/FXML/ModifyToyDialog.fxml", "STOCKTAKE"),
+    ADD_PIN("/TimsShop/FXML/AddPinDialog.fxml", "ADD_PIN");
   
     private final String path;
     private final String key;
