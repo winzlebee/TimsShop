@@ -19,11 +19,16 @@
    <children>
       <VBox prefHeight="582.0" prefWidth="702.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label text="Tim's Toy Shop Management System" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="Calibri Bold" size="36.0" />
-               </font>
-            </Label>
+            <HBox>
+               <children>
+                  <Label text="Tim's Toy Shop Management System" HBox.hgrow="NEVER">
+                     <font>
+                        <Font name="Calibri Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Add Employee Pin" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
             <SplitPane dividerPositions="0.5794621026894865" VBox.vgrow="ALWAYS">
               <items>
                   <TabPane tabClosingPolicy="UNAVAILABLE">
