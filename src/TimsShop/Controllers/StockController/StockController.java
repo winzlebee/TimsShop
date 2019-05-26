@@ -79,6 +79,7 @@ public class StockController
     
     public void removeSupplier(Supplier supp) {
         storage.removeSupplier(supp);
+        toyCallBack.callBack();
     }
     
     public void setRefreshCallback(CallBackEvt evt)

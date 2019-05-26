@@ -102,7 +102,11 @@ public class MainView implements  Initializable
     private void initController()
     {
         stockController = ApplicationController.getInstance().getStockController();
-        stockController.setRefreshCallback(() -> toyTable.refresh());
+        
+        stockController.setRefreshCallback(() -> {
+            toyTable.refresh();
+            supplierTable.refresh();
+        });
         
         custController = ApplicationController.getInstance().getCustomerController();
     }
