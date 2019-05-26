@@ -84,7 +84,7 @@ public class StockController
      * @param id the Category ID, entered from form
      * @return 
      *****************************************/
-    public boolean isValidForm(String name, Object id)
+    public boolean isValidForm(String name, Category cat)
     {
         try {
             if (name.isEmpty() || name.equals("".trim())) 
@@ -92,7 +92,7 @@ public class StockController
                 return false;
             }
 
-            if (((Category)id).getID() == 0)
+            if (cat == null)
             {
                 return false;
             }

@@ -5,6 +5,7 @@ import TimsShop.Controllers.ApplicationController;
 import TimsShop.Controllers.StockController.StockController;
 import TimsShop.Controllers.ViewLoader;
 import TimsShop.Controllers.Views;
+import TimsShop.Models.ItemModels.Category;
 //import TimsShop.Models.DataModels.ShopDataStorage;
 //import TimsShop.Models.ItemModels.Category;
 import TimsShop.Models.UserModels.Supplier;
@@ -47,7 +48,9 @@ public class AddToyDialog implements Initializable {
     @FXML
     private TextArea supplierArea;
     
+    @FXML
     private Label errMsgLabel;
+    
     private ArrayList<Long> supplierList;
     
     private StockController controller;
@@ -96,17 +99,20 @@ public class AddToyDialog implements Initializable {
     void onSubmit(MouseEvent event) {
         
         //Request Controller to validate form data
-        if(controller.isValidForm(nameField.getText(), categoryField.getValue()))
+        if(controller.isValidForm(nameField.getText(), (Category) categoryField.getValue()))
         {
             controller.makeInsertionRequest(nameField.getText(), priceField.getValueFactory().getValue().floatValue(),
                             descriptionField.getText(), categoryField.getValue(),
                             amountField.getValue().intValue(), supplierList, " ");
+            
+            closeDialog(event);
         }
         else
         {
             //Show error message
-            
+            errMsgLabel.setText("Enter a valid item name/category!");
         }
+        
     }
 
     @FXML
