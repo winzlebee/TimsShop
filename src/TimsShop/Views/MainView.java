@@ -83,6 +83,8 @@ public class MainView implements  Initializable
     //Data storage for the application
     private static StockController stockController;
     private static CustomerController custController;
+    @FXML
+    private TextField supplerSearchBar1;
     
   
     /**********************************************************************
@@ -290,6 +292,58 @@ public class MainView implements  Initializable
             toyTable.setItems(sortedData);
         }); 
     }
+    
+    @FXML
+    private void handleSearchEntry2(KeyEvent event) //for SUPPLIER
+    {
+        //Add Data to list based on filter
+        FilteredList<Toy> filteredData = new FilteredList<>(stockController.getToys(),  e -> true);
+        
+        //Listener compares table data to  string value entered by user in search bar
+        supplerSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> 
+        {   
+            filteredData.setPredicate((Predicate<? super Toy>) toy -> 
+            {   //If search bar is empty, no filter is applied
+                if(newValue == null || newValue.isEmpty())
+                {
+                    return true;
+                }
+                //Check search string is contained within name of toy
+                return toy.getName().toLowerCase().contains(newValue.toLowerCase());
+            });
+            //Sort the filtered list based on insertion order, then bind the list to the table
+            SortedList<Toy> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(supplierTable.comparatorProperty());
+            supplierTable.setItems(sortedData);
+        }); 
+    }
+    
+    @FXML
+    private void handleSearchEntry3(KeyEvent event) //for SALES
+    {
+        //Add Data to list based on filter
+        FilteredList<Sale> filteredData = new FilteredList<>(stockController.getSales(),  e -> true);
+        
+        //Listener compares table data to  string value entered by user in search bar
+        supplerSearchBar1.textProperty().addListener((observableValue, oldValue, newValue) -> 
+        {   
+            filteredData.setPredicate((Predicate<? super Sale>) sale -> 
+            {   //If search bar is empty, no filter is applied
+                if(newValue == null || newValue.isEmpty())
+                {
+                    return true;
+                }
+                //Check search string is contained within name of customer
+                
+                return sale.getDate().toString().toLowerCase().contains(newValue.toLowerCase());
+            });
+            //Sort the filtered list based on insertion order, then bind the list to the table
+            SortedList<Sale> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(salesTable.comparatorProperty());
+            salesTable.setItems(sortedData);
+        }); 
+    }
+    
 
 
 
